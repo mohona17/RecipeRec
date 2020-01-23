@@ -147,12 +147,12 @@ module.exports = (app) => {
             }
 
             const user = users[0]; 
-            //not the right password
+            console.log(user.password);
             if(!user.validPassword(password)){
                 return res.send({
                     success: false, 
                     message: 'Error: Invalid password'
-                })
+                });
             }
 
             console.log("Login valid");
