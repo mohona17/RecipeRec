@@ -55,6 +55,8 @@ module.exports = (app) => {
             })
         };
 
+        console.log("saying hi from signin.js");
+        
         email = email.toLowerCase();
 
         //Verify email does not already exist 
