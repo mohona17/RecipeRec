@@ -1,106 +1,310 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
+import {
+  getFromStorage,
+  setInStorage
+} from '../../utils/storage.js';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      counters: []
+      isLoading: false,
+      signUpError: '',
+      signInError: '',
+      token: '',
+      signInEmail: '',
+      signInPassword: '',
+      signUpFirstName: '',
+      signUpLastName: '',
+      signUpEmail: '',
+      signUpPassword: '',
     };
 
-    this.newCounter = this.newCounter.bind(this);
-    this.incrementCounter = this.incrementCounter.bind(this);
-    this.decrementCounter = this.decrementCounter.bind(this);
-    this.deleteCounter = this.deleteCounter.bind(this);
+    this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
+    this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
+    this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
+    this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
+    this.onTextboxChangeSignUpFirstName = this.onTextboxChangeSignUpFirstName.bind(this);
+    this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
+    this.onSignIn = this.onSignIn.bind(this);
+    this.onSignUp = this.onSignUp.bind(this);
+    this.logout = this.logout.bind(this);
 
-    this._modifyCounter = this._modifyCounter.bind(this);
   }
 
   componentDidMount() {
-    fetch('/api/counters')
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          counters: json
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const { token } = obj.token;
+
+      fetch('/api/account/verify?token=' + token)
+        .then(res => res.json())
+        .then(json => {
+          if (json.success) {
+            this.setState({
+              token: token,
+              isLoading: false,
+            });
+          } else {
+            this.setState({
+              isLoading: false,
+            });
+          }
         });
-      });
-  }
-
-  newCounter() {
-    fetch('/api/counters', { method: 'POST' })
-      .then(res => res.json())
-      .then(json => {
-        let data = this.state.counters;
-        data.push(json);
-
-        this.setState({
-          counters: data
-        });
-      });
-  }
-
-  incrementCounter(index) {
-    const id = this.state.counters[index]._id;
-
-    fetch(`/api/counters/${id}/increment`, { method: 'PUT' })
-      .then(res => res.json())
-      .then(json => {
-        this._modifyCounter(index, json);
-      });
-  }
-
-  decrementCounter(index) {
-    const id = this.state.counters[index]._id;
-
-    fetch(`/api/counters/${id}/decrement`, { method: 'PUT' })
-      .then(res => res.json())
-      .then(json => {
-        this._modifyCounter(index, json);
-      });
-  }
-
-  deleteCounter(index) {
-    const id = this.state.counters[index]._id;
-
-    fetch(`/api/counters/${id}`, { method: 'DELETE' })
-      .then(_ => {
-        this._modifyCounter(index, null);
-      });
-  }
-
-  _modifyCounter(index, data) {
-    let prevData = this.state.counters;
-
-    if (data) {
-      prevData[index] = data;
-    } else {
-      prevData.splice(index, 1);
     }
+    else {
+      this.setState({
+        isLoading: false,
+      });
+    }
+  }
 
+  onTextboxChangeSignInEmail(event) {
     this.setState({
-      counters: prevData
+      signInEmail: event.target.value,
+    });
+  }
+  onTextboxChangeSignInPassword(event) {
+    this.setState({
+      signInPassword: event.target.value,
+    });
+  }
+  onTextboxChangeSignUpFirstName(event) {
+    this.setState({
+      signUpFirstName: event.target.value,
+    });
+  }
+  onTextboxChangeSignUpLastName(event) {
+    this.setState({
+      signUpLastName: event.target.value,
+    });
+  }
+  onTextboxChangeSignUpEmail(event) {
+    this.setState({
+      signUpEmail: event.target.value,
+    });
+  }
+  onTextboxChangeSignUpPassword(event) {
+    this.setState({
+      signUpPassword: event.target.value,
     });
   }
 
+  onSignIn() {
+    const {
+      signInEmail,
+      signInPassword,
+    } = this.state;
+
+    this.setState({
+      isLoading: true,
+    })
+
+    fetch('/api/account/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: signInEmail,
+        password: signInPassword,
+      }),
+    })
+    .then(res => res.json())
+    .then(json => {
+    if (json.success) {
+      console.log("successful login", json.token);
+     setInStorage('the_main_app',{ token: json.token });
+      this.setState({
+        signInError: json.message,
+        isLoading: false,
+        signInEmail: '',
+        signInPassword: '',
+        token: json.token
+      });
+    }
+    else {
+      this.setState({
+        signInError: json.message,
+        isLoading: false,
+      });
+    }
+    });
+  }
+
+  onSignUp() {
+    const {
+      signUpEmail,
+      signUpPassword,
+      signUpFirstName,
+      signUpLastName,
+    } = this.state;
+
+    this.setState({
+      isLoading: true,
+    })
+
+    fetch('/api/account/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName: signUpFirstName,
+        lastName: signUpLastName,
+        email: signUpEmail,
+        password: signUpPassword,
+      }),
+    })
+
+    /*MongoDB is taking a long time to send a 
+    response, so I commented out the correct 
+    code for changing the loading status*/
+    this.setState({
+      isLoading: false,
+      signUpEmail: '',
+      signUpPassword: '',
+      signUpFirstName: '',
+      signUpLastName: '',
+    })
+    // .then(res => res.json())
+    // .then(json => {
+    // if (json.success) {
+    //   this.setState({
+    //     signUpError: json.message,
+    //     isLoading: false,
+    //     signUpEmail: '',
+    //     signUpPassword: '',
+    //     signUpFirstName: '',
+    //     signUpLastName: '',
+    //   });
+    // }
+    // else {
+    //   this.setState({
+    //     signUpError: json.message,
+    //     isLoading: false,
+    //   });
+    // }
+    // });
+  }
+
+  logout(){
+    this.setState({
+      isLoading: true,
+    })
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const token = obj.token;
+      console.log(obj.token);
+
+      fetch('/api/account/logout?token=' + token)
+        .then(res => res.json())
+        .then(json => {
+          console.log("Logging out", json.success, {token});
+          console.log('Message from logout request',json.message)
+          if (json.success) {
+            this.setState({
+              token: '',
+              isLoading: false,
+            });
+          } else {
+            this.setState({
+              isLoading: false,
+            });
+          }
+        });
+    }
+    else {
+      this.setState({
+        isLoading: false,
+      });
+    }
+  }
   render() {
+    const {
+      isLoading,
+      token,
+      signInEmail,
+      signInPassword,
+      signInError,
+      signUpError,
+      signUpEmail,
+      signUpPassword,
+      signUpFirstName,
+      signUpLastName,
+    } = this.state;
+
+    console.log('Loading?', isLoading)
+    if (isLoading) {
+      return (<div>
+        <p>Loading...</p>
+      </div>);
+    }
+   // console.log('token',token);
+    if (!token) {
+      return (
+        <div>
+          <div>
+            {
+              (signInError) ? (<p>{signInError}</p>) : (null)
+            }
+            <p>Sign In</p>
+            <input
+              type="email"
+              placeholder="Email"
+              value={signInEmail}
+              onChange={this.onTextboxChangeSignInEmail}
+            ></input><br />
+            <input
+              type="password"
+              placeholder="Password"
+              value={signInPassword}
+              onChange={this.onTextboxChangeSignInPassword}
+            ></input><br />
+            <button onClick={this.onSignIn}>Sign In</button>
+          </div>
+          <div>
+            {
+              (signUpError) ? (<p>{signUpError}</p>) : (null)
+            }
+            <p>Sign Up</p>
+            <input
+              type="text"
+              placeholder="First Name"
+              value={signUpFirstName}
+              onChange={this.onTextboxChangeSignUpFirstName}
+            ></input><br />
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={signUpLastName}
+              onChange={this.onTextboxChangeSignUpLastName}
+            ></input><br />
+            <input
+              type="email"
+              placeholder="Email"
+              value={signUpEmail}
+              onChange={this.onTextboxChangeSignUpEmail}
+            ></input><br />
+            <input
+              type="password"
+              placeholder="Password"
+              value={signUpPassword}
+              onChange={this.onTextboxChangeSignUpPassword}
+            ></input><br />
+            <button onClick={this.onSignUp}>Sign Up</button>
+          </div>
+        </div>
+
+      )
+    }
+
     return (
-      <>
-        <p>Counters:</p>
-
-        <ul>
-          { this.state.counters.map((counter, i) => (
-            <li key={i}>
-              <span>{counter.count} </span>
-              <button onClick={() => this.incrementCounter(i)}>+</button>
-              <button onClick={() => this.decrementCounter(i)}>-</button>
-              <button onClick={() => this.deleteCounter(i)}>x</button>
-            </li>
-          )) }
-        </ul>
-
-        <button onClick={this.newCounter}>New counter</button>
-      </>
+      <div>Account
+        <button onClick = {this.logout}>Logout</button>
+      </div>
     );
   }
 }
