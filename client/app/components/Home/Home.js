@@ -30,12 +30,15 @@ class Home extends Component {
     this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
+    this.logout = this.logout.bind(this);
 
   }
 
   componentDidMount() {
-    const token = getFromStorage('the_main_app');
-    if (token) {
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const { token } = obj.token;
+
       fetch('/api/account/verify?token=' + token)
         .then(res => res.json())
         .then(json => {
@@ -89,58 +92,136 @@ class Home extends Component {
     });
   }
 
-  onSignIn(){
+  onSignIn() {
     const {
-      signInEmail, 
+      signInEmail,
       signInPassword,
     } = this.state;
+
+    this.setState({
+      isLoading: true,
+    })
+
+    fetch('/api/account/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: signInEmail,
+        password: signInPassword,
+      }),
+    })
+    .then(res => res.json())
+    .then(json => {
+    if (json.success) {
+      console.log("successful login", json.token);
+     setInStorage('the_main_app',{ token: json.token });
+      this.setState({
+        signInError: json.message,
+        isLoading: false,
+        signInEmail: '',
+        signInPassword: '',
+        token: json.token
+      });
+    }
+    else {
+      this.setState({
+        signInError: json.message,
+        isLoading: false,
+      });
+    }
+    });
   }
 
-  onSignUp(){
+  onSignUp() {
     const {
-      signUpEmail, 
+      signUpEmail,
       signUpPassword,
       signUpFirstName,
       signUpLastName,
     } = this.state;
 
     this.setState({
-      isLoading: true, 
+      isLoading: true,
     })
 
-    fetch('/api/account/signup',{
+    fetch('/api/account/signup', {
       method: 'POST',
-      headers:{
+      headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        firstName: signUpFirstName, 
-        lastName: signUpLastName, 
-        email: signUpEmail, 
+        firstName: signUpFirstName,
+        lastName: signUpLastName,
+        email: signUpEmail,
         password: signUpPassword,
-      }), 
-    }).then(res => res.json()
-    .then(json => {
-      console.log('json',json);
-      if(json.success){
-        this.setState({
-          signUpError: json.message,
-          isLoading: false, 
-          signUpEmail:'', 
-          signUpPassword:'', 
-          signUpFirstName:'', 
-          signUpLastName:'',
-        });
-      }
-      else{
-        this.setState({
-          signUpError: json.message,
-          isLoading: false, 
-        });
-      }
-    }));
+      }),
+    })
+
+    /*MongoDB is taking a long time to send a 
+    response, so I commented out the correct 
+    code for changing the loading status*/
+    this.setState({
+      isLoading: false,
+      signUpEmail: '',
+      signUpPassword: '',
+      signUpFirstName: '',
+      signUpLastName: '',
+    })
+    // .then(res => res.json())
+    // .then(json => {
+    // if (json.success) {
+    //   this.setState({
+    //     signUpError: json.message,
+    //     isLoading: false,
+    //     signUpEmail: '',
+    //     signUpPassword: '',
+    //     signUpFirstName: '',
+    //     signUpLastName: '',
+    //   });
+    // }
+    // else {
+    //   this.setState({
+    //     signUpError: json.message,
+    //     isLoading: false,
+    //   });
+    // }
+    // });
   }
 
+  logout(){
+    this.setState({
+      isLoading: true,
+    })
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.token) {
+      const token = obj.token;
+      console.log(obj.token);
+
+      fetch('/api/account/logout?token=' + token)
+        .then(res => res.json())
+        .then(json => {
+          console.log("Logging out", json.success, {token});
+          console.log('Message from logout request',json.message)
+          if (json.success) {
+            this.setState({
+              token: '',
+              isLoading: false,
+            });
+          } else {
+            this.setState({
+              isLoading: false,
+            });
+          }
+        });
+    }
+    else {
+      this.setState({
+        isLoading: false,
+      });
+    }
+  }
   render() {
     const {
       isLoading,
@@ -148,7 +229,7 @@ class Home extends Component {
       signInEmail,
       signInPassword,
       signInError,
-      signUpError, 
+      signUpError,
       signUpEmail,
       signUpPassword,
       signUpFirstName,
@@ -161,7 +242,7 @@ class Home extends Component {
         <p>Loading...</p>
       </div>);
     }
-
+   // console.log('token',token);
     if (!token) {
       return (
         <div>
@@ -182,7 +263,7 @@ class Home extends Component {
               value={signInPassword}
               onChange={this.onTextboxChangeSignInPassword}
             ></input><br />
-            <button onClick={this.onSignIn}>Sign Up</button>
+            <button onClick={this.onSignIn}>Sign In</button>
           </div>
           <div>
             {
@@ -221,7 +302,9 @@ class Home extends Component {
     }
 
     return (
-      <div>Account</div>
+      <div>Account
+        <button onClick = {this.logout}>Logout</button>
+      </div>
     );
   }
 }

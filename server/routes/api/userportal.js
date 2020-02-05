@@ -55,8 +55,8 @@ module.exports = (app) => {
             })
         };
 
-        console.log("saying hi from signin.js");
-        
+        // console.log("saying hi from signin.js");
+
         email = email.toLowerCase();
 
         //Verify email does not already exist 
@@ -149,7 +149,7 @@ module.exports = (app) => {
             }
 
             const user = users[0];
-            console.log(user.password);
+            // console.log(user.password);
             if (!user.validPassword(password)) {
                 return res.send({
                     success: false,
@@ -221,6 +221,7 @@ module.exports = (app) => {
 
         //I believe this works, but I had problems when I would delete an already deleted session
         //delete session
+        console.log('request token', token);
         UserSession.findOneAndUpdate({
             _id: token,
             isDeleted: false
@@ -232,8 +233,7 @@ module.exports = (app) => {
                     message: 'Error: Server error'
                 });
             }
-            // console.log(sessions)
-            if (sessions.length != 1) {
+            if (sessions._id == null) {
                 return res.send({
                     success: false,
                     message: 'Error: No session found'

@@ -6,6 +6,7 @@ export function getFromStorage(key) {
     try {
         const valueStr = localStorage.getItem(key);
         if(valueStr){
+            console.log("token in storage", valueStr )
             return JSON.parse(valueStr); 
         }
         return null; 
