@@ -4,6 +4,7 @@ import {
   getFromStorage,
   setInStorage
 } from '../../utils/storage.js';
+import Profile from '../Profile/Profile.js';
 
 class Home extends Component {
   constructor(props) {
@@ -302,8 +303,9 @@ class Home extends Component {
     }
 
     return (
-      <div>Account
-        <button onClick = {this.logout}>Logout</button>
+      <div>
+        <button class="btn btn-secondary ml-auto pull-right" onClick = {this.logout} >Logout</button>
+        <Profile></Profile>
       </div>
     );
   }
