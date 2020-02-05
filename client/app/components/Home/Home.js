@@ -5,7 +5,6 @@ import {
   setInStorage
 } from '../../utils/storage.js';
 import Profile from '../Profile/Profile.js';
-import { TRUE } from 'node-sass';
 
 class Home extends Component {
   constructor(props) {
