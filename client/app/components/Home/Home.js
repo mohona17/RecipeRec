@@ -5,6 +5,7 @@ import {
   setInStorage
 } from '../../utils/storage.js';
 import Profile from '../Profile/Profile.js';
+import { TRUE } from 'node-sass';
 
 class Home extends Component {
   constructor(props) {
@@ -113,26 +114,26 @@ class Home extends Component {
         password: signInPassword,
       }),
     })
-    .then(res => res.json())
-    .then(json => {
-    if (json.success) {
-      console.log("successful login", json.token);
-     setInStorage('the_main_app',{ token: json.token });
-      this.setState({
-        signInError: json.message,
-        isLoading: false,
-        signInEmail: '',
-        signInPassword: '',
-        token: json.token
+      .then(res => res.json())
+      .then(json => {
+        if (json.success) {
+          console.log("successful login", json.token);
+          setInStorage('the_main_app', { token: json.token });
+          this.setState({
+            signInError: json.message,
+            isLoading: false,
+            signInEmail: '',
+            signInPassword: '',
+            token: json.token
+          });
+        }
+        else {
+          this.setState({
+            signInError: json.message,
+            isLoading: false,
+          });
+        }
       });
-    }
-    else {
-      this.setState({
-        signInError: json.message,
-        isLoading: false,
-      });
-    }
-    });
   }
 
   onSignUp() {
@@ -191,7 +192,7 @@ class Home extends Component {
     // });
   }
 
-  logout(){
+  logout() {
     this.setState({
       isLoading: true,
     })
@@ -203,8 +204,8 @@ class Home extends Component {
       fetch('/api/account/logout?token=' + token)
         .then(res => res.json())
         .then(json => {
-          console.log("Logging out", json.success, {token});
-          console.log('Message from logout request',json.message)
+          console.log("Logging out", json.success, { token });
+          console.log('Message from logout request', json.message)
           if (json.success) {
             this.setState({
               token: '',
@@ -243,10 +244,13 @@ class Home extends Component {
         <p>Loading...</p>
       </div>);
     }
-   // console.log('token',token);
+    // console.log('token',token);
     if (!token) {
       return (
         <div>
+          <h1>Recipe Recommender</h1>
+          <h3>Login to your existing account or sign up to make one!</h3>
+
           <div>
             {
               (signInError) ? (<p>{signInError}</p>) : (null)
@@ -301,11 +305,12 @@ class Home extends Component {
 
       )
     }
-
+    console.log("hi here",token)
     return (
+      //called when log in worked
       <div>
-        <button class="btn btn-secondary ml-auto pull-right" onClick = {this.logout} >Logout</button>
-        <Profile></Profile>
+        <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
+        {/* <Profile token = {token} ></Profile> */}
       </div>
     );
   }
