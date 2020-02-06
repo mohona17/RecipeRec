@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Redirect } from 'react-router-dom';  
 import 'whatwg-fetch';
 import {
   getFromStorage,
@@ -304,14 +305,31 @@ class Home extends Component {
 
       )
     }
-    console.log("hi here",token)
+    console.log("hi here", token)
+
+    //Go to profile page
+    //https://stackoverflow.com/questions/57524053/how-to-pass-props-one-page-to-another-page-via-react-router
+    //https://medium.com/javascript-in-plain-english/routing-and-navigation-in-react-cffc26e8a389
     return (
-      //called when log in worked
       <div>
-        <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
-        {/* <Profile token = {token} ></Profile> */}
+        {/* <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button> */}
+        <Redirect to= {{
+          pathname:"/profile",
+          state: { token: this.state.token }
+        }}
+        //  <Redirect to="/profile" */
+        />
       </div>
     );
+
+    // return (
+
+    //   //NEED TO PUT BACK LOGIN BUTTON
+    //   // <div>
+    //   //   <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
+    //   //   <Profile token = {token} ></Profile>
+    //   // </div>
+    // );
   }
 }
 
