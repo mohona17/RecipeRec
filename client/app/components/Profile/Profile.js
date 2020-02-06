@@ -9,9 +9,11 @@ class Profile extends React.Component {
     }
   };
   componentDidMount() {
-    this.setState({
-      token: this.props.location.state.token,
-    });
+    if (this.props.location.state != undefined) {
+      this.setState({
+        token: this.props.location.state.token,
+      });
+    }
   }
 
   render() {
@@ -21,25 +23,25 @@ class Profile extends React.Component {
     // console.log(this.props.location.state.token);
     console.log(this.state.token)
 
-    if (this.state.token != null) {
-    return (
-      <div>
-        <Header />
-        <h2>Welcome!</h2>
-
-        {/* <p>{token}</p> */}
-
-      </div>
-    );
-    }
-    else {
+    if (this.state.token != '') {
       return (
         <div>
-          <h2>Error you are not logged in</h2>
+          <Header />
+          <h2>Welcome!</h2>
+
+          {/* <p>{token}</p> */}
 
         </div>
       );
     }
+
+    return (
+      <div>
+        <h2>Error you are not logged in!</h2>
+      </div>
+
+    );
+
 
   }
 
