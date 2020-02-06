@@ -5,7 +5,6 @@ import {
   getFromStorage,
   setInStorage
 } from '../../utils/storage.js';
-import Profile from '../Profile/Profile.js';
 
 class Home extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Home extends Component {
     this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
-    this.logout = this.logout.bind(this);
+    // this.logout = this.logout.bind(this);
 
   }
 
@@ -192,38 +191,40 @@ class Home extends Component {
     // });
   }
 
-  logout() {
-    this.setState({
-      isLoading: true,
-    })
-    const obj = getFromStorage('the_main_app');
-    if (obj && obj.token) {
-      const token = obj.token;
-      console.log(obj.token);
+  //Moved to Profile
+  // logout() {
+  //   this.setState({
+  //     isLoading: true,
+  //   })
+  //   const obj = getFromStorage('the_main_app');
+  //   if (obj && obj.token) {
+  //     const token = obj.token;
+  //     console.log(obj.token);
 
-      fetch('/api/account/logout?token=' + token)
-        .then(res => res.json())
-        .then(json => {
-          console.log("Logging out", json.success, { token });
-          console.log('Message from logout request', json.message)
-          if (json.success) {
-            this.setState({
-              token: '',
-              isLoading: false,
-            });
-          } else {
-            this.setState({
-              isLoading: false,
-            });
-          }
-        });
-    }
-    else {
-      this.setState({
-        isLoading: false,
-      });
-    }
-  }
+  //     fetch('/api/account/logout?token=' + token)
+  //       .then(res => res.json())
+  //       .then(json => {
+  //         console.log("Logging out", json.success, { token });
+  //         console.log('Message from logout request', json.message)
+  //         if (json.success) {
+  //           this.setState({
+  //             token: '',
+  //             isLoading: false,
+  //           });
+  //         } else {
+  //           this.setState({
+  //             isLoading: false,
+  //           });
+  //         }
+  //       });
+  //   }
+  //   else {
+  //     this.setState({
+  //       isLoading: false,
+  //     });
+  //   }
+  // }
+  
   render() {
     const {
       isLoading,
@@ -306,6 +307,7 @@ class Home extends Component {
       )
     }
     console.log("hi here", token)
+    console.log(this.logout)
 
     //Go to profile page
     //https://stackoverflow.com/questions/57524053/how-to-pass-props-one-page-to-another-page-via-react-router
@@ -315,22 +317,12 @@ class Home extends Component {
         {/* <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button> */}
         <Redirect to= {{
           pathname:"/profile",
-          state: { token: this.state.token }
+          state: { token: this.state.token},
         }}
         //  <Redirect to="/profile" */
         />
       </div>
     );
-
-    // return (
-
-    //   //NEED TO PUT BACK LOGIN BUTTON
-    //   // <div>
-    //   //   <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
-    //   //   <Profile token = {token} ></Profile>
-    //   // </div>
-    // );
   }
 }
-
 export default Home;
