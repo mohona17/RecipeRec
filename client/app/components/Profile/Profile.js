@@ -70,7 +70,7 @@ class Profile extends React.Component {
     if (this.state.token != '') {
       return (
         <div>
-          <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout}>Logout</button>
           <Header />
           <h2>Welcome!</h2>
         </div>

@@ -307,7 +307,7 @@ class Home extends Component {
       )
     }
     console.log("hi here", token)
-    console.log(this.logout)
+    // console.log(this.logout)
 
     //Go to profile page
     //https://stackoverflow.com/questions/57524053/how-to-pass-props-one-page-to-another-page-via-react-router
