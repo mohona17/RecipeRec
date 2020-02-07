@@ -69,6 +69,7 @@ class Search extends React.Component {
     // }
   }
 
+  // pull from storage to verify that a user is logged in. 
   verifyLogin() {
     const obj = getFromStorage('the_main_app');
     console.log("Obj.token from storage " + obj.token)
@@ -83,9 +84,8 @@ class Search extends React.Component {
           }
         });
     }
-
-
   }
+
   render() {
     console.log("from search page " + this.state.token)
     if (this.state.token != '') {

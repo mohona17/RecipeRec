@@ -18,12 +18,13 @@ class Profile extends React.Component {
 
   };
   componentDidMount() {
-    if (this.props.location.state != undefined) {
-      this.setState({
-        token: this.props.location.state.token,
-        logout: this.props.location.state.Object,
-      });
-    }
+    // if (this.props.location.state != undefined) {
+    //   this.setState({
+    //     token: this.props.location.state.token,
+    //     logout: this.props.location.state.Object,
+    //   });
+    // }
+    this.verifyLogin()
   }
 
   //Contains possible fixes if time (see comments)
@@ -58,6 +59,23 @@ class Profile extends React.Component {
     //     isLoading: false,
     //   });
     // }
+  }
+  
+  // pull from storage to verify that a user is logged in. 
+  verifyLogin() {
+    const obj = getFromStorage('the_main_app');
+    console.log("Obj.token from storage " + obj.token)
+    if (obj && obj.token) {
+      fetch('/api/account/verify?token=' + obj.token)
+        .then(res => res.json())
+        .then(json => {
+          if (json.success) {
+            this.setState({
+              token: obj.token,
+            });
+          }
+        });
+    }
   }
   render() {
 

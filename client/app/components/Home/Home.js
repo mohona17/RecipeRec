@@ -317,7 +317,7 @@ class Home extends Component {
         {/* <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button> */}
         <Redirect to= {{
           pathname:"/profile",
-          state: { token: this.state.token},
+          //state: { token: this.state.token},
         }}
         //  <Redirect to="/profile" */
         />
