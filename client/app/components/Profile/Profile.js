@@ -18,6 +18,7 @@ class Profile extends React.Component {
 
   };
   componentDidMount() {
+    //Below had bugs
     // if (this.props.location.state != undefined) {
     //   this.setState({
     //     token: this.props.location.state.token,
@@ -78,11 +79,6 @@ class Profile extends React.Component {
     }
   }
   render() {
-
-    // console.log(this.props.location.state.logout, "props");
-
-    //prints token from sign in
-    // console.log(this.props.location.state.token);
     console.log(this.state.token)
 
     if (this.state.token != '') {

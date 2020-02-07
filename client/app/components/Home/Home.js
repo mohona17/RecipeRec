@@ -245,7 +245,6 @@ class Home extends Component {
         <p>Loading...</p>
       </div>);
     }
-    // console.log('token',token);
     if (!token) {
       return (
         <div>
@@ -314,7 +313,7 @@ class Home extends Component {
     //https://medium.com/javascript-in-plain-english/routing-and-navigation-in-react-cffc26e8a389
     return (
       <div>
-        {/* <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button> */}
+        {/* Could change below code */}
         <Redirect to= {{
           pathname:"/profile",
           //state: { token: this.state.token},

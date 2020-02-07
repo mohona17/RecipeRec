@@ -9,14 +9,13 @@ class Search extends React.Component {
     super(props);
     this.state = {
       token: '',
-      logout: Object,
+      // logout: Object,
     }
 
     this.logout = this.logout.bind(this);
 
   };
 
-  //Idk if this works
   componentDidMount() {
     this.verifyLogin()
     // const obj = getFromStorage('the_main_app');
@@ -100,7 +99,7 @@ class Search extends React.Component {
 
     return (
       <div>
-        <h2>Error are not logged in! {this.state.token}</h2>
+        <h2>Error you are not logged into search page</h2>
       </div>
 
     );
