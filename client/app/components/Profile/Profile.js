@@ -61,7 +61,7 @@ class Profile extends React.Component {
   }
   render() {
 
-    console.log(this.props.location.state.logout, "props");
+    // console.log(this.props.location.state.logout, "props");
 
     //prints token from sign in
     // console.log(this.props.location.state.token);
