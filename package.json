@@ -2,6 +2,7 @@
   "name": "MERN-boilerplate",
   "version": "1.0.0",
   "description": "MERN stack project boilerplate",
+  "main": "index.js",
   "author": "Eugene Cheung",
   "repository": {
     "type": "git",
