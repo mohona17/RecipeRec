@@ -65,7 +65,7 @@ if (isDev) {
 
 //   console.info('>>> 🌎 Open http://0.0.0.0:%s/ in your browser.', port);
 // });
-app.listen(process.env.PORT || 3000, function(){
+app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 
