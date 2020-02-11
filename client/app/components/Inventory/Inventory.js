@@ -54,18 +54,18 @@ class Inventory extends React.Component {
     // }
   }
 
-  getUserID(){
-    console.log("token" + this.state.token)
-    fetch('/api/userid?usersession=' + this.state.token)
+  getUserID() {
+    console.log("help me" + this.state.token)
+    fetch('/api/usersession?usersession=5e4209831c3f5408bd348eb3')
     .then(res => res.json())
-    .then(json => {
-      if (json.success) {
+    .then(res => {
         this.setState({
-          userId: json.userId,
-        });
+          userId: res.userId
+        })
         console.log(this.state.userId)
-      }
-    });
+      })
+    .catch(err => { throw (err) })
+
   }
   // pull from storage to verify that a user is logged in. 
   verifyLogin() {
@@ -79,7 +79,7 @@ class Inventory extends React.Component {
             this.setState({
               token: obj.token,
             });
-            this.getUserID(); 
+            this.getUserID();
           }
         });
     }
