@@ -74,7 +74,7 @@ class Inventory extends React.Component {
     fetch('/api/ingredients?user=' + this.state.userId)
     .then(res => res.json())
     .then(res => {
-      var obj = JSON.stringify(res);
+      var obj = JSON.parse(JSON.stringify(res));
         this.setState({
           ingredients: obj
         })
@@ -102,6 +102,16 @@ class Inventory extends React.Component {
   }
 
   render() {
+    const cards = this.state.ingredients.map((ingredient,index) => {
+      // console.log(ingredient.name);
+      return (
+          <div key={index} class="card">
+              <div class="container">
+                  <h4><b>{ingredient.name}</b></h4>
+              </div>
+          </div>
+      );
+  });
     console.log("from inventory page " + this.state.token)
     if (this.state.token != '') {
       return (
@@ -109,6 +119,9 @@ class Inventory extends React.Component {
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
           <Header />
           <h2>inventory!</h2>
+          <div className="wrapper">     
+                {cards}
+            </div>
         </div>
       );
     }
