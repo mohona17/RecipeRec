@@ -3,6 +3,7 @@ const UserSession = require('../../models/UserSession');
 const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
+    //Get user session
     app.get('/api/usersession', (req, res, next) => {
         const { query } = req;
         const { usersession } = query;
@@ -15,14 +16,6 @@ module.exports = (app) => {
             }
         });
     });
-
-    // app.post('/api/counters', function (req, res, next) {
-    //     const counter = new Counter();
-
-    //     counter.save()
-    //         .then(() => res.json(counter))
-    //         .catch((err) => next(err));
-    // });
 
     //Sign Up
     app.post('/api/account/signup', (req, res, next) => {

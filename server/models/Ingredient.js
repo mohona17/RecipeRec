@@ -5,6 +5,10 @@ const IngredientSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  userId:{
+    type: String, 
+    default:''
+  }
 //   quantity: {
 //     type: String,
 //     default: '',

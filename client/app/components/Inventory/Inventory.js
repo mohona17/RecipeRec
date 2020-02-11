@@ -65,7 +65,6 @@ class Inventory extends React.Component {
         console.log(this.state.userId)
       })
     .catch(err => { throw (err) })
-
   }
   // pull from storage to verify that a user is logged in. 
   verifyLogin() {
