@@ -13,7 +13,6 @@ class Inventory extends React.Component {
       ingredients: [],
     }
     this.logout = this.logout.bind(this);
-
   };
 
   componentDidMount() {
@@ -58,29 +57,29 @@ class Inventory extends React.Component {
   getUserID() {
     console.log("User Session" + this.state.token)
     fetch('/api/usersession?usersession=' + this.state.token)
-    .then(res => res.json())
-    .then(res => {
+      .then(res => res.json())
+      .then(res => {
         this.setState({
           userId: res.userId
         })
         console.log("UserID" + this.state.userId)
-        this.getIngredients(); 
+        this.getIngredients();
       })
-    .catch(err => { throw (err) })
+      .catch(err => { throw (err) })
   }
 
   getIngredients() {
     console.log("Getting ingredients for " + this.state.userId)
     fetch('/api/ingredients?user=' + this.state.userId)
-    .then(res => res.json())
-    .then(res => {
-      var obj = JSON.parse(JSON.stringify(res));
+      .then(res => res.json())
+      .then(res => {
+        var obj = JSON.parse(JSON.stringify(res));
         this.setState({
           ingredients: obj
         })
         console.log("ingredients " + this.state.ingredients)
       })
-    .catch(err => { throw (err) })
+      .catch(err => { throw (err) })
   }
 
   // pull from storage to verify that a user is logged in. 
@@ -101,27 +100,70 @@ class Inventory extends React.Component {
     }
   }
 
+
+
   render() {
-    const cards = this.state.ingredients.map((ingredient,index) => {
+    //Layout of Ingredients
+    const cards = this.state.ingredients.map((ingredient, index) => {
       // console.log(ingredient.name);
       return (
-          <div key={index} class="card">
-              <div class="container">
-                  <h4><b>{ingredient.name}</b></h4>
-              </div>
+        <div key={index} class="card">
+          <div class="wrapper">
+            <h4><b>{ingredient.name}</b></h4>
+            <button class="btn btn-secondary right">Delete</button>
           </div>
+        </div>
       );
-  });
-    console.log("from inventory page " + this.state.token)
+    });
+
+    //Button action to add ingredient
+    const addIngredient = (name) => {
+      const ingredient = {
+        "name": name,
+        "userId": this.state.userId
+      }
+
+      return (
+        fetch('/api/ingredient/add', {
+          method: 'POST',
+          body: JSON.stringify(ingredient),
+          headers: {
+            "Content-Type": "application/json"
+          },
+        })
+      )
+    };
+    const addIngredientForm =
+      (<div class="form">
+        <h3>Add an ingredient</h3>
+        <form>
+          <input type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
+        </form>
+        <button className="myButton"
+          onClick={() => {
+            if (this.refs.ingredientname.value) {
+              addIngredient(this.refs.ingredientname.value)
+              alert("Added ingredient")
+            }
+            else {
+              alert("Make sure all entries are completed.");
+            }
+          }}
+        >add</button>
+      </div>
+      );
+
+
     if (this.state.token != '') {
       return (
         <div>
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
           <Header />
-          <h2>inventory!</h2>
-          <div className="wrapper">     
-                {cards}
-            </div>
+          <h2>The ingredients you currently have:</h2>
+          <div className="wrapper">
+            {cards}
+          </div>
+          {addIngredientForm}
         </div>
       );
     }

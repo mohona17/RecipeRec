@@ -13,6 +13,7 @@ module.exports = (app) => {
     });
 
     //Add ingredient
+    //NEED TO ACCESS CONTENTS OF FORM
     app.post('/api/ingredient/add', (req, res, next) => {
         //need items required in model 
         const { body } = req;
@@ -22,6 +23,8 @@ module.exports = (app) => {
             //quantity
         } = body;
 
+        console.log(name);
+
         //Verifying all needed fields are present
         if (!name) {
             return res.send({
@@ -30,7 +33,7 @@ module.exports = (app) => {
             })
         };
         Ingredient.find({
-            name: name, 
+            name: name,
             userId: userId,
         }, (err, ingredients) => {
             if (err) {
@@ -70,15 +73,15 @@ module.exports = (app) => {
     app.get('/api/ingredients', (req, res, next) => {
         const { query } = req;
         const { user } = query;
-        Ingredient.find({userId: user}, (err, ingredients) =>{
+        Ingredient.find({ userId: user }, (err, ingredients) => {
             if (err) {
                 console.log(err);
                 res.status(400).send(err);
-            } 
-            else if (ingredients.length==0){
+            }
+            else if (ingredients.length == 0) {
                 res.send("No ingredients")
             }
-            else {               
+            else {
                 res.send(ingredients);
             }
         });
