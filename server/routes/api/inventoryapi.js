@@ -1,6 +1,7 @@
 const Ingredient = require('../../models/Ingredient');
 
 module.exports = (app) => {
+    //delete an ingredient
     app.delete('/api/ingredient/delete', (req, res, next) => {
         Ingredient.deleteOne({ userId: req.body.userId, name: req.body.name }, function (err, deleted) {
             if (err) {
@@ -63,5 +64,19 @@ module.exports = (app) => {
         });
 
 
+    });
+
+    //get list of ingredients WORKING ON THIS
+    app.get('/api/ingredients', (req, res, next) => {
+        const { query } = req;
+        const { user } = query;
+        Ingredient.find({userId: user}, (err, ingredients) =>{
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            } else {               
+                res.send(ingredients);
+            }
+        });
     });
 }
