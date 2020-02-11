@@ -2,6 +2,7 @@
   "name": "MERN-boilerplate",
   "version": "1.0.0",
   "description": "MERN stack project boilerplate",
+  "main": "app",
   "author": "Eugene Cheung",
   "repository": {
     "type": "git",
@@ -10,7 +11,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "webpack -p --progress --profile --colors && node server",
+    "start": "node server",
     "start:dev": "node server"
   },
   "engines": {
@@ -23,6 +24,7 @@
     "autoprefixer": "^8.2.0",
     "babel-loader": "^8.0.0-beta.2",
     "bcrypt": "^3.0.7",
+    "bootstrap": "^3.4.1",
     "connect-history-api-fallback": "^1.5.0",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
