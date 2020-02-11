@@ -10,6 +10,7 @@ class Inventory extends React.Component {
     this.state = {
       token: '',
       userId: '',
+      ingredients: [],
     }
     this.logout = this.logout.bind(this);
 
@@ -55,17 +56,33 @@ class Inventory extends React.Component {
   }
 
   getUserID() {
-    console.log("help me" + this.state.token)
-    fetch('/api/usersession?usersession=5e4209831c3f5408bd348eb3')
+    console.log("User Session" + this.state.token)
+    fetch('/api/usersession?usersession=' + this.state.token)
     .then(res => res.json())
     .then(res => {
         this.setState({
           userId: res.userId
         })
-        console.log(this.state.userId)
+        console.log("UserID" + this.state.userId)
+        this.getIngredients(); 
       })
     .catch(err => { throw (err) })
   }
+
+  getIngredients() {
+    console.log("Getting ingredients for " + this.state.userId)
+    fetch('/api/ingredients?user=' + this.state.userId)
+    .then(res => res.json())
+    .then(res => {
+      var obj = JSON.stringify(res);
+        this.setState({
+          ingredients: obj
+        })
+        console.log("ingredients " + this.state.ingredients)
+      })
+    .catch(err => { throw (err) })
+  }
+
   // pull from storage to verify that a user is logged in. 
   verifyLogin() {
     const obj = getFromStorage('the_main_app');

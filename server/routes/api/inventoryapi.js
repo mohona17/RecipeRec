@@ -74,7 +74,11 @@ module.exports = (app) => {
             if (err) {
                 console.log(err);
                 res.status(400).send(err);
-            } else {               
+            } 
+            else if (ingredients.length==0){
+                res.send("No ingredients")
+            }
+            else {               
                 res.send(ingredients);
             }
         });
