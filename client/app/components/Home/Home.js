@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Redirect } from 'react-router-dom';  
 import 'whatwg-fetch';
 import {
   getFromStorage,
@@ -30,7 +31,7 @@ class Home extends Component {
     this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
-    this.logout = this.logout.bind(this);
+    // this.logout = this.logout.bind(this);
 
   }
 
@@ -112,26 +113,26 @@ class Home extends Component {
         password: signInPassword,
       }),
     })
-    .then(res => res.json())
-    .then(json => {
-    if (json.success) {
-      console.log("successful login", json.token);
-     setInStorage('the_main_app',{ token: json.token });
-      this.setState({
-        signInError: json.message,
-        isLoading: false,
-        signInEmail: '',
-        signInPassword: '',
-        token: json.token
+      .then(res => res.json())
+      .then(json => {
+        if (json.success) {
+          console.log("successful login", json.token);
+          setInStorage('the_main_app', { token: json.token });
+          this.setState({
+            signInError: json.message,
+            isLoading: false,
+            signInEmail: '',
+            signInPassword: '',
+            token: json.token
+          });
+        }
+        else {
+          this.setState({
+            signInError: json.message,
+            isLoading: false,
+          });
+        }
       });
-    }
-    else {
-      this.setState({
-        signInError: json.message,
-        isLoading: false,
-      });
-    }
-    });
   }
 
   onSignUp() {
@@ -190,38 +191,40 @@ class Home extends Component {
     // });
   }
 
-  logout(){
-    this.setState({
-      isLoading: true,
-    })
-    const obj = getFromStorage('the_main_app');
-    if (obj && obj.token) {
-      const token = obj.token;
-      console.log(obj.token);
+  //Moved to Profile
+  // logout() {
+  //   this.setState({
+  //     isLoading: true,
+  //   })
+  //   const obj = getFromStorage('the_main_app');
+  //   if (obj && obj.token) {
+  //     const token = obj.token;
+  //     console.log(obj.token);
 
-      fetch('/api/account/logout?token=' + token)
-        .then(res => res.json())
-        .then(json => {
-          console.log("Logging out", json.success, {token});
-          console.log('Message from logout request',json.message)
-          if (json.success) {
-            this.setState({
-              token: '',
-              isLoading: false,
-            });
-          } else {
-            this.setState({
-              isLoading: false,
-            });
-          }
-        });
-    }
-    else {
-      this.setState({
-        isLoading: false,
-      });
-    }
-  }
+  //     fetch('/api/account/logout?token=' + token)
+  //       .then(res => res.json())
+  //       .then(json => {
+  //         console.log("Logging out", json.success, { token });
+  //         console.log('Message from logout request', json.message)
+  //         if (json.success) {
+  //           this.setState({
+  //             token: '',
+  //             isLoading: false,
+  //           });
+  //         } else {
+  //           this.setState({
+  //             isLoading: false,
+  //           });
+  //         }
+  //       });
+  //   }
+  //   else {
+  //     this.setState({
+  //       isLoading: false,
+  //     });
+  //   }
+  // }
+  
   render() {
     const {
       isLoading,
@@ -242,10 +245,12 @@ class Home extends Component {
         <p>Loading...</p>
       </div>);
     }
-   // console.log('token',token);
     if (!token) {
       return (
         <div>
+          <h1>Recipe Recommender</h1>
+          <h3>Login to your existing account or sign up to make one!</h3>
+
           <div>
             {
               (signInError) ? (<p>{signInError}</p>) : (null)
@@ -300,13 +305,23 @@ class Home extends Component {
 
       )
     }
+    console.log("hi here", token)
+    // console.log(this.logout)
 
+    //Go to profile page
+    //https://stackoverflow.com/questions/57524053/how-to-pass-props-one-page-to-another-page-via-react-router
+    //https://medium.com/javascript-in-plain-english/routing-and-navigation-in-react-cffc26e8a389
     return (
-      <div>Account
-        <button onClick = {this.logout}>Logout</button>
+      <div>
+        {/* Could change below code */}
+        <Redirect to= {{
+          pathname:"/profile",
+          //state: { token: this.state.token},
+        }}
+        //  <Redirect to="/profile" */
+        />
       </div>
     );
   }
 }
-
 export default Home;
