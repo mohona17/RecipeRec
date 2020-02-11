@@ -9,6 +9,7 @@ class Inventory extends React.Component {
     super(props);
     this.state = {
       token: '',
+      userId: '',
     }
     this.logout = this.logout.bind(this);
 
@@ -16,20 +17,7 @@ class Inventory extends React.Component {
 
   componentDidMount() {
     this.verifyLogin()
-    // const obj = getFromStorage('the_main_app');
-    // if (obj && obj.token) {
-    //   const { token } = obj.token;
-
-    //   fetch('/api/account/verify?token=' + token)
-    //     .then(res => res.json())
-    //     .then(json => {
-    //       if (json.success) {
-    //         this.setState({
-    //           token: token,
-    //         });
-    //       }
-    //     });
-    // }
+    //console.log("User Id " + this.state.userId)
   }
 
   //Contains possible fixes if time (see comments)
@@ -66,6 +54,19 @@ class Inventory extends React.Component {
     // }
   }
 
+  getUserID(){
+    console.log("token" + this.state.token)
+    fetch('/api/userid?usersession=' + this.state.token)
+    .then(res => res.json())
+    .then(json => {
+      if (json.success) {
+        this.setState({
+          userId: json.userId,
+        });
+        console.log(this.state.userId)
+      }
+    });
+  }
   // pull from storage to verify that a user is logged in. 
   verifyLogin() {
     const obj = getFromStorage('the_main_app');
@@ -78,6 +79,7 @@ class Inventory extends React.Component {
             this.setState({
               token: obj.token,
             });
+            this.getUserID(); 
           }
         });
     }

@@ -3,17 +3,14 @@ const UserSession = require('../../models/UserSession');
 const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
-    app.get('/api/userid', (req, res, next) => {
-        const { body } = req;
-        const {
-            usersession
-        } = body;
-        console.log(usersession);
-        UserSession.findById(usersession, function (err, session) {
+    app.post('/api/userid', (req, res, next) => {
+        const { query } = req;
+        const { usersession } = query;
+        UserSession.findById(usersession, (err, session) =>{
             if (err) {
                 console.log(err);
                 res.status(400).send(err);
-            } else {
+            } else {               
                 res.send(session.userId);
             }
         });
