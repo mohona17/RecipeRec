@@ -3,9 +3,21 @@ const UserSession = require('../../models/UserSession');
 const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
-    // app.get('/api/counters', (req, res, next) => {
-    //     res.send("hi");
-    // });
+    app.get('/api/userid', (req, res, next) => {
+        const { body } = req;
+        const {
+            usersession
+        } = body;
+        console.log(usersession);
+        UserSession.findById(usersession, function (err, session) {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            } else {
+                res.send(session.userId);
+            }
+        });
+    });
 
     // app.post('/api/counters', function (req, res, next) {
     //     const counter = new Counter();
