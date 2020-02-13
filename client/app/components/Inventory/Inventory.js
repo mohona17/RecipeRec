@@ -3,6 +3,10 @@ import {
   getFromStorage,
 } from '../../utils/storage.js';
 import Header from '../Header/Header';
+import InventoryList from './InventoryList';
+import {
+  addIngredient,
+} from './InventoryList';
 
 class Inventory extends React.Component {
   constructor(props) {
@@ -13,6 +17,7 @@ class Inventory extends React.Component {
       ingredients: [],
     }
     this.logout = this.logout.bind(this);
+    // this.addIngredient = this.addIngredient.bind(this);
   };
 
   componentDidMount() {
@@ -63,11 +68,12 @@ class Inventory extends React.Component {
           userId: res.userId
         })
         console.log("UserID" + this.state.userId)
-        this.getIngredients();
+        this.getIngredients()
       })
       .catch(err => { throw (err) })
   }
 
+  // //Moved to InventoryList
   getIngredients() {
     console.log("Getting ingredients for " + this.state.userId)
     fetch('/api/ingredients?user=' + this.state.userId)
@@ -99,40 +105,39 @@ class Inventory extends React.Component {
         });
     }
   }
+  // //Button action to add ingredient
+  // addIngredient(name){
+  //   const ingredient = {
+  //     "name": name,
+  //     "userId": this.state.userId
+  //   }
 
-
+  //   return (
+  //     fetch('/api/ingredient/add', {
+  //       method: 'POST',
+  //       body: JSON.stringify(ingredient),
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //     })
+  //   )
+  // };
 
   render() {
     //Layout of Ingredients
-    const cards = this.state.ingredients.map((ingredient, index) => {
-      // console.log(ingredient.name);
-      return (
-        <div key={index} class="card">
-          <div class="wrapper">
-            <h4><b>{ingredient.name}</b></h4>
-            <button class="btn btn-secondary right">Delete</button>
-          </div>
-        </div>
-      );
-    });
+    //Moved to InventoryList
+    // var cards = this.state.ingredients.map((ingredient, index) => {
+    //   // console.log(ingredient.name);
+    //   return (
+    //     <div key={index} class="card">
+    //       <div class="wrapper">
+    //         <h4><b>{ingredient.name}</b></h4>
+    //         <button class="btn btn-secondary right">Delete</button>
+    //       </div>
+    //     </div>
+    //   );
+    // });
 
-    //Button action to add ingredient
-    const addIngredient = (name) => {
-      const ingredient = {
-        "name": name,
-        "userId": this.state.userId
-      }
-
-      return (
-        fetch('/api/ingredient/add', {
-          method: 'POST',
-          body: JSON.stringify(ingredient),
-          headers: {
-            "Content-Type": "application/json"
-          },
-        })
-      )
-    };
     const addIngredientForm =
       (<div class="form">
         <h3>Add an ingredient</h3>
@@ -142,7 +147,11 @@ class Inventory extends React.Component {
         <button className="myButton"
           onClick={() => {
             if (this.refs.ingredientname.value) {
-              addIngredient(this.refs.ingredientname.value)
+              addIngredient(this.refs.ingredientname.value, this.state.userId)
+              //This updates the state of ingredients that is sent to Inventory list, causing an update :)
+              this.getIngredients();
+              //Resetting form text
+              this.refs.ingredientname.value = ''
               alert("Added ingredient")
             }
             else {
@@ -161,7 +170,8 @@ class Inventory extends React.Component {
           <Header />
           <h2>The ingredients you currently have:</h2>
           <div className="wrapper">
-            {cards}
+            {/* {cards} */}
+            <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
           </div>
           {addIngredientForm}
         </div>
