@@ -73,9 +73,8 @@ class Inventory extends React.Component {
       .catch(err => { throw (err) })
   }
 
-  // //Moved to InventoryList
   getIngredients() {
-    console.log("Getting ingredients for " + this.state.userId)
+    // console.log("Getting ingredients for " + this.state.userId)
     fetch('/api/ingredients?user=' + this.state.userId)
       .then(res => res.json())
       .then(res => {
@@ -83,7 +82,7 @@ class Inventory extends React.Component {
         this.setState({
           ingredients: obj
         })
-        console.log("ingredients " + this.state.ingredients)
+        // console.log("ingredients " + this.state.ingredients)
       })
       .catch(err => { throw (err) })
   }
@@ -164,6 +163,8 @@ class Inventory extends React.Component {
 
 
     if (this.state.token != '') {
+      //Calling this function continuously so inventory list can update if needed.
+      this.getIngredients();
       return (
         <div>
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>

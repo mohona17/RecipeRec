@@ -30,7 +30,7 @@ class InventoryList extends React.Component {
           userId: res.userId
         })
         console.log("UserID" + this.state.userId)
-        this.getIngredients();
+        // this.getIngredients();
       })
       .catch(err => { throw (err) })
   }
