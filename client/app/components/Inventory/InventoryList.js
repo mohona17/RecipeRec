@@ -35,6 +35,20 @@ class InventoryList extends React.Component {
       .catch(err => { throw (err) })
   }
 
+  deleteIngredient(name){
+    const ingredient = {
+      "name": name,
+      "userId": this.state.userId
+    }
+  
+      fetch('/api/ingredient/delete', {
+        method: 'POST',
+        body: JSON.stringify(ingredient),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+  }
   // getIngredients() {
   //   console.log("InventoryList:Getting ingredients for " + this.state.userId)
   //   fetch('/api/ingredients?user=' + this.state.userId)
@@ -58,6 +72,7 @@ class InventoryList extends React.Component {
           <div class="wrapper">
             <h4><b>{ingredient.name}</b></h4>
             <button class="btn btn-secondary right">Delete</button>
+            {/* onClick={this.deleteIngredient(ingredient.name)} */}
           </div>
         </div>
       );

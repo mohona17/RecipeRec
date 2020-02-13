@@ -2,7 +2,7 @@ const Ingredient = require('../../models/Ingredient');
 
 module.exports = (app) => {
     //delete an ingredient
-    app.delete('/api/ingredient/delete', (req, res, next) => {
+    app.post('/api/ingredient/delete', (req, res, next) => {
         Ingredient.deleteOne({ userId: req.body.userId, name: req.body.name }, function (err, deleted) {
             if (err) {
                 res.status(400).send(err);
