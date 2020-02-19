@@ -3,17 +3,17 @@ import {
   getFromStorage,
 } from '../../utils/storage.js';
 import Header from '../Header/Header';
+import InventoryList from '../Inventory/InventoryList';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       token: '',
-      // logout: Object,
+      userId: '',
+      ingredients: [],
     }
-
     this.logout = this.logout.bind(this);
-
   };
 
   componentDidMount() {
@@ -68,6 +68,44 @@ class Search extends React.Component {
     // }
   }
 
+  getIngredients() {
+    // console.log("Getting ingredients for " + this.state.userId)
+    fetch('/api/ingredients?user=' + this.state.userId)
+      .then(res => res.text())
+      .then(res => {
+        // console.log(res);
+        if (res == "No ingredients") {
+          this.setState({
+            ingredients: []
+          })
+        }
+        else {
+          var obj = JSON.parse(res);
+          this.setState({
+            ingredients: obj
+          })
+          // console.log("ingredients " + this.state.ingredients)
+        }
+      })
+      .catch(err => {
+        throw (err)
+      })
+  }
+
+  getUserID() {
+    console.log("User Session" + this.state.token)
+    fetch('/api/usersession?usersession=' + this.state.token)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          userId: res.userId
+        })
+        console.log("UserID" + this.state.userId)
+        this.getIngredients()
+      })
+      .catch(err => { throw (err) })
+  }
+
   // pull from storage to verify that a user is logged in. 
   verifyLogin() {
     const obj = getFromStorage('the_main_app');
@@ -80,7 +118,9 @@ class Search extends React.Component {
             this.setState({
               token: obj.token,
             });
+            this.getUserID()
           }
+
         });
     }
   }
@@ -88,11 +128,16 @@ class Search extends React.Component {
   render() {
     console.log("from search page " + this.state.token)
     if (this.state.token != '') {
+      //Calling this function continuously so inventory list can update if needed.
+      this.getIngredients();
       return (
         <div>
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
           <Header />
-          <h2>Search!</h2>
+          <h2>The ingredients you currently have:</h2>
+          <div className="wrapper">
+            <InventoryList token={this.state.token} ingredients={this.state.ingredients} editable={false} ></InventoryList>
+          </div>
         </div>
       );
     }

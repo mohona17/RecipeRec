@@ -67,19 +67,31 @@ class InventoryList extends React.Component {
   // }
 
   render() {
-    // var cards = this.state.ingredients.map((ingredient, index) => {
+    //Displaying cards
     var cards = this.props.ingredients.map((ingredient, index) => {
       // console.log(ingredient.name);
-      return (
-        <div key={index} class="card">
-          <div class="wrapper">
-            <h4><b>{ingredient.name}</b></h4>
-            <button onClick={(e) => this.deleteIngredient(ingredient.name)}
-              type="button"
-              class="btn btn-secondary right">Delete</button>
+      //The search page passes in a boolean called editable that tells us if the delete button should appears
+      if (this.props.editable == false) {
+        return (
+          <div key={index} class="card">
+            <div class="wrapper">
+              <h4><b>{ingredient.name}</b></h4>
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
+      else {
+        return (
+          <div key={index} class="card">
+            <div class="wrapper">
+              <h4><b>{ingredient.name}</b></h4>
+              <button onClick={(e) => this.deleteIngredient(ingredient.name)}
+                type="button"
+                class="btn btn-secondary right">Delete</button>
+            </div>
+          </div>
+        );
+      }
     });
 
     if (this.props.ingredients.length == 0) {
@@ -95,8 +107,8 @@ class InventoryList extends React.Component {
       )
     }
   }
-  };
-  export default InventoryList;
+};
+export default InventoryList;
 
 export function addIngredient(name, userId) {
   const ingredient = {
