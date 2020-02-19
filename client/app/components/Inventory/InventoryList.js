@@ -35,33 +35,36 @@ class InventoryList extends React.Component {
       .catch(err => { throw (err) })
   }
 
-  deleteIngredient(name){
+  deleteIngredient(name) {
     const ingredient = {
       "name": name,
       "userId": this.state.userId
     }
-  
-      fetch('/api/ingredient/delete', {
-        method: 'POST',
-        body: JSON.stringify(ingredient),
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
+
+    fetch('/api/ingredient/delete', {
+      method: 'POST',
+      body: JSON.stringify(ingredient),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    //Updating the 
+    getIngredients()
   }
-  // getIngredients() {
-  //   console.log("InventoryList:Getting ingredients for " + this.state.userId)
-  //   fetch('/api/ingredients?user=' + this.state.userId)
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       var obj = JSON.parse(JSON.stringify(res));
-  //       this.setState({
-  //         ingredients: obj
-  //       })
-  //       console.log("ingredients " + this.state.ingredients)
-  //     })
-  //     .catch(err => { throw (err) })
-  // }
+
+  getIngredients() {
+    console.log("InventoryList:Getting ingredients for " + this.state.userId)
+    fetch('/api/ingredients?user=' + this.state.userId)
+      .then(res => res.json())
+      .then(res => {
+        var obj = JSON.parse(JSON.stringify(res));
+        this.setState({
+          ingredients: obj
+        })
+        console.log("ingredients " + this.state.ingredients)
+      })
+      .catch(err => { throw (err) })
+  }
 
   render() {
     // var cards = this.state.ingredients.map((ingredient, index) => {
@@ -71,20 +74,29 @@ class InventoryList extends React.Component {
         <div key={index} class="card">
           <div class="wrapper">
             <h4><b>{ingredient.name}</b></h4>
-            <button class="btn btn-secondary right">Delete</button>
-            {/* onClick={this.deleteIngredient(ingredient.name)} */}
+            <button onClick={(e) => this.deleteIngredient(ingredient.name)}
+              type="button"
+              class="btn btn-secondary right">Delete</button>
           </div>
         </div>
       );
     });
 
-    return (
-      <div>
-        {cards}</div>
-    )
+    if (this.props.ingredients.length == 0) {
+      return (
+        <p>There are no ingredients on your list</p>
+      )
+    }
+    else {
+
+      return (
+        <div>
+          {cards}</div>
+      )
+    }
   }
-};
-export default InventoryList;
+  };
+  export default InventoryList;
 
 export function addIngredient(name, userId) {
   const ingredient = {
