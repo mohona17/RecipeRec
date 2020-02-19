@@ -11,6 +11,7 @@ class InventoryList extends React.Component {
       // ingredients: [],
       token: '',
       userId: '',
+      selected: [],
     }
     // this.getIngredients = this.getIngredients.bind(this);
   };
@@ -66,15 +67,32 @@ class InventoryList extends React.Component {
   //     .catch(err => { throw (err) })
   // }
 
+  selectIngredient(name) {
+    console.log("Ingredients selected before" , this.state.selected)
+    if (this.state.selected.includes(name)) {
+      console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
+      this.setState({
+        selected: this.state.selected.splice(this.state.selected.indexOf(name),1)
+      });
+    }
+    else {
+      this.setState({
+        selected: this.state.selected.concat(name),
+      });
+    }
+    console.log("I have selected", this.state.selected)
+  }
+
   render() {
     //Displaying cards
     var cards = this.props.ingredients.map((ingredient, index) => {
       // console.log(ingredient.name);
       //The search page passes in a boolean called editable that tells us if the delete button should appears
       if (this.props.editable == false) {
+        //Search Page
         return (
           <div key={index} class="card">
-            <div class="wrapper">
+            <div class="wrapper" onClick={(e) => this.selectIngredient(ingredient.name)} >
               <h4><b>{ingredient.name}</b></h4>
             </div>
           </div>
