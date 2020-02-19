@@ -12,8 +12,10 @@ class Search extends React.Component {
       token: '',
       userId: '',
       ingredients: [],
+      selected: [],
     }
     this.logout = this.logout.bind(this);
+    this.getSelected = this.getSelected.bind(this);
   };
 
   componentDidMount() {
@@ -105,7 +107,6 @@ class Search extends React.Component {
       })
       .catch(err => { throw (err) })
   }
-
   // pull from storage to verify that a user is logged in. 
   verifyLogin() {
     const obj = getFromStorage('the_main_app');
@@ -124,6 +125,12 @@ class Search extends React.Component {
         });
     }
   }
+  getSelected(ingredients) {
+    console.log('Selected in Parent Component: ', ingredients);
+    this.setState({
+      selected: ingredients
+    });
+  }
 
   render() {
     console.log("from search page " + this.state.token)
@@ -136,8 +143,12 @@ class Search extends React.Component {
           <Header />
           <h2>The ingredients you currently have:</h2>
           <div className="wrapper">
-            <InventoryList token={this.state.token} ingredients={this.state.ingredients} editable={false} ></InventoryList>
+            <InventoryList token={this.state.token} 
+              ingredients={this.state.ingredients} 
+              editable={false}
+              getSelected={this.getSelected}></InventoryList>
           </div>
+          <p>{this.state.selected}</p>
         </div>
       );
     }

@@ -3,10 +3,10 @@ import {
   getFromStorage,
 } from '../../utils/storage.js';
 
-//Need to get user id
 class InventoryList extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       // ingredients: [],
       token: '',
@@ -20,7 +20,6 @@ class InventoryList extends React.Component {
     this.getUserID();
     console.log(this.props.token + "token from inventorylist")
   }
-
 
   getUserID() {
     console.log("User Session from InventoryList" + this.props.token)
@@ -68,7 +67,7 @@ class InventoryList extends React.Component {
   // }
 
   selectIngredient(name) {
-    console.log("Ingredients selected before" , this.state.selected)
+    // console.log("Ingredients selected before" , this.state.selected)
     if (this.state.selected.includes(name)) {
       console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
       this.setState({
@@ -80,7 +79,9 @@ class InventoryList extends React.Component {
         selected: this.state.selected.concat(name),
       });
     }
-    console.log("I have selected", this.state.selected)
+    // console.log("I have selected", this.state.selected)
+    this.props.getSelected(this.state.selected);
+    console.log(this.props.getSelected)
   }
 
   render() {
