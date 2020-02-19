@@ -48,6 +48,8 @@ class InventoryList extends React.Component {
         "Content-Type": "application/json"
       },
     })
+    alert("Deleted ingredient")
+
   }
 
   // getIngredients() {
