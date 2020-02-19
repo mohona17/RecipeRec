@@ -3,17 +3,19 @@ const UserSession = require('../../models/UserSession');
 const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
-    // app.get('/api/counters', (req, res, next) => {
-    //     res.send("hi");
-    // });
-
-    // app.post('/api/counters', function (req, res, next) {
-    //     const counter = new Counter();
-
-    //     counter.save()
-    //         .then(() => res.json(counter))
-    //         .catch((err) => next(err));
-    // });
+    //Get user session
+    app.get('/api/usersession', (req, res, next) => {
+        const { query } = req;
+        const { usersession } = query;
+        UserSession.findById(usersession, (err, session) =>{
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            } else {               
+                res.send(session);
+            }
+        });
+    });
 
     //Sign Up
     app.post('/api/account/signup', (req, res, next) => {
