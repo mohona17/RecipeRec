@@ -76,15 +76,25 @@ class Inventory extends React.Component {
   getIngredients() {
     // console.log("Getting ingredients for " + this.state.userId)
     fetch('/api/ingredients?user=' + this.state.userId)
-      .then(res => res.json())
+      .then(res => res.text())
       .then(res => {
-        var obj = JSON.parse(JSON.stringify(res));
-        this.setState({
-          ingredients: obj
-        })
-        // console.log("ingredients " + this.state.ingredients)
+        // console.log(res);
+        if (res == "No ingredients") {
+          this.setState({
+            ingredients: []
+          })
+        }
+        else {
+          var obj = JSON.parse(res);
+          this.setState({
+            ingredients: obj
+          })
+          // console.log("ingredients " + this.state.ingredients)
+        }
       })
-      .catch(err => { throw (err) })
+      .catch(err => {
+        throw (err)
+      })
   }
 
   // pull from storage to verify that a user is logged in. 
@@ -171,7 +181,6 @@ class Inventory extends React.Component {
           <Header />
           <h2>The ingredients you currently have:</h2>
           <div className="wrapper">
-            {/* {cards} */}
             <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
           </div>
           {addIngredientForm}

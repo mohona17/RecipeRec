@@ -48,23 +48,21 @@ class InventoryList extends React.Component {
         "Content-Type": "application/json"
       },
     })
-    //Updating the 
-    getIngredients()
   }
 
-  getIngredients() {
-    console.log("InventoryList:Getting ingredients for " + this.state.userId)
-    fetch('/api/ingredients?user=' + this.state.userId)
-      .then(res => res.json())
-      .then(res => {
-        var obj = JSON.parse(JSON.stringify(res));
-        this.setState({
-          ingredients: obj
-        })
-        console.log("ingredients " + this.state.ingredients)
-      })
-      .catch(err => { throw (err) })
-  }
+  // getIngredients() {
+  //   console.log("InventoryList:Getting ingredients for " + this.state.userId)
+  //   fetch('/api/ingredients?user=' + this.state.userId)
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       var obj = JSON.parse(JSON.stringify(res));
+  //       this.setState({
+  //         ingredients: obj
+  //       })
+  //       console.log("ingredients " + this.state.ingredients)
+  //     })
+  //     .catch(err => { throw (err) })
+  // }
 
   render() {
     // var cards = this.state.ingredients.map((ingredient, index) => {
