@@ -3,14 +3,15 @@ import {
   getFromStorage,
 } from '../../utils/storage.js';
 
-//Need to get user id
 class InventoryList extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       // ingredients: [],
       token: '',
       userId: '',
+      selected: [],
     }
     // this.getIngredients = this.getIngredients.bind(this);
   };
@@ -19,7 +20,6 @@ class InventoryList extends React.Component {
     this.getUserID();
     console.log(this.props.token + "token from inventorylist")
   }
-
 
   getUserID() {
     console.log("User Session from InventoryList" + this.props.token)
@@ -66,20 +66,51 @@ class InventoryList extends React.Component {
   //     .catch(err => { throw (err) })
   // }
 
+  selectIngredient(name) {
+    // console.log("Ingredients selected before" , this.state.selected)
+    if (this.state.selected.includes(name)) {
+      console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
+      this.setState({
+        selected: this.state.selected.splice(this.state.selected.indexOf(name),1)
+      });
+    }
+    else {
+      this.setState({
+        selected: this.state.selected.concat(name),
+      });
+    }
+    // console.log("I have selected", this.state.selected)
+    this.props.getSelected(this.state.selected);
+    console.log(this.props.getSelected)
+  }
+
   render() {
-    // var cards = this.state.ingredients.map((ingredient, index) => {
+    //Displaying cards
     var cards = this.props.ingredients.map((ingredient, index) => {
       // console.log(ingredient.name);
-      return (
-        <div key={index} class="card">
-          <div class="wrapper">
-            <h4><b>{ingredient.name}</b></h4>
-            <button onClick={(e) => this.deleteIngredient(ingredient.name)}
-              type="button"
-              class="btn btn-secondary right">Delete</button>
+      //The search page passes in a boolean called editable that tells us if the delete button should appears
+      if (this.props.editable == false) {
+        //Search Page
+        return (
+          <div key={index} class="card">
+            <div class="wrapper" onClick={(e) => this.selectIngredient(ingredient.name)} >
+              <h4><b>{ingredient.name}</b></h4>
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
+      else {
+        return (
+          <div key={index} class="card">
+            <div class="wrapper">
+              <h4><b>{ingredient.name}</b></h4>
+              <button onClick={(e) => this.deleteIngredient(ingredient.name)}
+                type="button"
+                class="btn btn-secondary right">Delete</button>
+            </div>
+          </div>
+        );
+      }
     });
 
     if (this.props.ingredients.length == 0) {
@@ -95,8 +126,8 @@ class InventoryList extends React.Component {
       )
     }
   }
-  };
-  export default InventoryList;
+};
+export default InventoryList;
 
 export function addIngredient(name, userId) {
   const ingredient = {
