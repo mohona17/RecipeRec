@@ -126,10 +126,25 @@ class Search extends React.Component {
     }
   }
   getSelected(ingredients) {
-    console.log('Selected in Parent Component: ', ingredients);
+    console.log('Selected ingredients in Search Component: ', ingredients[0]);
     this.setState({
       selected: ingredients
     });
+  }
+  // getSelected() {
+  //   this.setState({
+  //     selected: this.state.ingredients,
+  //   });
+  // }
+
+  getRecipe() {
+    console.log("Selected in Get Recipe Call " + this.state.selected)
+    fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => { throw (err) })
   }
 
   render() {
@@ -143,12 +158,14 @@ class Search extends React.Component {
           <Header />
           <h2>The ingredients you currently have:</h2>
           <div className="wrapper">
-            <InventoryList token={this.state.token} 
-              ingredients={this.state.ingredients} 
+            <InventoryList token={this.state.token}
+              ingredients={this.state.ingredients}
               editable={false}
               getSelected={this.getSelected}></InventoryList>
           </div>
-          <p>{this.state.selected}</p>
+          <button onClick={(e) => this.getRecipe()}
+            type="button"
+            class="btn btn-secondary right">SearchTest</button>
         </div>
       );
     }

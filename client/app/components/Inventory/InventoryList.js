@@ -14,6 +14,7 @@ class InventoryList extends React.Component {
       selected: [],
     }
     // this.getIngredients = this.getIngredients.bind(this);
+    this.selectIngredient = this.selectIngredient.bind(this);
   };
 
   componentDidMount() {
@@ -66,22 +67,29 @@ class InventoryList extends React.Component {
   //     .catch(err => { throw (err) })
   // }
 
+
   selectIngredient(name) {
-    // console.log("Ingredients selected before" , this.state.selected)
+    console.log("State of selected in inv list before selecting " + this.state.selected);
     if (this.state.selected.includes(name)) {
       console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
-      this.setState({
-        selected: this.state.selected.splice(this.state.selected.indexOf(name),1)
-      });
+      // this.setState({
+      //   selected: this.state.selected.splice(this.state.selected.indexOf(name),1)
+      // });
+      this.setState({ selected: this.state.selected.splice(this.state.selected.indexOf(name),1) }, () => {
+        this.props.getSelected(this.state.selected);
+        console.log(this.state.selected)
+      }); 
     }
     else {
-      this.setState({
-        selected: this.state.selected.concat(name),
-      });
+      // this.setState({
+      //   selected: this.state.selected.concat(name)
+      // });
+      this.setState({ selected: this.state.selected.concat(name) }, () => {
+        this.props.getSelected(this.state.selected);
+        console.log(this.state.selected)
+      }); 
     }
-    // console.log("I have selected", this.state.selected)
-    this.props.getSelected(this.state.selected);
-    console.log(this.props.getSelected)
+    console.log("State of selected in inventory list after select" + this.state.selected)
   }
 
   render() {
@@ -93,7 +101,7 @@ class InventoryList extends React.Component {
         //Search Page
         return (
           <div key={index} class="card">
-            <div class="wrapper" onClick={(e) => this.selectIngredient(ingredient.name)} >
+            <div class="wrapper" onClick={() => this.selectIngredient(ingredient.name)} >
               <h4><b>{ingredient.name}</b></h4>
             </div>
           </div>
