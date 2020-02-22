@@ -146,20 +146,26 @@ class Search extends React.Component {
   // }
 
   getRecipe() {
-    //withoutbudget
-    if (this.state.budget == '') {
-      console.log("No budget inputted")
-      fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
-        .then(res => res.json())
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => { throw (err) })
+    console.log(this.state.selected)
+    if (this.state.selected.length != 0) {
+      //withoutbudget
+      if (this.state.budget == '') {
+        console.log("No budget inputted")
+        fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
+          .then(res => res.json())
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => { throw (err) })
+      }
+      //Reset Budget
+      this.setState({ budget: '' }, () => {
+        console.log("Reset budget", this.state.budget)
+      });
     }
-    //Reset Budget
-    this.setState({ budget: '' }, () => {
-      console.log("Reset budget", this.state.budget)
-    });
+    else {
+      alert("You did not select any ingredients")
+    }
 
   }
 
