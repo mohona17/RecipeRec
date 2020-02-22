@@ -165,8 +165,6 @@ class Search extends React.Component {
 
       return (
         <div>
-          {/* <div class="row">
-            <div class="col"> */}
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
           <Header />
           <div>
@@ -177,16 +175,13 @@ class Search extends React.Component {
                 editable={false}
                 getSelected={this.getSelected}></InventoryList>
             </div>
-            <div class="col">
               <button onClick={(e) => this.getRecipe()}
                 type="button"
                 class="btn btn-secondary right">SearchTest</button>
             </div>
-          </div>
           <h2>You have chosen the following ingredients:</h2>
           <div>{cardDisplay}</div>
-          {/* </div>
-          </div> */}
+          {/* {/* </div> */}
         </div>
       );
     }
