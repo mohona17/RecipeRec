@@ -5,6 +5,7 @@ import {
 import Header from '../Header/Header';
 import InventoryList from '../Inventory/InventoryList';
 
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -152,20 +153,40 @@ class Search extends React.Component {
     if (this.state.token != '') {
       //Calling this function continuously so inventory list can update if needed.
       this.getIngredients();
+
+      //display selected cards 
+      const cardDisplay = this.state.selected.map((ingredient, index) => {
+        return (
+            <div class="wrapper" >
+              <h5>{ingredient}</h5>
+            </div>
+        );
+      });
+
       return (
         <div>
+          {/* <div class="row">
+            <div class="col"> */}
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
           <Header />
-          <h2>The ingredients you currently have:</h2>
-          <div className="wrapper">
-            <InventoryList token={this.state.token}
-              ingredients={this.state.ingredients}
-              editable={false}
-              getSelected={this.getSelected}></InventoryList>
+          <div>
+            <h2>The ingredients you currently have:</h2>
+            <div className="wrapper">
+              <InventoryList token={this.state.token}
+                ingredients={this.state.ingredients}
+                editable={false}
+                getSelected={this.getSelected}></InventoryList>
+            </div>
+            <div class="col">
+              <button onClick={(e) => this.getRecipe()}
+                type="button"
+                class="btn btn-secondary right">SearchTest</button>
+            </div>
           </div>
-          <button onClick={(e) => this.getRecipe()}
-            type="button"
-            class="btn btn-secondary right">SearchTest</button>
+          <h2>You have chosen the following ingredients:</h2>
+          <div>{cardDisplay}</div>
+          {/* </div>
+          </div> */}
         </div>
       );
     }

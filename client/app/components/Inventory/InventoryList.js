@@ -131,7 +131,7 @@ class InventoryList extends React.Component {
       return (
         <div>
           {cards}
-          <p>{this.state.selected}</p>
+          {/* <p>{this.state.selected}</p> */}
         </div>
       )
     }
