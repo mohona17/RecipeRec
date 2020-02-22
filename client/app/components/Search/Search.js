@@ -157,17 +157,22 @@ class Search extends React.Component {
         //if too expensive
         console.log(res)
         console.log(this.state.budget)
-        if (res > this.state.budget) {
+        var price = parseFloat(res);
+        var budg = parseFloat(this.state.budget)
+        if (price > budg) {
           // this.setState({ selected: this.state.selected.filter(function (item) { return item != name }) }, () => {
           //   this.props.getSelected(this.state.selected);
           //   // console.log(this.state.selected)
           // });
           console.log("Too much")
-          //Reset Budget
-          this.setState({ budget: '' }, () => {
-            console.log("Reset budget", this.state.budget)
-          });
         }
+        else {
+          console.log("Within Budget")
+        }
+        //Reset Budget
+        this.setState({ budget: '' }, () => {
+          console.log("Reset budget", this.state.budget)
+        });
       })
       .catch(err => { throw (err) })
     // //No budget
