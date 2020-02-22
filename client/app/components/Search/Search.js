@@ -15,6 +15,7 @@ class Search extends React.Component {
       ingredients: [],
       selected: [],
       budget: '',
+      recipes: [],
     }
     this.logout = this.logout.bind(this);
     this.getSelected = this.getSelected.bind(this);
@@ -52,8 +53,8 @@ class Search extends React.Component {
       fetch('/api/account/logout?token=' + token)
         .then(res => res.json())
         .then(json => {
-          console.log("Logging out", json.success, { token });
-          console.log('Message from logout request', json.message)
+          // console.log("Logging out", json.success, { token });
+          // console.log('Message from logout request', json.message)
           if (json.success) {
             this.setState({
               token: '',
@@ -105,7 +106,7 @@ class Search extends React.Component {
         this.setState({
           userId: res.userId
         })
-        console.log("UserID" + this.state.userId)
+        // console.log("UserID" + this.state.userId)
         this.getIngredients()
       })
       .catch(err => { throw (err) })
@@ -134,7 +135,7 @@ class Search extends React.Component {
     });
   }
   getSelected(ingredients) {
-    console.log('Selected ingredients in Search Component: ', ingredients[0]);
+    // console.log('Selected ingredients in Search Component: ', ingredients[0]);
     this.setState({
       selected: ingredients
     });
@@ -144,24 +145,53 @@ class Search extends React.Component {
   //     selected: this.state.ingredients,
   //   });
   // }
+  sortByPrice() {
+    console.log("going to sort by price")
+    console.log(this.state.recipes[0].id)
+    //Budget
+    //COME BACK LATER
+    // this.state.recipes.foreach(recipe =>
+    fetch('/api/spoonacular/getPrice?id=' + this.state.recipes[0].id)
+      .then(res => res.text())
+      .then(res => {
+        //if too expensive
+        console.log(res)
+        console.log(this.state.budget)
+        if (res > this.state.budget) {
+          // this.setState({ selected: this.state.selected.filter(function (item) { return item != name }) }, () => {
+          //   this.props.getSelected(this.state.selected);
+          //   // console.log(this.state.selected)
+          // });
+          console.log("Too much")
+          //Reset Budget
+          this.setState({ budget: '' }, () => {
+            console.log("Reset budget", this.state.budget)
+          });
+        }
+      })
+      .catch(err => { throw (err) })
+    // //No budget
+    // else {
+
+    // }
+  }
 
   getRecipe() {
-    console.log(this.state.selected)
+    // console.log(this.state.selected)
     if (this.state.selected.length != 0) {
-      //withoutbudget
-      if (this.state.budget == '') {
-        console.log("No budget inputted")
-        fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
-          .then(res => res.json())
-          .then(res => {
-            console.log(res)
-          })
-          .catch(err => { throw (err) })
-      }
-      //Reset Budget
-      this.setState({ budget: '' }, () => {
-        console.log("Reset budget", this.state.budget)
-      });
+      fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
+        .then(res => res.json())
+        .then(res => {
+          // console.log("hi")
+          // // console.log(res)
+          console.log(res[0].title) //if res.json, returns properly
+          this.setState({ recipes: res }, () => {
+            console.log("Got recipes")
+            //CHANGE LATER
+            if (this.state.budget != '') this.sortByPrice()
+          });
+        })
+        .catch(err => { throw (err) })
     }
     else {
       alert("You did not select any ingredients")
@@ -170,12 +200,12 @@ class Search extends React.Component {
   }
 
   render() {
-    console.log("from search page " + this.state.token)
+    // console.log("from search page " + this.state.token)
     if (this.state.token != '') {
       //Calling this function continuously so inventory list can update if needed.
       this.getIngredients();
 
-      //display selected cards 
+      //display selected cards (ingredients)
       const cardDisplay = this.state.selected.map((ingredient, index) => {
         return (
           <div class="wrapper" >
@@ -198,6 +228,8 @@ class Search extends React.Component {
             </div>
 
           </div>
+
+          {/* User Input  */}
           <h2>You have chosen the following ingredients:</h2>
           <div>{cardDisplay}</div>
           <h4>Specify a budget</h4>
@@ -211,6 +243,9 @@ class Search extends React.Component {
           <button onClick={(e) => this.getRecipe()}
             type="button"
             class="btn btn-secondary right">Search for Recipe</button>
+
+          {/* Response from API */}
+          {/* <h2>{this.state.recipes}</h2> */}
         </div>
       );
     }

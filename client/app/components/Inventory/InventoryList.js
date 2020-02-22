@@ -71,24 +71,24 @@ class InventoryList extends React.Component {
   selectIngredient(ingredient) {
     var name = ingredient.name;
     //Only for search page
-    console.log("State of selected in inv list before selecting " + this.state.selected);
+    // console.log("State of selected in inv list before selecting " + this.state.selected);
     if (this.state.selected.includes(name)) {
       //Remove name from selected
-      console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
+      // console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
       // this.setState({ selected: this.state.selected.splice(this.state.selected.indexOf(name), 1) }, () => {
       this.setState({ selected: this.state.selected.filter(function(item){ return item!=name })}, () => {
         this.props.getSelected(this.state.selected);
-        console.log(this.state.selected)
+        // console.log(this.state.selected)
       });
     }
     else {
       this.setState({ selected: this.state.selected.concat(name) }, () => {
         this.props.getSelected(this.state.selected);
-        console.log(this.state.selected)
+        // console.log(this.state.selected)
       });
 
     }
-    console.log("State of selected in inventory list after select" + this.state.selected)
+    // console.log("State of selected in inventory list after select" + this.state.selected)
   }
 
   render() {
