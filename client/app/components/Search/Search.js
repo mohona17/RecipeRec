@@ -14,9 +14,11 @@ class Search extends React.Component {
       userId: '',
       ingredients: [],
       selected: [],
+      budget: '',
     }
     this.logout = this.logout.bind(this);
     this.getSelected = this.getSelected.bind(this);
+    this.onTextboxChangeBudget = this.onTextboxChangeBudget.bind(this);
   };
 
   componentDidMount() {
@@ -126,6 +128,11 @@ class Search extends React.Component {
         });
     }
   }
+  onTextboxChangeBudget(event) {
+    this.setState({
+      budget: event.target.value,
+    });
+  }
   getSelected(ingredients) {
     console.log('Selected ingredients in Search Component: ', ingredients[0]);
     this.setState({
@@ -139,13 +146,21 @@ class Search extends React.Component {
   // }
 
   getRecipe() {
-    console.log("Selected in Get Recipe Call " + this.state.selected)
-    fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
-      .then(res => res.json())
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => { throw (err) })
+    //withoutbudget
+    if (this.state.budget == '') {
+      console.log("No budget inputted")
+      fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
+        .then(res => res.json())
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => { throw (err) })
+    }
+    //Reset Budget
+    this.setState({ budget: '' }, () => {
+      console.log("Reset budget", this.state.budget)
+    });
+
   }
 
   render() {
@@ -157,9 +172,9 @@ class Search extends React.Component {
       //display selected cards 
       const cardDisplay = this.state.selected.map((ingredient, index) => {
         return (
-            <div class="wrapper" >
-              <h5>{ingredient}</h5>
-            </div>
+          <div class="wrapper" >
+            <h5>{ingredient}</h5>
+          </div>
         );
       });
 
@@ -175,13 +190,21 @@ class Search extends React.Component {
                 editable={false}
                 getSelected={this.getSelected}></InventoryList>
             </div>
-            
-            </div>
+
+          </div>
           <h2>You have chosen the following ingredients:</h2>
           <div>{cardDisplay}</div>
+          <h4>Specify a budget</h4>
+          <input
+            type="number"
+            min="0.01" step="0.01" max="2500"
+            placeholder="$0.00"
+            value={this.state.budget}
+            onChange={this.onTextboxChangeBudget}
+          ></input><br />
           <button onClick={(e) => this.getRecipe()}
-                type="button"
-                class="btn btn-secondary right">Search for Recipe</button>
+            type="button"
+            class="btn btn-secondary right">Search for Recipe</button>
         </div>
       );
     }
