@@ -175,13 +175,13 @@ class Search extends React.Component {
                 editable={false}
                 getSelected={this.getSelected}></InventoryList>
             </div>
-              <button onClick={(e) => this.getRecipe()}
-                type="button"
-                class="btn btn-secondary right">SearchTest</button>
+            
             </div>
           <h2>You have chosen the following ingredients:</h2>
           <div>{cardDisplay}</div>
-          {/* {/* </div> */}
+          <button onClick={(e) => this.getRecipe()}
+                type="button"
+                class="btn btn-secondary right">Search for Recipe</button>
         </div>
       );
     }
