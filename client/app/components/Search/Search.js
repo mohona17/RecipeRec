@@ -5,6 +5,17 @@ import {
 import Header from '../Header/Header';
 import InventoryList from '../Inventory/InventoryList';
 
+function getPrice(id) {
+  console.log("Getting price")
+  fetch('/api/spoonacular/getPrice?id=' + id)
+    .then(res => res.text())
+    .then(res => {
+      //if too expensive
+      console.log("Price of recipe", res)
+      var price = parseFloat(res);
+      return price;
+    })
+}
 
 class Search extends React.Component {
   constructor(props) {
@@ -16,6 +27,7 @@ class Search extends React.Component {
       selected: [],
       budget: '',
       recipes: [],
+      price: '',
     }
     this.logout = this.logout.bind(this);
     this.getSelected = this.getSelected.bind(this);
@@ -67,11 +79,6 @@ class Search extends React.Component {
           }
         });
     }
-    // else {
-    //   this.setState({
-    //     isLoading: false,
-    //   });
-    // }
   }
 
   getIngredients() {
@@ -140,46 +147,55 @@ class Search extends React.Component {
       selected: ingredients
     });
   }
-  // getSelected() {
-  //   this.setState({
-  //     selected: this.state.ingredients,
-  //   });
-  // }
+
   sortByPrice() {
     console.log("going to sort by price")
-    console.log(this.state.recipes[0].id)
-    //Budget
-    //COME BACK LATER
-    // this.state.recipes.foreach(recipe =>
-    fetch('/api/spoonacular/getPrice?id=' + this.state.recipes[0].id)
-      .then(res => res.text())
-      .then(res => {
-        //if too expensive
-        console.log(res)
-        console.log(this.state.budget)
-        var price = parseFloat(res);
-        var budg = parseFloat(this.state.budget)
-        if (price > budg) {
-          // this.setState({ selected: this.state.selected.filter(function (item) { return item != name }) }, () => {
-          //   this.props.getSelected(this.state.selected);
-          //   // console.log(this.state.selected)
-          // });
-          console.log("Too much")
-        }
-        else {
-          console.log("Within Budget")
-        }
-        //Reset Budget
-        this.setState({ budget: '' }, () => {
-          console.log("Reset budget", this.state.budget)
+    console.log(this.state.recipes)
+    var budg = parseFloat(this.state.budget);
+    var filtered = []
+    this.state.recipes.forEach(recipe => {
+      // const price = getPrice(recipe.id);
+      var price = 0;
+      fetch('/api/spoonacular/getPrice?id=' + recipe.id)
+        .then(res => res.text())
+        .then(res => {
+          //if too expensive
+          console.log("Price of recipe", res)
+          price = parseFloat(res);
+          return price;
+        })
+        .then(res => {
+          console.log("Price of item", price, "budget", budg)
+          if (price <= budg) {
+            console.log("Good price")
+            filtered.push(recipe)
+          }
+          this.setState({ recipes: filtered })
+          console.log("Filtered", this.state.recipes)
         });
-      })
-      .catch(err => { throw (err) })
-    // //No budget
-    // else {
-
-    // }
+      // this.setState({
+      //   recipes: this.state.recipes.filter(function (item) {
+      //     // console.log(item.id);
+      //     const price = getPrice(item.id)
+      //     console.log("Price of item", price, "budget", budg)
+      //     if (price <= budg) {
+      //       console.log("Good price")
+      //       return item;
+      //     }
+      //     // console.log("Filtered ", this.state.recipes)
+      //     // //Reset Budget
+      //     // this.setState({ budget: '' }, () => {
+      //     //   console.log("Reset budget", this.state.budget)
+      //     // });
+      //     // return price <= budg;
+      //   })
+      // },() =>{
+      //   console.log("Filtered recipes",this.state.recipes)
+      // }
+      // );
+    });
   }
+
 
   getRecipe() {
     // console.log(this.state.selected)
@@ -187,13 +203,12 @@ class Search extends React.Component {
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
         .then(res => res.json())
         .then(res => {
-          // console.log("hi")
-          // // console.log(res)
-          console.log(res[0].title) //if res.json, returns properly
           this.setState({ recipes: res }, () => {
             console.log("Got recipes")
-            //CHANGE LATER
+            console.log(this.state.recipes)
+            console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
+            console.log(this.state.recipes)
           });
         })
         .catch(err => { throw (err) })
