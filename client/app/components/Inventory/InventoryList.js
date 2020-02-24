@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  getFromStorage,
-} from '../../utils/storage.js';
 
 class InventoryList extends React.Component {
   constructor(props) {

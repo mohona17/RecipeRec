@@ -4,6 +4,7 @@ import {
 } from '../../utils/storage.js';
 import Header from '../Header/Header';
 import InventoryList from '../Inventory/InventoryList';
+import RecipeList from './RecipeList'
 
 function getPrice(id) {
   console.log("Getting price")
@@ -167,7 +168,7 @@ class Search extends React.Component {
         .then(res => {
           console.log("Price of item", price, "budget", budg)
           if (price <= budg) {
-            console.log("Good price",price, recipe.title)
+            console.log("Good price", price, recipe.title)
             filteredRecipes.push(recipe)
           }
           else console.log("Bad price", price, recipe.title)
@@ -186,10 +187,10 @@ class Search extends React.Component {
         .then(res => {
           this.setState({ recipes: res }, () => {
             console.log("Got recipes")
-            console.log(this.state.recipes)
+            // console.log(this.state.recipes)
             console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
-            console.log(this.state.recipes)
+            // console.log(this.state.recipes)
           });
         })
         .catch(err => { throw (err) })
@@ -216,11 +217,13 @@ class Search extends React.Component {
       });
 
       // if (this.state.recipes != 0) {
-        const recipeDisplay = this.state.recipes.map((recipe, index) => {
-          return (
-            <h6>{recipe.title}</h6>
-          )
-        });
+      const recipeDisplay = this.state.recipes.map((recipe, index) => {
+        return (
+          <div><h6>{recipe.title}</h6>
+            <img src={recipe.image}></img>
+          </div>
+        )
+      });
       // }
 
       return (
@@ -254,7 +257,9 @@ class Search extends React.Component {
             class="btn btn-secondary right">Search for Recipe</button>
 
           {/* Response from API */}
-          {recipeDisplay}
+          {/* {recipeDisplay} */}
+          <RecipeList recipes={this.state.recipes} ></RecipeList>
+
         </div>
       );
     }
