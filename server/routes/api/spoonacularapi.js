@@ -38,7 +38,7 @@ module.exports = (spoonacular) => {
       method: 'GET',
       url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients',
       qs: {
-        number: '5',
+        number: '50',
         ranking: '1',
         ignorePantry: 'false',
         ingredients: ingredients,

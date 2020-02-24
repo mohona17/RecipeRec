@@ -150,9 +150,9 @@ class Search extends React.Component {
 
   sortByPrice() {
     console.log("going to sort by price")
-    console.log(this.state.recipes)
+    // console.log(this.state.recipes)
     var budg = parseFloat(this.state.budget);
-    var filtered = []
+    var filteredRecipes = []
     this.state.recipes.forEach(recipe => {
       // const price = getPrice(recipe.id);
       var price = 0;
@@ -161,38 +161,19 @@ class Search extends React.Component {
         .then(res => {
           //if too expensive
           console.log("Price of recipe", res)
-          price = parseFloat(res);
+          price = parseFloat(res) / 10.0;
           return price;
         })
         .then(res => {
           console.log("Price of item", price, "budget", budg)
           if (price <= budg) {
-            console.log("Good price")
-            filtered.push(recipe)
+            console.log("Good price",price, recipe.title)
+            filteredRecipes.push(recipe)
           }
-          this.setState({ recipes: filtered })
-          console.log("Filtered", this.state.recipes)
+          else console.log("Bad price", price, recipe.title)
+          this.setState({ recipes: filteredRecipes })
+          console.log("filteredRecipes", this.state.recipes)
         });
-      // this.setState({
-      //   recipes: this.state.recipes.filter(function (item) {
-      //     // console.log(item.id);
-      //     const price = getPrice(item.id)
-      //     console.log("Price of item", price, "budget", budg)
-      //     if (price <= budg) {
-      //       console.log("Good price")
-      //       return item;
-      //     }
-      //     // console.log("Filtered ", this.state.recipes)
-      //     // //Reset Budget
-      //     // this.setState({ budget: '' }, () => {
-      //     //   console.log("Reset budget", this.state.budget)
-      //     // });
-      //     // return price <= budg;
-      //   })
-      // },() =>{
-      //   console.log("Filtered recipes",this.state.recipes)
-      // }
-      // );
     });
   }
 
@@ -234,6 +215,14 @@ class Search extends React.Component {
         );
       });
 
+      // if (this.state.recipes != 0) {
+        const recipeDisplay = this.state.recipes.map((recipe, index) => {
+          return (
+            <h6>{recipe.title}</h6>
+          )
+        });
+      // }
+
       return (
         <div>
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
@@ -265,7 +254,7 @@ class Search extends React.Component {
             class="btn btn-secondary right">Search for Recipe</button>
 
           {/* Response from API */}
-          {/* <h2>{this.state.recipes}</h2> */}
+          {recipeDisplay}
         </div>
       );
     }
