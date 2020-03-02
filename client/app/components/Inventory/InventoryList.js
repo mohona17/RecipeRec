@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  getFromStorage,
-} from '../../utils/storage.js';
 
 class InventoryList extends React.Component {
   constructor(props) {
@@ -14,6 +11,7 @@ class InventoryList extends React.Component {
       selected: [],
     }
     // this.getIngredients = this.getIngredients.bind(this);
+    this.selectIngredient = this.selectIngredient.bind(this);
   };
 
   componentDidMount() {
@@ -66,22 +64,28 @@ class InventoryList extends React.Component {
   //     .catch(err => { throw (err) })
   // }
 
-  selectIngredient(name) {
-    // console.log("Ingredients selected before" , this.state.selected)
+
+  selectIngredient(ingredient) {
+    var name = ingredient.name;
+    //Only for search page
+    // console.log("State of selected in inv list before selecting " + this.state.selected);
     if (this.state.selected.includes(name)) {
-      console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
-      this.setState({
-        selected: this.state.selected.splice(this.state.selected.indexOf(name),1)
+      //Remove name from selected
+      // console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
+      // this.setState({ selected: this.state.selected.splice(this.state.selected.indexOf(name), 1) }, () => {
+      this.setState({ selected: this.state.selected.filter(function(item){ return item!=name })}, () => {
+        this.props.getSelected(this.state.selected);
+        // console.log(this.state.selected)
       });
     }
     else {
-      this.setState({
-        selected: this.state.selected.concat(name),
+      this.setState({ selected: this.state.selected.concat(name) }, () => {
+        this.props.getSelected(this.state.selected);
+        // console.log(this.state.selected)
       });
+
     }
-    // console.log("I have selected", this.state.selected)
-    this.props.getSelected(this.state.selected);
-    console.log(this.props.getSelected)
+    // console.log("State of selected in inventory list after select" + this.state.selected)
   }
 
   render() {
@@ -93,12 +97,13 @@ class InventoryList extends React.Component {
         //Search Page
         return (
           <div key={index} class="card">
-            <div class="wrapper" onClick={(e) => this.selectIngredient(ingredient.name)} >
+            <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
               <h4><b>{ingredient.name}</b></h4>
             </div>
           </div>
         );
       }
+      //editable, on inventory page 
       else {
         return (
           <div key={index} class="card">
@@ -122,7 +127,9 @@ class InventoryList extends React.Component {
 
       return (
         <div>
-          {cards}</div>
+          {cards}
+          {/* <p>{this.state.selected}</p> */}
+        </div>
       )
     }
   }
