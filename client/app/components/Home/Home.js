@@ -251,14 +251,18 @@ class Home extends Component {
           <div class="jumbotron" style={{ backgroundColor: '#BC6E60', marginTop: '2rem' }}>
             <h1 style={{ color: '#3A1313' }}>Recipe Recommender</h1>
           </div>
-          <h3 content-align="center">Welcome to Recipe Recommender!</h3>
-          <h4>This tool can help you save money and give you inspiration
-                for your next at-home meal.
+          <div style={{textAlign:'center'}}>
+            <h2>Welcome to Recipe Recommender!</h2>
+            <h4>This tool can help you save money and give you inspiration
+                  for your next at-home meal.
               </h4>
+              <hr></hr>
+          </div>
+          <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
+            <div class="col col-sm-8 text-center">
 
-          <div class="row justify-content-md-center" >
-            <div class="col col-sm-2 text-center"></div>
-            <div class="col col-sm-3 text-center">
+            </div>
+            <div class="col col-sm-3 text-center" style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
               {
                 (signInError) ? (<p>{signInError}</p>) : (null)
               }
@@ -278,13 +282,11 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignInPassword}
               ></input><br />
               <button
-                class="btn btn-primary"
+                style={{ backgroundColor: '#BC6E60' }}
+                class="btn btn-light"
                 onClick={this.onSignIn}
               >Sign In</button>
-            </div>
-            <div class="col col-sm-2 text-center"></div>
-
-            <div class="col col-sm-3 text-center">
+              <hr></hr>
               {
                 (signUpError) ? (<p>{signUpError}</p>) : (null)
               }
@@ -318,7 +320,8 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignUpPassword}
               ></input><br />
               <button
-                class="btn btn-primary"
+                style={{ backgroundColor: '#BC6E60' }}
+                class="btn btn-light"
                 onClick={this.onSignUp}
               >Sign Up</button>
             </div>
