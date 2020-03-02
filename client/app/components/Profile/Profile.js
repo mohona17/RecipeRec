@@ -83,10 +83,24 @@ class Profile extends React.Component {
 
     if (this.state.token != '') {
       return (
-        <div>
-          <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout}>Logout</button>
+        <div class = "container">
+          <button class="btn btn-secondary ml-auto pull-right" style={{color:'#4F1A1A'}} onClick={this.logout}>Logout</button>
           <Header />
-          <h2>Welcome!</h2>
+          <div>
+          <h2>Congratulations, you have successfully logged in!</h2>
+          <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.
+          </h3>
+          <br></br>
+          <h3>"Home" Tab</h3>
+          <h4>This tab leads to the page that you are currently on.</h4>
+          <h3>"My Ingredients" Tab</h3>
+          <h4>This tab opens up an inventory page where you can view your ingredients and edit this list.</h4>
+          <h3>"Search for Recipe" Tab</h3>
+          <h4>This tab allows you to chose ingredients from your inventory, set a budget, and search for recipes.
+            Your matching recipes will show up once you click search, and you will be able to retrieve the instructions
+            for each recipe.
+          </h4>
+          </div>
         </div>
       );
     }

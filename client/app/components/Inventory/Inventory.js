@@ -176,7 +176,7 @@ class Inventory extends React.Component {
       //Calling this function continuously so inventory list can update if needed.
       this.getIngredients();
       return (
-        <div>
+        <div class="container">
           <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
           <Header />
           <h2>The ingredients you currently have:</h2>
@@ -189,7 +189,7 @@ class Inventory extends React.Component {
     }
 
     return (
-      <div>
+      <div class="container">
         <h2>Error you are not logged in to Inventory page!</h2>
       </div>
 

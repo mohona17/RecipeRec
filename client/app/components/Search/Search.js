@@ -231,8 +231,8 @@ class Search extends React.Component {
       });
 
       return (
-        <div>
-          <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
+        <div class="container">
+          <button class="btn btn-secondary ml-auto pull-right" style={{color:'#4F1A1A'}} onClick={this.logout} >Logout</button>
           <Header />
           <div>
             <h2>The ingredients you currently have:</h2>
