@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => (
-  <div class="container">
+  <div>
     <header>
       <div class="jumbotron" style={{backgroundColor:'#BC6E60'}}>
         <h1 style={{color: '#3A1313'}}>Recipe Recommender</h1>

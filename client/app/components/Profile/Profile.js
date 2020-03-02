@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Header/Header';
 //https://stackoverflow.com/questions/43262599/call-js-function-from-another-file-in-react
-import {logout} from '../Home/Home'
+import { logout } from '../Home/Home'
 import {
   getFromStorage,
 } from '../../utils/storage.js';
@@ -61,7 +61,7 @@ class Profile extends React.Component {
     //   });
     // }
   }
-  
+
   // pull from storage to verify that a user is logged in. 
   verifyLogin() {
     const obj = getFromStorage('the_main_app');
@@ -83,23 +83,24 @@ class Profile extends React.Component {
 
     if (this.state.token != '') {
       return (
-        <div class = "container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{color:'#4F1A1A'}} onClick={this.logout}>Logout</button>
+        <div class="container">
+          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'1rem'}} onClick={this.logout}>Logout</button>
           <Header />
-          <div>
-          <h2>Congratulations, you have successfully logged in!</h2>
-          <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.
-          </h3>
-          <br></br>
-          <h3>"Home" Tab</h3>
-          <h4>This tab leads to the page that you are currently on.</h4>
-          <h3>"My Ingredients" Tab</h3>
-          <h4>This tab opens up an inventory page where you can view your ingredients and edit this list.</h4>
-          <h3>"Search for Recipe" Tab</h3>
-          <h4>This tab allows you to chose ingredients from your inventory, set a budget, and search for recipes.
-            Your matching recipes will show up once you click search, and you will be able to retrieve the instructions
-            for each recipe.
+          <div style={{ backgroundColor: '#D5D6D4', padding:'1rem', borderRadius:'0.5rem'}}>
+            <div style={{ margin: '5rem' , alignContent:'center', alignSelf:'center'}}>
+              <h2>Congratulations, you have successfully logged in!</h2>
+              <hr></hr>
+              <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.</h3>
+              <h3>"Home" Tab</h3>
+              <h4>This tab leads to the page that you are currently on.</h4>
+              <h3>"My Ingredients" Tab</h3>
+              <h4>This tab opens up an inventory page where you can view your ingredients and edit this list.</h4>
+              <h3>"Search for Recipe" Tab</h3>
+              <h4>This tab allows you to chose ingredients from your inventory, set a budget, and search for recipes.
+                Your matching recipes will show up once you click search, and you will be able to retrieve the instructions
+                for each recipe.
           </h4>
+            </div>
           </div>
         </div>
       );

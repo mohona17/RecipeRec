@@ -232,7 +232,7 @@ class Search extends React.Component {
 
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{color:'#4F1A1A'}} onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'1rem'}}onClick={this.logout} >Logout</button>
           <Header />
           <div>
             <h2>The ingredients you currently have:</h2>

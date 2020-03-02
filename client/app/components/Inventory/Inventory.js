@@ -177,7 +177,7 @@ class Inventory extends React.Component {
       this.getIngredients();
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'1rem'}} onClick={this.logout} >Logout</button>
           <Header />
           <h2>The ingredients you currently have:</h2>
           <div className="wrapper">
