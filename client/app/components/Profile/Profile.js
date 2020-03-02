@@ -84,7 +84,7 @@ class Profile extends React.Component {
     if (this.state.token != '') {
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'1rem'}} onClick={this.logout}>Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'3rem'}} onClick={this.logout}>Logout</button>
           <Header />
           <div style={{ backgroundColor: '#D5D6D4', padding:'1rem', borderRadius:'0.5rem'}}>
             <div style={{ margin: '5rem' , alignContent:'center', alignSelf:'center'}}>

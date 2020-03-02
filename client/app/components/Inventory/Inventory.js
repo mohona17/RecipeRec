@@ -177,7 +177,7 @@ class Inventory extends React.Component {
       this.getIngredients();
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'1rem'}} onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'3rem'}} onClick={this.logout} >Logout</button>
           <Header />
           <h2>The ingredients you currently have:</h2>
           <div className="wrapper">
@@ -192,7 +192,6 @@ class Inventory extends React.Component {
       <div class="container">
         <h2>Error you are not logged in to Inventory page!</h2>
       </div>
-
     );
 
   }

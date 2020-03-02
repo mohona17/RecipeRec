@@ -248,8 +248,8 @@ class Home extends Component {
     if (!token) {
       return (
         <div class="container">
-          <div class="jumbotron">
-            <h1>Recipe Recommender</h1>
+          <div class="jumbotron" style={{ backgroundColor: '#BC6E60', marginTop: '2rem' }}>
+            <h1 style={{ color: '#3A1313' }}>Recipe Recommender</h1>
           </div>
           <h3 content-align="center">Welcome to Recipe Recommender!</h3>
           <h4>This tool can help you save money and give you inspiration
