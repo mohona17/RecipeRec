@@ -149,9 +149,22 @@ class Search extends React.Component {
     });
   }
 
+  getRecipeSummaries(){
+    let recipesWithSummaries = this.state.recipes;
+    recipesWithSummaries.forEach(recipe => {
+      fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
+            .then(res => res.json())
+            .then(res => {
+              recipe["summary"] = res[0].summary;
+                // return(res[0].summary);
+            })
+            .catch(err => { throw (err) })
+    });
+    // console.log(recipesWithSummaries)
+    this.setState({recipes: recipesWithSummaries})
+  }
   sortByPrice() {
     console.log("going to sort by price")
-    // console.log(this.state.recipes)
     var budg = parseFloat(this.state.budget);
     var filteredRecipes = []
     this.state.recipes.forEach(recipe => {
@@ -190,7 +203,7 @@ class Search extends React.Component {
             // console.log(this.state.recipes)
             console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
-            // console.log(this.state.recipes)
+            this.getRecipeSummaries();
           });
         })
         .catch(err => { throw (err) })
@@ -215,16 +228,6 @@ class Search extends React.Component {
           </div>
         );
       });
-
-      // if (this.state.recipes != 0) {
-      const recipeDisplay = this.state.recipes.map((recipe, index) => {
-        return (
-          <div><h6>{recipe.title}</h6>
-            <img src={recipe.image}></img>
-          </div>
-        )
-      });
-      // }
 
       return (
         <div>
@@ -257,7 +260,6 @@ class Search extends React.Component {
             class="btn btn-secondary right">Search for Recipe</button>
 
           {/* Response from API */}
-          {/* {recipeDisplay} */}
           <RecipeList recipes={this.state.recipes} ></RecipeList>
 
         </div>

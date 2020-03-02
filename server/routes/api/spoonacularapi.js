@@ -57,5 +57,25 @@ module.exports = (spoonacular) => {
     });
 
   });
+  spoonacular.get('/api/spoonacular/getRecipeInfo', (req, res, next) => {
+    const { query } = req;
+    const { id } = query;
+    var options = {
+      method: 'GET',
+      url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk',
+      qs: {ids: id},
+      headers: {
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': API_KEY
+      }
+    };
+    
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+    
+      res.send(body)
+    });
+  });
+
 
 };
