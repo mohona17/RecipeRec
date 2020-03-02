@@ -32,10 +32,10 @@ class RecipeList extends React.Component {
     render() {
         const recipeDisplay = this.props.recipes.map((recipe, index) => {
             // console.log(recipe)
+            // console.log(recipe.summary);
             return (
                 <div><h6>{recipe.title}</h6>
                     <img src={recipe.image}></img>
-                    <p>{recipe.id}</p>
                     <p>{recipe.summary}</p>
                 </div>
             )

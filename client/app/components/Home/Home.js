@@ -247,7 +247,7 @@ class Home extends Component {
     }
     if (!token) {
       return (
-        <div>
+        <div class>
           <h1>Recipe Recommender</h1>
           <h3>Login to your existing account or sign up to make one!</h3>
 

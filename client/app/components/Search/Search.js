@@ -163,6 +163,7 @@ class Search extends React.Component {
     // console.log(recipesWithSummaries)
     this.setState({recipes: recipesWithSummaries})
   }
+
   sortByPrice() {
     console.log("going to sort by price")
     var budg = parseFloat(this.state.budget);
