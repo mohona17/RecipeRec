@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';  
+import { Route, Redirect } from 'react-router-dom';
 import 'whatwg-fetch';
 import {
   getFromStorage,
@@ -224,7 +224,7 @@ class Home extends Component {
   //     });
   //   }
   // }
-  
+
   render() {
     const {
       isLoading,
@@ -247,60 +247,83 @@ class Home extends Component {
     }
     if (!token) {
       return (
-        <div class>
-          <h1>Recipe Recommender</h1>
-          <h3>Login to your existing account or sign up to make one!</h3>
+        <div class="container">
+          <div class="jumbotron">
+            <h1>Recipe Recommender</h1>
+          </div>
+          <h3 content-align="center">Welcome to Recipe Recommender!</h3>
+          <h4>This tool can help you save money and give you inspiration
+                for your next at-home meal.
+              </h4>
 
-          <div>
-            {
-              (signInError) ? (<p>{signInError}</p>) : (null)
-            }
-            <p>Sign In</p>
-            <input
-              type="email"
-              placeholder="Email"
-              value={signInEmail}
-              onChange={this.onTextboxChangeSignInEmail}
-            ></input><br />
-            <input
-              type="password"
-              placeholder="Password"
-              value={signInPassword}
-              onChange={this.onTextboxChangeSignInPassword}
-            ></input><br />
-            <button onClick={this.onSignIn}>Sign In</button>
+          <div class="row justify-content-md-center" >
+            <div class="col col-sm-2 text-center"></div>
+            <div class="col col-sm-3 text-center">
+              {
+                (signInError) ? (<p>{signInError}</p>) : (null)
+              }
+              <h3>Sign In</h3>
+              <input
+                class="form-control"
+                type="email"
+                placeholder="Email"
+                value={signInEmail}
+                onChange={this.onTextboxChangeSignInEmail}
+              ></input><br />
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Password"
+                value={signInPassword}
+                onChange={this.onTextboxChangeSignInPassword}
+              ></input><br />
+              <button
+                class="btn btn-primary"
+                onClick={this.onSignIn}
+              >Sign In</button>
+            </div>
+            <div class="col col-sm-2 text-center"></div>
+
+            <div class="col col-sm-3 text-center">
+              {
+                (signUpError) ? (<p>{signUpError}</p>) : (null)
+              }
+              <h3>Sign Up</h3>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="First Name"
+                value={signUpFirstName}
+                onChange={this.onTextboxChangeSignUpFirstName}
+              ></input><br />
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Last Name"
+                value={signUpLastName}
+                onChange={this.onTextboxChangeSignUpLastName}
+              ></input><br />
+              <input
+                class="form-control"
+                type="email"
+                placeholder="Email"
+                value={signUpEmail}
+                onChange={this.onTextboxChangeSignUpEmail}
+              ></input><br />
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Password"
+                value={signUpPassword}
+                onChange={this.onTextboxChangeSignUpPassword}
+              ></input><br />
+              <button
+                class="btn btn-primary"
+                onClick={this.onSignUp}
+              >Sign Up</button>
+            </div>
           </div>
-          <div>
-            {
-              (signUpError) ? (<p>{signUpError}</p>) : (null)
-            }
-            <p>Sign Up</p>
-            <input
-              type="text"
-              placeholder="First Name"
-              value={signUpFirstName}
-              onChange={this.onTextboxChangeSignUpFirstName}
-            ></input><br />
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={signUpLastName}
-              onChange={this.onTextboxChangeSignUpLastName}
-            ></input><br />
-            <input
-              type="email"
-              placeholder="Email"
-              value={signUpEmail}
-              onChange={this.onTextboxChangeSignUpEmail}
-            ></input><br />
-            <input
-              type="password"
-              placeholder="Password"
-              value={signUpPassword}
-              onChange={this.onTextboxChangeSignUpPassword}
-            ></input><br />
-            <button onClick={this.onSignUp}>Sign Up</button>
-          </div>
+
         </div>
 
       )
@@ -314,8 +337,8 @@ class Home extends Component {
     return (
       <div>
         {/* Could change below code */}
-        <Redirect to= {{
-          pathname:"/profile",
+        <Redirect to={{
+          pathname: "/profile",
           //state: { token: this.state.token},
         }}
         //  <Redirect to="/profile" */
