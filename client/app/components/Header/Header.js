@@ -4,21 +4,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => (
-  <header>
-   {/* <Link to="/">Home</Link>
+  <div class="container">
+    <header>
+      <div class="jumbotron">
+        <h1>Recipe Recommender</h1>
+      </div>
 
-    <nav>
-      <Link to="/helloworld">Hello World</Link>
-    </nav> */}
+      <nav class="navbar navbar-light" style={{backgroundColor:'#B9BAA3'}}>
+      <a class="navbar-brand" href="/inventory"style={{color:'#902923'}}>My Ingredients</a>
+      <a class="navbar-brand" href="/search" style={{color:'#902923'}}>Search for a Recipe</a>
 
-    
-    
-    <h1>Recipe Recommender</h1>
-    <nav>
-      <Link to="/inventory">My ingredients </Link>
-      <Link to="/search">Search for a recipe</Link>
-    </nav>
-  </header>
+
+        {/* <Link to="/inventory">My ingredients </Link>
+        <Link to="/search">Search for a recipe</Link> */}
+      </nav> 
+    </header>
+  </div>
 );
 
 export default Header;
