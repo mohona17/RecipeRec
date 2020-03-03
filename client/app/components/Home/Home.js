@@ -246,6 +246,7 @@ class Home extends Component {
       </div>);
     }
     if (!token) {
+
       return (
         <div class="container">
           <div class="jumbotron" style={{ backgroundColor: '#BC6E60', marginTop: '2rem' }}>
