@@ -239,6 +239,9 @@ class Home extends Component {
       signUpLastName,
     } = this.state;
 
+    const RecipeCarousel = (
+      <img style={{flex:1, height: undefined, width: undefined, resizeMode:'cover',borderRadius:"0.5rem"}} src = "https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
+    )
     console.log('Loading?', isLoading)
     if (isLoading) {
       return (<div>
@@ -260,8 +263,9 @@ class Home extends Component {
               <hr></hr>
           </div>
           <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
-            <div class="col col-sm-8 text-center">
-
+          <div class="col col-sm-1 text-center"></div>
+            <div class="col col-sm-7 text-center" style={{overflow:"hidden", borderRadius:"0.5rem"}} >
+            {RecipeCarousel}
             </div>
             <div class="col col-sm-3 text-center" style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
               {
