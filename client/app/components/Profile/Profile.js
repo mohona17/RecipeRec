@@ -84,22 +84,33 @@ class Profile extends React.Component {
     if (this.state.token != '') {
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'3rem'}} onClick={this.logout}>Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin: '3rem' }} onClick={this.logout}>Logout</button>
           <Header />
-          <div style={{ backgroundColor: '#D5D6D4', padding:'1rem', borderRadius:'0.5rem'}}>
-            <div style={{ margin: '5rem' , alignContent:'center', alignSelf:'center'}}>
+          <div style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
+            <div style={{ margin: '5rem', alignContent: 'center', alignSelf: 'center' }}>
+              {/* <div style={{color:"#3A1313"}}> */}
               <h2>Congratulations, you have successfully logged in!</h2>
               <hr></hr>
               <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.</h3>
-              <h3>"Home" Tab</h3>
-              <h4>This tab leads to the page that you are currently on.</h4>
-              <h3>"My Ingredients" Tab</h3>
-              <h4>This tab opens up an inventory page where you can view your ingredients and edit this list.</h4>
-              <h3>"Search for Recipe" Tab</h3>
-              <h4>This tab allows you to chose ingredients from your inventory, set a budget, and search for recipes.
-                Your matching recipes will show up once you click search, and you will be able to retrieve the instructions
-                for each recipe.
-          </h4>
+              <br></br>
+              <div class="row justify-content-md-center" style={{ alignContent: 'center', color: "#3A1313", backgroundColor: "#B77266", padding: "2rem", borderRadius: "0.5rem" }}>
+                <div class="col col col-sm-4 text-center">
+                  <h3>"Home" Tab</h3>
+                  <hr></hr>
+                  <h4>This tab leads to the page that you are currently on.</h4></div>
+                <div class="col col col-sm-4 text-center">
+                  <h3>"My Ingredients" Tab</h3>
+                  <hr></hr>
+                  <h4>This tab opens up an inventory page where you can view your ingredients and edit this list.</h4></div>
+                <div class="col col col-sm-4 text-center">
+                  <h3>"Search for Recipe" Tab</h3>
+                  <hr></hr>
+                  <h4>This tab allows you to chose ingredients from your inventory, set a budget, and search for recipes.
+                    Your matching recipes will show up once you click search, and you will be able to retrieve the instructions
+                for each recipe. </h4>
+                </div>
+              </div>
+              {/* </div> */}
             </div>
           </div>
         </div>
