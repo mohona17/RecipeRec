@@ -5,6 +5,8 @@ import {
   getFromStorage,
   setInStorage
 } from '../../utils/storage.js';
+import Carousel from '@brainhubeu/react-carousel';
+
 
 class Home extends Component {
   constructor(props) {
@@ -239,9 +241,6 @@ class Home extends Component {
       signUpLastName,
     } = this.state;
 
-    const RecipeCarousel = (
-      <img style={{flex:1, height: undefined, width: undefined, resizeMode:'cover',borderRadius:"0.5rem"}} src = "https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
-    )
     console.log('Loading?', isLoading)
     if (isLoading) {
       return (<div>
@@ -255,17 +254,17 @@ class Home extends Component {
           <div class="jumbotron" style={{ backgroundColor: '#BC6E60', marginTop: '2rem' }}>
             <h1 style={{ color: '#3A1313' }}>Recipe Recommender</h1>
           </div>
-          <div style={{textAlign:'center'}}>
+          <div style={{ textAlign: 'center' }}>
             <h2>Welcome to Recipe Recommender!</h2>
             <h4>This tool can help you save money and give you inspiration
                   for your next at-home meal.
               </h4>
-              <hr></hr>
+            <hr></hr>
           </div>
           <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
-          <div class="col col-sm-1 text-center"></div>
-            <div class="col col-sm-7 text-center" style={{overflow:"hidden", borderRadius:"0.5rem"}} >
-            {RecipeCarousel}
+            <div class="col col-sm-1 text-center"></div>
+            <div class="col col-sm-7 text-center" style={{ overflow: "hidden", borderRadius: "0.5rem" }} >
+              <img style={{ flex: 1, height: undefined, width: undefined, resizeMode: 'cover', borderRadius: "0.5rem" }} src="https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
             </div>
             <div class="col col-sm-3 text-center" style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
               {
