@@ -152,14 +152,14 @@ class Inventory extends React.Component {
         <h1><b>Just bought!</b></h1>
         <hr></hr>
         <h3>Adding an ingredient to my kitchen:</h3>
-        <div className="wrapper" style={{ backgroundColor: "#AAB5C4", padding: "1.5rem",margin:"2rem", borderRadius: "0.5rem" }}>
+        <div className="wrapper" style={{ backgroundColor: "#AAB5C4", padding: "1.5rem", margin: "2rem", borderRadius: "0.5rem" }}>
           <br></br>
           <form >
             <input class="form-control" type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
           </form>
           <br></br>
           <button
-            style={{ backgroundColor: '#7A6071',color:"#380024", }}
+            style={{ backgroundColor: '#7A6071', color: "#380024", }}
             type="button"
             class="btn btn-dark"
             onClick={() => {
@@ -189,7 +189,10 @@ class Inventory extends React.Component {
           <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
           <div style={{ backgroundColor: '#D5D6D4', padding: '3rem', borderRadius: '0.5rem' }}>
-            <div class="row justify-content-md-center" style={{ alignContent: 'center', padding: "1rem", backgroundColor: "#96A2B5", padding: "2rem", borderRadius: "0.5rem" }}>
+            <div style={{ backgroundColor: "#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem' }}>
+              <h2 style={{ textAlign: "center" }}>What's in your kitchen? Add or delete ingredients here.</h2>
+            </div>
+            <div class="row justify-content-md-center" style={{ alignContent: 'center', margin: "3rem", backgroundColor: "#96A2B5", padding: "2rem", borderRadius: "0.5rem" }}>
               <div class="col col-sm-6" style={{ textAlign: "center" }}>
                 <h1><b>My kitchen</b></h1>
                 <hr></hr>
