@@ -149,11 +149,17 @@ class Inventory extends React.Component {
 
     const addIngredientForm =
       (<div class="form">
-        <h3>Add an ingredient</h3>
-        <form>
-          <input type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
+        <h1><b>Just bought!</b></h1>
+        <hr></hr>
+        <h4>Adding an ingredient to my kitchen:</h4>
+        <form >
+          <input class="form-control" type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
         </form>
-        <button className="myButton"
+        <br></br>
+        <button
+          style={{ backgroundColor: '#BC6E60'}}
+          type="button"
+          class="btn btn-dark"
           onClick={() => {
             if (this.refs.ingredientname.value) {
               addIngredient(this.refs.ingredientname.value, this.state.userId)
@@ -167,7 +173,7 @@ class Inventory extends React.Component {
               alert("Make sure all entries are completed.");
             }
           }}
-        >add</button>
+        >Add</button>
       </div>
       );
 
@@ -181,8 +187,10 @@ class Inventory extends React.Component {
           <Header />
           <div style={{ backgroundColor: '#D5D6D4', padding: '3rem', borderRadius: '0.5rem' }}>
             <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
-              <div class="col col-sm-6">
-                <h1>The ingredients you currently have:</h1><hr></hr>
+              <div class="col col-sm-6" style={{textAlign:"center"}}>
+                <h1><b>My kitchen</b></h1>
+                <hr></hr>
+                <h4>The ingredients I currently have:</h4>
                 <div className="wrapper">
                   <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
                 </div>
