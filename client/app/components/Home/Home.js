@@ -251,8 +251,8 @@ class Home extends Component {
 
       return (
         <div class="container">
-          <div class="jumbotron" style={{ backgroundColor: '#BC6E60', marginTop: '2rem' }}>
-            <h1 style={{ color: '#3A1313' }}>Recipe Recommender</h1>
+          <div class="jumbotron" style={{ backgroundColor: '#7A6071',color:"#380024",marginTop: '2rem' }}>
+            <h1>Recipe Recommender</h1>
           </div>
           <div style={{ textAlign: 'center' }}>
             <h2>Welcome to Recipe Recommender!</h2>
@@ -286,7 +286,7 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignInPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: '#BC6E60' }}
+                style={{ backgroundColor: '#7A6071',color:"#380024",}}
                 class="btn btn-light"
                 onClick={this.onSignIn}
               >Sign In</button>
@@ -324,7 +324,7 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignUpPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: '#BC6E60' }}
+                style={{ backgroundColor: '#7A6071',color:"#380024", }}
                 class="btn btn-light"
                 onClick={this.onSignUp}
               >Sign Up</button>

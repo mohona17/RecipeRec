@@ -101,7 +101,7 @@ class InventoryList extends React.Component {
           return (
             <div key={index} class="card">
               <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
-                <h3 style={{color:'#B77266'}}><b>{ingredient.name}</b></h3>
+                <h3 style={{color:'#5E3750'}}><b>{ingredient.name}</b></h3>
               </div>
             </div>
           );
@@ -141,7 +141,7 @@ class InventoryList extends React.Component {
     else {
 
       return (
-        <div style={{ backgroundColor: "#E9EAE8", padding: "1.5rem", borderRadius: "0.5rem" }}>
+        <div style={{ backgroundColor: "#AAB5C4", padding: "1.5rem", borderRadius: "0.5rem"}}>
           {cards}
           {/* <p>{this.state.selected}</p> */}
         </div>

@@ -233,19 +233,19 @@ class Search extends React.Component {
 
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin: '3rem' }} onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
           <div style={{ backgroundColor: '#D5D6D4', padding: '2rem', borderRadius: '0.5rem' }}>
             <div style={{backgroundColor:"#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem'}}>
               <h2 style={{ textAlign: "center" }}>Find a recipe! It only takes 3 easy steps.</h2>
             </div>
             <br></br>
-            <div class="row">
+            <div class="row" >
               <div class="col col-sm-5">
                 <h3><b>1) My kitchen:</b></h3>
                 <hr></hr>
                 <h4>Below are ingredients in your kitchen. Click on ingredients you would like to include in your meal.</h4>
-                <div className="wrapper">
+                <div className="wrapper" style={{width:"70%", marginLeft:"4rem", marginRight:"4rem"}}>
                   <InventoryList token={this.state.token}
                     ingredients={this.state.ingredients}
                     editable={false}
@@ -276,7 +276,7 @@ class Search extends React.Component {
                 <h3><b>3) Search!</b></h3>
                 <hr></hr>
                 <button onClick={(e) => this.getRecipe()}
-                  style={{ backgroundColor: '#BC6E60', width: "100%" }}
+                  style={{ backgroundColor: '#7A6071',color:"#380024", width: "100%" }}
                   type="button"
                   class="btn btn-dark"
                 ><h4>Search for Recipe</h4>

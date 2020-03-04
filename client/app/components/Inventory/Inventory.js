@@ -151,29 +151,32 @@ class Inventory extends React.Component {
       (<div class="form">
         <h1><b>Just bought!</b></h1>
         <hr></hr>
-        <h4>Adding an ingredient to my kitchen:</h4>
-        <form >
-          <input class="form-control" type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
-        </form>
-        <br></br>
-        <button
-          style={{ backgroundColor: '#BC6E60'}}
-          type="button"
-          class="btn btn-dark"
-          onClick={() => {
-            if (this.refs.ingredientname.value) {
-              addIngredient(this.refs.ingredientname.value, this.state.userId)
-              //This updates the state of ingredients that is sent to Inventory list, causing an update :)
-              this.getIngredients();
-              //Resetting form text
-              this.refs.ingredientname.value = ''
-              alert("Added ingredient")
-            }
-            else {
-              alert("Make sure all entries are completed.");
-            }
-          }}
-        >Add</button>
+        <h3>Adding an ingredient to my kitchen:</h3>
+        <div className="wrapper" style={{ backgroundColor: "#AAB5C4", padding: "1.5rem",margin:"2rem", borderRadius: "0.5rem" }}>
+          <br></br>
+          <form >
+            <input class="form-control" type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
+          </form>
+          <br></br>
+          <button
+            style={{ backgroundColor: '#7A6071',color:"#380024", }}
+            type="button"
+            class="btn btn-dark"
+            onClick={() => {
+              if (this.refs.ingredientname.value) {
+                addIngredient(this.refs.ingredientname.value, this.state.userId)
+                //This updates the state of ingredients that is sent to Inventory list, causing an update :)
+                this.getIngredients();
+                //Resetting form text
+                this.refs.ingredientname.value = ''
+                alert("Added ingredient")
+              }
+              else {
+                alert("Make sure all entries are completed.");
+              }
+            }}
+          ><b>Add</b></button>
+        </div>
       </div>
       );
 
@@ -183,15 +186,15 @@ class Inventory extends React.Component {
       this.getIngredients();
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin: '3rem' }} onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
           <div style={{ backgroundColor: '#D5D6D4', padding: '3rem', borderRadius: '0.5rem' }}>
-            <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
-              <div class="col col-sm-6" style={{textAlign:"center"}}>
+            <div class="row justify-content-md-center" style={{ alignContent: 'center', padding: "1rem", backgroundColor: "#96A2B5", padding: "2rem", borderRadius: "0.5rem" }}>
+              <div class="col col-sm-6" style={{ textAlign: "center" }}>
                 <h1><b>My kitchen</b></h1>
                 <hr></hr>
-                <h4>The ingredients I currently have:</h4>
-                <div className="wrapper">
+                <h3>The ingredients I currently have:</h3>
+                <div className="wrapper" style={{ paddingLeft: "4rem", paddingRight: "4rem" }}>
                   <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
                 </div>
               </div>

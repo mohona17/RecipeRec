@@ -6,14 +6,14 @@ import React from 'react';
 const Header = () => (
   <div>
     <header>
-      <div class="jumbotron" style={{backgroundColor:'#BC6E60', marginTop:'2rem'}}>
-        <h1 style={{color: '#3A1313'}}>Recipe Recommender</h1>
+      <div class="jumbotron" style={{backgroundColor:'#7A6071',color:"#380024", marginTop:'2rem'}}>
+        <h1>Recipe Recommender</h1>
       </div>
       
-      <nav class="navbar navbar-light" style={{backgroundColor:'#D6D5C9', padding: '0.5rem'}}>
-      <a class="navbar-brand" href="/profile" style={{color:'#4F1A1A'}}>Home</a>
-      <a class="navbar-brand" href="/inventory" style={{color:'#4F1A1A'}}>My Ingredients</a>
-      <a class="navbar-brand" href="/search" style={{color:'#4F1A1A'}}>Search for a Recipe</a>
+      <nav class="navbar navbar-light" style={{backgroundColor:'#939DBA', padding: '0.5rem'}}>
+      <a class="navbar-brand" href="/profile" style={{color:'#380024'}}><b>Home</b></a>
+      <a class="navbar-brand" href="/inventory" style={{color:'#380024'}}><b>My Ingredients</b></a>
+      <a class="navbar-brand" href="/search" style={{color:'#380024'}}><b>Search for a Recipe</b></a>
 
 
         {/* <Link to="/inventory">My ingredients </Link>

@@ -88,12 +88,12 @@ class Profile extends React.Component {
           <Header />
           <div style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
             <div style={{ margin: '5rem', alignContent: 'center', alignSelf: 'center' }}>
-              {/* <div style={{color:"#3A1313"}}> */}
-              <h2>Congratulations, you have successfully logged in!</h2>
-              <hr></hr>
+              <div style={{ backgroundColor: "#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem' }}>
+                <h2 style={{ textAlign: "center" }}>Congratulations, you have successfully logged in!</h2>
+              </div>
               <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.</h3>
               <br></br>
-              <div class="row justify-content-md-center" style={{ alignContent: 'center', color: "#3A1313", backgroundColor: "#B77266", padding: "2rem", borderRadius: "0.5rem" }}>
+              <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: "#96A2B5", padding: "2rem", borderRadius: "0.5rem" }}>
                 <div class="col col col-sm-4 text-center">
                   <h3>"Home" Tab</h3>
                   <hr></hr>
