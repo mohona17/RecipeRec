@@ -4,6 +4,8 @@ const API_KEY = config.rapid_api_key;
 var request = require("request");
 
 module.exports = (spoonacular) => {
+
+  //Uses price breakdown widget
   spoonacular.get('/api/spoonacular/getPrice', (req, res, next) => {
     const { query } = req;
     const { id } = query;
@@ -57,6 +59,8 @@ module.exports = (spoonacular) => {
     });
 
   });
+
+  //Returns Summary and Instructions
   spoonacular.get('/api/spoonacular/getRecipeInfo', (req, res, next) => {
     const { query } = req;
     const { id } = query;
