@@ -6,7 +6,7 @@ class RecipeList extends React.Component {
 
         this.state = {
 
-            cards:[],
+            cards: [],
         }
     };
 
@@ -41,11 +41,19 @@ class RecipeList extends React.Component {
             )
         });
 
-        return (
-            <div>
-                {recipeDisplay}
-            </div>
-        )
+        if (this.props.isLoading) {
+            return(
+                <h3 style={{textAlign:"center"}}>Generating your recipes...</h3>
+            )
+        }
+
+        else {
+            return (
+                <div>
+                    {recipeDisplay}
+                </div>
+            )
+        }
     }
 
 };

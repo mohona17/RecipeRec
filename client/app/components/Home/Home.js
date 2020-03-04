@@ -289,7 +289,7 @@ class Home extends Component {
                 style={{ backgroundColor: '#7A6071',color:"#380024",}}
                 class="btn btn-light"
                 onClick={this.onSignIn}
-              >Sign In</button>
+              ><b>Sign In</b></button>
               <hr></hr>
               {
                 (signUpError) ? (<p>{signUpError}</p>) : (null)
@@ -327,7 +327,7 @@ class Home extends Component {
                 style={{ backgroundColor: '#7A6071',color:"#380024", }}
                 class="btn btn-light"
                 onClick={this.onSignUp}
-              >Sign Up</button>
+              ><b>Sign Up</b></button>
             </div>
           </div>
 
