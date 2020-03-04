@@ -236,7 +236,9 @@ class Search extends React.Component {
           <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
           <div style={{ backgroundColor: '#D5D6D4', padding: '2rem', borderRadius: '0.5rem' }}>
-            <h2 style={{ textAlign: "center" }}>Find a recipe! It only takes 3 easy steps.</h2>
+            <div style={{backgroundColor:"#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem'}}>
+              <h2 style={{ textAlign: "center" }}>Find a recipe! It only takes 3 easy steps.</h2>
+            </div>
             <br></br>
             <div class="row">
               <div class="col col-sm-5">
@@ -274,10 +276,10 @@ class Search extends React.Component {
                 <h3><b>3) Search!</b></h3>
                 <hr></hr>
                 <button onClick={(e) => this.getRecipe()}
-                  style={{ backgroundColor: '#BC6E60' }}
+                  style={{ backgroundColor: '#BC6E60', width: "100%" }}
                   type="button"
                   class="btn btn-dark"
-                ><b>Search for Recipe</b>
+                ><h4>Search for Recipe</h4>
                 </button>
               </div>
             </div >
