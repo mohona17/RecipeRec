@@ -29,6 +29,7 @@ class Search extends React.Component {
       budget: '',
       recipes: [],
       price: '',
+      isLoading: false,
     }
     this.logout = this.logout.bind(this);
     this.getSelected = this.getSelected.bind(this);
@@ -195,6 +196,7 @@ class Search extends React.Component {
 
   getRecipe() {
     // console.log(this.state.selected)
+    this.setState({isLoading: true});
     if (this.state.selected.length != 0) {
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
         .then(res => res.json())
@@ -205,6 +207,7 @@ class Search extends React.Component {
             console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
             this.getRecipeSummaries();
+            this.setState({isLoading: false});
           });
         })
         .catch(err => { throw (err) })
@@ -285,8 +288,8 @@ class Search extends React.Component {
               </div>
             </div >
             {/* Response from API */}
-            < RecipeList recipes={this.state.recipes} ></RecipeList >
-
+            <hr></hr>
+            <RecipeList recipes={this.state.recipes} isLoading={this.state.isLoading} ></RecipeList >
           </div >
         </div>
       );
