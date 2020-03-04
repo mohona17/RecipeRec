@@ -2,8 +2,10 @@ import React from 'react';
 
 const Footer = () => (
   <footer>
-    <hr />
-    <p>Footer</p>
+    <div class="container" style={{textAlign:'center'}}>
+      <hr />
+      <p>Developed by Mohona Ahmed for CIS4914 - CISE Design 2 (Senior Project)</p>
+    </div>
   </footer>
 );
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';  
+import { Route, Redirect } from 'react-router-dom';
 import 'whatwg-fetch';
 import {
   getFromStorage,
   setInStorage
 } from '../../utils/storage.js';
+import Carousel from '@brainhubeu/react-carousel';
+
 
 class Home extends Component {
   constructor(props) {
@@ -224,7 +226,7 @@ class Home extends Component {
   //     });
   //   }
   // }
-  
+
   render() {
     const {
       isLoading,
@@ -246,61 +248,89 @@ class Home extends Component {
       </div>);
     }
     if (!token) {
-      return (
-        <div class>
-          <h1>Recipe Recommender</h1>
-          <h3>Login to your existing account or sign up to make one!</h3>
 
-          <div>
-            {
-              (signInError) ? (<p>{signInError}</p>) : (null)
-            }
-            <p>Sign In</p>
-            <input
-              type="email"
-              placeholder="Email"
-              value={signInEmail}
-              onChange={this.onTextboxChangeSignInEmail}
-            ></input><br />
-            <input
-              type="password"
-              placeholder="Password"
-              value={signInPassword}
-              onChange={this.onTextboxChangeSignInPassword}
-            ></input><br />
-            <button onClick={this.onSignIn}>Sign In</button>
+      return (
+        <div class="container">
+          <div class="jumbotron" style={{ backgroundColor: '#7A6071',color:"#380024",marginTop: '2rem' }}>
+            <h1>Recipe Recommender</h1>
           </div>
-          <div>
-            {
-              (signUpError) ? (<p>{signUpError}</p>) : (null)
-            }
-            <p>Sign Up</p>
-            <input
-              type="text"
-              placeholder="First Name"
-              value={signUpFirstName}
-              onChange={this.onTextboxChangeSignUpFirstName}
-            ></input><br />
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={signUpLastName}
-              onChange={this.onTextboxChangeSignUpLastName}
-            ></input><br />
-            <input
-              type="email"
-              placeholder="Email"
-              value={signUpEmail}
-              onChange={this.onTextboxChangeSignUpEmail}
-            ></input><br />
-            <input
-              type="password"
-              placeholder="Password"
-              value={signUpPassword}
-              onChange={this.onTextboxChangeSignUpPassword}
-            ></input><br />
-            <button onClick={this.onSignUp}>Sign Up</button>
+          <div style={{ textAlign: 'center' }}>
+            <h2>Welcome to Recipe Recommender!</h2>
+            <h4>This tool can help you save money and give you inspiration
+                  for your next at-home meal.
+              </h4>
+            <hr></hr>
           </div>
+          <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
+            <div class="col col-sm-1 text-center"></div>
+            <div class="col col-sm-7 text-center" style={{ overflow: "hidden", borderRadius: "0.5rem" }} >
+              <img style={{ flex: 1, height: undefined, width: undefined, resizeMode: 'cover', borderRadius: "0.5rem" }} src="https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
+            </div>
+            <div class="col col-sm-3 text-center" style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
+              {
+                (signInError) ? (<p>{signInError}</p>) : (null)
+              }
+              <h3>Sign In</h3>
+              <input
+                class="form-control"
+                type="email"
+                placeholder="Email"
+                value={signInEmail}
+                onChange={this.onTextboxChangeSignInEmail}
+              ></input><br />
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Password"
+                value={signInPassword}
+                onChange={this.onTextboxChangeSignInPassword}
+              ></input><br />
+              <button
+                style={{ backgroundColor: '#7A6071',color:"#380024",}}
+                class="btn btn-light"
+                onClick={this.onSignIn}
+              >Sign In</button>
+              <hr></hr>
+              {
+                (signUpError) ? (<p>{signUpError}</p>) : (null)
+              }
+              <h3>Sign Up</h3>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="First Name"
+                value={signUpFirstName}
+                onChange={this.onTextboxChangeSignUpFirstName}
+              ></input><br />
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Last Name"
+                value={signUpLastName}
+                onChange={this.onTextboxChangeSignUpLastName}
+              ></input><br />
+              <input
+                class="form-control"
+                type="email"
+                placeholder="Email"
+                value={signUpEmail}
+                onChange={this.onTextboxChangeSignUpEmail}
+              ></input><br />
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Password"
+                value={signUpPassword}
+                onChange={this.onTextboxChangeSignUpPassword}
+              ></input><br />
+              <button
+                style={{ backgroundColor: '#7A6071',color:"#380024", }}
+                class="btn btn-light"
+                onClick={this.onSignUp}
+              >Sign Up</button>
+            </div>
+          </div>
+
         </div>
 
       )
@@ -314,8 +344,8 @@ class Home extends Component {
     return (
       <div>
         {/* Could change below code */}
-        <Redirect to= {{
-          pathname:"/profile",
+        <Redirect to={{
+          pathname: "/profile",
           //state: { token: this.state.token},
         }}
         //  <Redirect to="/profile" */

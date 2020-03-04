@@ -149,25 +149,34 @@ class Inventory extends React.Component {
 
     const addIngredientForm =
       (<div class="form">
-        <h3>Add an ingredient</h3>
-        <form>
-          <input type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
-        </form>
-        <button className="myButton"
-          onClick={() => {
-            if (this.refs.ingredientname.value) {
-              addIngredient(this.refs.ingredientname.value, this.state.userId)
-              //This updates the state of ingredients that is sent to Inventory list, causing an update :)
-              this.getIngredients();
-              //Resetting form text
-              this.refs.ingredientname.value = ''
-              alert("Added ingredient")
-            }
-            else {
-              alert("Make sure all entries are completed.");
-            }
-          }}
-        >add</button>
+        <h1><b>Just bought!</b></h1>
+        <hr></hr>
+        <h3>Adding an ingredient to my kitchen:</h3>
+        <div className="wrapper" style={{ backgroundColor: "#AAB5C4", padding: "1.5rem", margin: "2rem", borderRadius: "0.5rem" }}>
+          <br></br>
+          <form >
+            <input class="form-control" type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
+          </form>
+          <br></br>
+          <button
+            style={{ backgroundColor: '#7A6071', color: "#380024", }}
+            type="button"
+            class="btn btn-dark"
+            onClick={() => {
+              if (this.refs.ingredientname.value) {
+                addIngredient(this.refs.ingredientname.value, this.state.userId)
+                //This updates the state of ingredients that is sent to Inventory list, causing an update :)
+                this.getIngredients();
+                //Resetting form text
+                this.refs.ingredientname.value = ''
+                alert("Added ingredient")
+              }
+              else {
+                alert("Make sure all entries are completed.");
+              }
+            }}
+          ><b>Add</b></button>
+        </div>
       </div>
       );
 
@@ -176,23 +185,37 @@ class Inventory extends React.Component {
       //Calling this function continuously so inventory list can update if needed.
       this.getIngredients();
       return (
-        <div>
-          <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
+        <div class="container">
+          <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
-          <h2>The ingredients you currently have:</h2>
-          <div className="wrapper">
-            <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
+          <div style={{ backgroundColor: '#D5D6D4', padding: '3rem', borderRadius: '0.5rem' }}>
+            <div style={{ backgroundColor: "#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem' }}>
+              <h2 style={{ textAlign: "center" }}>What's in your kitchen? Add or delete ingredients here.</h2>
+            </div>
+            <div class="row justify-content-md-center" style={{ alignContent: 'center', margin: "3rem", backgroundColor: "#96A2B5", padding: "2rem", borderRadius: "0.5rem" }}>
+              <div class="col col-sm-6" style={{ textAlign: "center" }}>
+                <h1><b>My kitchen</b></h1>
+                <hr></hr>
+                <h3>The ingredients I currently have:</h3>
+                <div className="wrapper" style={{ paddingLeft: "4rem", paddingRight: "4rem" }}>
+                  <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
+                </div>
+              </div>
+              <div class="col col-sm-6 text-center">
+                {addIngredientForm}
+
+              </div>
+            </div>
+
           </div>
-          {addIngredientForm}
         </div>
       );
     }
 
     return (
-      <div>
+      <div class="container">
         <h2>Error you are not logged in to Inventory page!</h2>
       </div>
-
     );
 
   }

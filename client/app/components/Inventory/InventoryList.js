@@ -73,7 +73,7 @@ class InventoryList extends React.Component {
       //Remove name from selected
       // console.log("Contains" + name + "at" + this.state.selected.indexOf(name))
       // this.setState({ selected: this.state.selected.splice(this.state.selected.indexOf(name), 1) }, () => {
-      this.setState({ selected: this.state.selected.filter(function(item){ return item!=name })}, () => {
+      this.setState({ selected: this.state.selected.filter(function (item) { return item != name }) }, () => {
         this.props.getSelected(this.state.selected);
         // console.log(this.state.selected)
       });
@@ -93,26 +93,41 @@ class InventoryList extends React.Component {
     var cards = this.props.ingredients.map((ingredient, index) => {
       // console.log(ingredient.name);
       //The search page passes in a boolean called editable that tells us if the delete button should appears
+
       if (this.props.editable == false) {
         //Search Page
-        return (
-          <div key={index} class="card">
-            <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
-              <h4><b>{ingredient.name}</b></h4>
+        if (this.state.selected.includes(ingredient.name)) {
+          //highlight ingredient
+          return (
+            <div key={index} class="card">
+              <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
+                <h3 style={{color:'#5E3750'}}><b>{ingredient.name}</b></h3>
+              </div>
             </div>
-          </div>
-        );
+          );
+        }
+        else{
+          return (
+            <div key={index} class="card">
+              <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
+                <h3><b>{ingredient.name}</b></h3>
+              </div>
+            </div>
+          );
+        }
       }
       //editable, on inventory page 
       else {
         return (
-          <div key={index} class="card">
-            <div class="wrapper">
-              <h4><b>{ingredient.name}</b></h4>
-              <button onClick={(e) => this.deleteIngredient(ingredient.name)}
-                type="button"
-                class="btn btn-secondary right">Delete</button>
-            </div>
+          <div key={index} style={{ display: "inline-block", width: "100%" }}>
+            <h3 style={{ float: "left", flexWrap: "wrap" }}>{ingredient.name} </h3>
+            <button onClick={(e) => this.deleteIngredient(ingredient.name)}
+              type="button"
+              style={{ float: "right", backgroundColor: "#E9EAE8" }}
+              class="btn btn-secondary">
+              <img src="https://storage.needpix.com/rsynced_images/garbage-1295900_1280.png" style={{ height: "3rem", verticalAlign: "center" }}>
+              </img>
+            </button>
           </div>
         );
       }
@@ -126,7 +141,7 @@ class InventoryList extends React.Component {
     else {
 
       return (
-        <div>
+        <div style={{ backgroundColor: "#AAB5C4", padding: "1.5rem", borderRadius: "0.5rem"}}>
           {cards}
           {/* <p>{this.state.selected}</p> */}
         </div>

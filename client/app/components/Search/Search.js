@@ -149,19 +149,19 @@ class Search extends React.Component {
     });
   }
 
-  getRecipeSummaries(){
+  getRecipeSummaries() {
     let recipesWithSummaries = this.state.recipes;
     recipesWithSummaries.forEach(recipe => {
       fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
-            .then(res => res.json())
-            .then(res => {
-              recipe["summary"] = res[0].summary;
-                // return(res[0].summary);
-            })
-            .catch(err => { throw (err) })
+        .then(res => res.json())
+        .then(res => {
+          recipe["summary"] = res[0].summary;
+          // return(res[0].summary);
+        })
+        .catch(err => { throw (err) })
     });
     // console.log(recipesWithSummaries)
-    this.setState({recipes: recipesWithSummaries})
+    this.setState({ recipes: recipesWithSummaries })
   }
 
   sortByPrice() {
@@ -222,7 +222,8 @@ class Search extends React.Component {
       this.getIngredients();
 
       //display selected cards (ingredients)
-      const cardDisplay = this.state.selected.map((ingredient, index) => {
+      const selectedDisplay = this.state.selected.map((ingredient, index) => {
+        // console.log(this.state.selected)
         return (
           <div class="wrapper" >
             <h5>{ingredient}</h5>
@@ -231,38 +232,62 @@ class Search extends React.Component {
       });
 
       return (
-        <div>
-          <button class="btn btn-secondary ml-auto pull-right" onClick={this.logout} >Logout</button>
+        <div class="container">
+          <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
-          <div>
-            <h2>The ingredients you currently have:</h2>
-            <div className="wrapper">
-              <InventoryList token={this.state.token}
-                ingredients={this.state.ingredients}
-                editable={false}
-                getSelected={this.getSelected}></InventoryList>
+          <div style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
+          <div style={{ margin: '5rem',marginBottom:"1rem", alignContent: 'center', alignSelf: 'center' }}>
+              <div style={{ backgroundColor: "#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem' }}>
+                <h2 style={{ textAlign: "center" }}>Find a recipe! It only takes 3 easy steps.</h2>
+              </div>
             </div>
+            <div class="row" style={{margin:"1rem"}} >
+              <div class="col col-sm-5">
+                <h3><b>1) My kitchen:</b></h3>
+                <hr></hr>
+                <h4>Below are ingredients in your kitchen. Click on ingredients you would like to include in your meal.</h4>
+                <div className="wrapper" style={{ width: "70%", marginLeft: "4rem", marginRight: "4rem" }}>
+                  <InventoryList token={this.state.token}
+                    ingredients={this.state.ingredients}
+                    editable={false}
+                    getSelected={this.getSelected}></InventoryList>
+                </div>
+              </div>
+              {/* User Input  */}
+              <div class="col col-sm-4">
+                <h3><b>2) Specify Budget</b></h3>
+                <hr></hr>
+                <h4> If you would like to set a budget for any ingredients you would like to buy, please do so below before
+                  beginning your search. This step is optional!
+              </h4>
+                <div style={{ backgroundColor: "#E9EAE8", padding: "2rem", borderRadius: "0.5rem" }}>
+                  {/* <h4>I want to make a meal with the following ingredients:</h4>
+                {selectedDisplay} */}
+                  <input
+                    type="number"
+                    min="0.01" step="0.01" max="2500"
+                    placeholder="$0.00"
+                    value={this.state.budget}
+                    onChange={this.onTextboxChangeBudget}
+                    class="form-control"
+                  ></input>
+                </div>
+              </div>
+              <div class="col col-sm-3">
+                <h3><b>3) Search!</b></h3>
+                <hr></hr>
+                <button onClick={(e) => this.getRecipe()}
+                  style={{ backgroundColor: '#7A6071', color: "#380024", width: "100%" }}
+                  type="button"
+                  class="btn btn-dark"
+                ><h4>Search for Recipe</h4>
+                </button>
+              </div>
+            </div >
+            {/* Response from API */}
+            < RecipeList recipes={this.state.recipes} ></RecipeList >
 
-          </div>
-
-          {/* User Input  */}
-          <h2>You have chosen the following ingredients:</h2>
-          <div>{cardDisplay}</div>
-          <h4>Specify a budget</h4>
-          <input
-            type="number"
-            min="0.01" step="0.01" max="2500"
-            placeholder="$0.00"
-            value={this.state.budget}
-            onChange={this.onTextboxChangeBudget}
-          ></input><br />
-          <button onClick={(e) => this.getRecipe()}
-            type="button"
-            class="btn btn-secondary right">Search for Recipe</button>
-
-          {/* Response from API */}
-          <RecipeList recipes={this.state.recipes} ></RecipeList>
-
+          </div >
         </div>
       );
     }
