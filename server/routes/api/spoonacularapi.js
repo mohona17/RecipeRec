@@ -31,7 +31,8 @@ module.exports = (spoonacular) => {
     });
 
   });
-  // console.log(API_KEY)
+
+  //Get recipe based on ingredients
   spoonacular.get('/api/spoonacular/getRecipe', (req, res, next) => {
     const { query } = req;
     const { ingredients } = query;
@@ -44,6 +45,35 @@ module.exports = (spoonacular) => {
         ranking: '1',
         ignorePantry: 'false',
         ingredients: ingredients,
+      },
+      headers: {
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': API_KEY
+      }
+    };
+
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+
+      // console.log(body);
+      res.send(body)
+    });
+
+  });
+
+  //Using above api call to validate ingredients based on if there is an recipe for the proposed ingredient
+  spoonacular.get('/api/spoonacular/validateIngredient', (req, res, next) => {
+    const { query } = req;
+    const { ingredient } = query;
+    // console.log(query)
+    var options = {
+      method: 'GET',
+      url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients',
+      qs: {
+        number: '1',
+        ranking: '1',
+        ignorePantry: 'false',
+        ingredients: ingredient,
       },
       headers: {
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
