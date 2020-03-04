@@ -177,13 +177,23 @@ class Inventory extends React.Component {
       this.getIngredients();
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin:'3rem'}} onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
-          <h2>The ingredients you currently have:</h2>
-          <div className="wrapper">
-            <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
+          <div style={{ backgroundColor: '#D5D6D4', padding: '3rem', borderRadius: '0.5rem' }}>
+            <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
+              <div class="col col-sm-6">
+                <h1>The ingredients you currently have:</h1><hr></hr>
+                <div className="wrapper">
+                  <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
+                </div>
+              </div>
+              <div class="col col-sm-6 text-center">
+                {addIngredientForm}
+
+              </div>
+            </div>
+
           </div>
-          {addIngredientForm}
         </div>
       );
     }
