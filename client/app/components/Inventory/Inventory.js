@@ -122,11 +122,23 @@ class Inventory extends React.Component {
 
   validateIngredient(name) {
     //validate ingredient: if empty, not ingredient
-    fetch('/api/spoonacular/validateIngredient?ingredient=' + name)
+    fetch('/api/spoonacular/validateIngredient?ingredient=' + name.value)
       .then(res => res.json())
       .then(res => {
-        if (res.length == 0) return false;
-        else true
+        console.log(res.length)
+        // if (res.length == 0) return false;
+        // else return true;
+        if (res.length == 0) {
+          alert("Invalid ingredient name. Cannot add.")
+        }
+        else {
+          addIngredient(this.refs.ingredientname.value, this.state.userId)
+          //This updates the state of ingredients that is sent to Inventory list, causing an update :)
+          this.getIngredients();
+          //Resetting form text
+          this.refs.ingredientname.value = ''
+          alert("Added ingredient")
+        }
       })
       .catch(err => { throw (err) })
   }
@@ -149,18 +161,18 @@ class Inventory extends React.Component {
             class="btn btn-dark"
             onClick={() => {
               if (this.refs.ingredientname.value) {
-                if (this.validateIngredient(this.refs.ingredientname)) {
-
-                  addIngredient(this.refs.ingredientname.value, this.state.userId)
-                  //This updates the state of ingredients that is sent to Inventory list, causing an update :)
-                  this.getIngredients();
-                  //Resetting form text
-                  this.refs.ingredientname.value = ''
-                  alert("Added ingredient")
-                }
-                else{
-                  alert("Invalid ingredient name. Cannot add.")
-                }
+                this.validateIngredient(this.refs.ingredientname)
+                // if (this.validateIngredient(this.refs.ingredientname)) {
+                //   addIngredient(this.refs.ingredientname.value, this.state.userId)
+                //   //This updates the state of ingredients that is sent to Inventory list, causing an update :)
+                //   this.getIngredients();
+                //   //Resetting form text
+                //   this.refs.ingredientname.value = ''
+                //   alert("Added ingredient")
+                // }
+                // else {
+                //   alert("Invalid ingredient name. Cannot add.")
+                // }
               }
               else {
                 alert("Make sure all entries are completed.");

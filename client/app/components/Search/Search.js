@@ -269,7 +269,7 @@ class Search extends React.Component {
                 <hr></hr>
                 <h4>Click the button and view results below</h4>
                 <button onClick={(e) => this.getRecipe()}
-                  style={{ backgroundColor: color4, width: "100%" }}
+                  style={{ backgroundColor: color5, width: "100%" }}
                   type="button"
                   class="btn btn-dark"
                 ><h4><b>Search for Recipe</b></h4>
