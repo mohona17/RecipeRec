@@ -43,20 +43,6 @@ class Search extends React.Component {
 
   componentDidMount() {
     this.verifyLogin()
-    // const obj = getFromStorage('the_main_app');
-    // if (obj && obj.token) {
-    //   const { token } = obj.token;
-
-    //   fetch('/api/account/verify?token=' + token)
-    //     .then(res => res.json())
-    //     .then(json => {
-    //       if (json.success) {
-    //         this.setState({
-    //           token: token,
-    //         });
-    //       }
-    //     });
-    // }
   }
 
   //Contains possible fixes if time (see comments)
@@ -139,7 +125,6 @@ class Search extends React.Component {
             });
             this.getUserID()
           }
-
         });
     }
   }
@@ -201,8 +186,8 @@ class Search extends React.Component {
 
   getRecipe() {
     // console.log(this.state.selected)
-    this.setState({ isLoading: true });
     if (this.state.selected.length != 0) {
+      this.setState({ isLoading: true });
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
         .then(res => res.json())
         .then(res => {
@@ -230,14 +215,14 @@ class Search extends React.Component {
       this.getIngredients();
 
       //display selected cards (ingredients)
-      const selectedDisplay = this.state.selected.map((ingredient, index) => {
-        // console.log(this.state.selected)
-        return (
-          <div class="wrapper" >
-            <h5>{ingredient}</h5>
-          </div>
-        );
-      });
+      // const selectedDisplay = this.state.selected.map((ingredient, index) => {
+      //   // console.log(this.state.selected)
+      //   return (
+      //     <div class="wrapper" >
+      //       <h5>{ingredient}</h5>
+      //     </div>
+      //   );
+      // });
 
       return (
         <div class="container">
