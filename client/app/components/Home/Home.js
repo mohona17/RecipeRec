@@ -288,7 +288,7 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignInPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: color1,color:color2,}}
+                style={{ backgroundColor: color3,color:color2,}}
                 class="btn btn-light"
                 onClick={this.onSignIn}
               ><b>Sign In</b></button>
@@ -326,7 +326,7 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignUpPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: color1, color:color2, }}
+                style={{ backgroundColor: color3, color:color2, }}
                 class="btn btn-light"
                 onClick={this.onSignUp}
               ><b>Sign Up</b></button>
