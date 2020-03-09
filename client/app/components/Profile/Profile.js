@@ -5,6 +5,11 @@ import { logout } from '../Home/Home'
 import {
   getFromStorage,
 } from '../../utils/storage.js';
+const color1 = "#E8B866" //yellow
+const color2 = "#040A0F"//black
+const color3 = "#BD632F" //brown
+const color4 = "#D5D6D4" //lightgrey
+const color5 = "#B7B7B7" //darkgrey
 
 class Profile extends React.Component {
   constructor(props) {
@@ -84,30 +89,38 @@ class Profile extends React.Component {
     if (this.state.token != '') {
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ color: '#4F1A1A', margin: '3rem' }} onClick={this.logout}>Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout}>Logout</button>
           <Header />
-          <div style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
+          <div style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
             <div style={{ margin: '5rem', alignContent: 'center', alignSelf: 'center' }}>
-              <div style={{ backgroundColor: "#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem' }}>
+              <div style={{ backgroundColor: color1, padding: '1.5rem', borderRadius: '0.5rem' }}>
                 <h2 style={{ textAlign: "center" }}>Congratulations, you have successfully logged in!</h2>
               </div>
               <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.</h3>
               <br></br>
-              <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: "#96A2B5", padding: "2rem", borderRadius: "0.5rem" }}>
+              <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor:color4, padding: "2rem", borderRadius: "0.5rem" }}>
                 <div class="col col col-sm-4 text-center">
-                  <h3>"Home" Tab</h3>
+                  <h3><b>"Home" Tab</b></h3>
                   <hr></hr>
-                  <h4>This tab leads to the page that you are currently on.</h4></div>
+                  <h4><ul style={{textAlign:'left'}}>
+                    <li>current tab</li>
+                    <li>beginner's guide to site</li>
+                    </ul></h4></div>
                 <div class="col col col-sm-4 text-center">
-                  <h3>"My Ingredients" Tab</h3>
+                  <h3><b>"My Ingredients" Tab</b></h3>
                   <hr></hr>
-                  <h4>This tab opens up an inventory page where you can view your ingredients and edit this list.</h4></div>
-                <div class="col col col-sm-4 text-center">
-                  <h3>"Search for Recipe" Tab</h3>
+                  <h4><ul style={{textAlign:'left'}}>
+                    <li>lists ingredients you have</li>
+                    <li>delete ingredients </li>
+                    <li>add new ingredients you just bought</li>
+                    </ul></h4></div>                <div class="col col col-sm-4 text-center">
+                  <h3><b>"Search for Recipe" Tab</b></h3>
                   <hr></hr>
-                  <h4>This tab allows you to chose ingredients from your inventory, set a budget, and search for recipes.
-                    Your matching recipes will show up once you click search, and you will be able to retrieve the instructions
-                for each recipe. </h4>
+                  <h4><ul style={{textAlign:'left'}}>
+                    <li>search for recipes</li>
+                    <li>set a budget</li>
+                    </ul>
+                    </h4>
                 </div>
               </div>
               {/* </div> */}
