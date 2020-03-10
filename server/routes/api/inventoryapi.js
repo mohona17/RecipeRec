@@ -26,30 +26,19 @@ module.exports = (app) => {
             //quantity
         } = body;
 
-        console.log(name);
-
-        // //Verifying all needed fields are present
-        // if (!name) {
-        //     res.send({
-        //         success: false,
-        //         message: 'Error: did not add ingredient.'
-        //     })
-        // };
-
         Ingredient.find({
             name: name,
             userId: userId,
         }, (err, ingredients) => {
             if (err) {
-                res.send({
-                    success: false,
+                res.status(400).send({
                     message: 'Server error.'
                 })
             }
             //ingredient is already added 
             else if (ingredients.length > 0) {
                 res.status(250).send({
-                    message: 'You already have this ingredient.'
+                    message: 'duplicate'
                 })
             }
             else {
@@ -60,7 +49,7 @@ module.exports = (app) => {
 
                 newIngredient.save((err, user) => {
                     if (!err) {
-                        res.send({
+                        res.status(200).send({
                             message: "success"
                         })
                     }
