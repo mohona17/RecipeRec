@@ -6,8 +6,11 @@ module.exports = (app) => {
         Ingredient.deleteOne({ userId: req.body.userId, name: req.body.name }, function (err, deleted) {
             if (err) {
                 res.status(400).send(err);
-            } else {
-                res.send('{"message":"Successfully deleted '.concat(req.body.name));
+            } 
+            else {
+                res.status(200).send({
+                   message: "success"
+                })
             }
         });
     });
@@ -27,7 +30,7 @@ module.exports = (app) => {
 
         //Verifying all needed fields are present
         if (!name) {
-            return res.send({
+            res.send({
                 success: false,
                 message: 'Error: did not add ingredient.'
             })
@@ -37,14 +40,14 @@ module.exports = (app) => {
             userId: userId,
         }, (err, ingredients) => {
             if (err) {
-                return res.send({
+                res.send({
                     success: false,
                     message: 'Server error.'
                 })
             }
             //ingredient is already added 
             else if (ingredients.length > 0) {
-                return res.send({
+                res.send({
                     success: false,
                     message: 'You already have this ingredient.'
                 })
@@ -57,7 +60,7 @@ module.exports = (app) => {
 
                 newIngredient.save((err, user) => {
                     if (err) {
-                        return res.send({
+                        res.send({
                             success: true,
                             message: 'Ingredient created.'
                         })
