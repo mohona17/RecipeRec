@@ -28,17 +28,9 @@ module.exports = (app) => {
             name: name,
             userId: userId,
         }, (err, ingredients) => {
-            if (err) {
-                res.status(400).send({
-                    message: 'Server error.'
-                })
-            }
+            if (err) res.status(400) 
             //ingredient is already added 
-            else if (ingredients.length > 0) {
-                res.status(250).send({
-                    message: 'duplicate'
-                })
-            }
+            else if (ingredients.length > 0) res.send('duplicate')
             else {
                 const newIngredient = new Ingredient();
 
@@ -47,9 +39,7 @@ module.exports = (app) => {
 
                 newIngredient.save((err, user) => {
                     if (!err) {
-                        res.status(200).send({
-                            message: "success"
-                        })
+                        res.send('success')
                     }
                 });
             }
@@ -58,7 +48,6 @@ module.exports = (app) => {
 
     });
 
-    //get list of ingredients WORKING ON THIS
     app.get('/api/ingredients', (req, res, next) => {
         const { query } = req;
         const { user } = query;
