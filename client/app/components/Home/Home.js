@@ -121,7 +121,7 @@ class Home extends Component {
     })
       .then(res => res.json())
       .then(json => {
-        if (json.success) {
+        if (json.message == "success") {
           console.log("successful login", json.token);
           setInStorage('the_main_app', { token: json.token });
           this.setState({
@@ -185,52 +185,7 @@ class Home extends Component {
         }
       });
 
-    /*MongoDB is taking a long time to send a 
-    response, so I commented out the correct 
-    code for changing the loading status*/
-    // this.setState({
-    //   // isLoading: false,
-    //   signUpEmail: '',
-    //   signUpPassword: '',
-    //   signUpFirstName: '',
-    //   signUpLastName: '',
-    // })
-
   }
-
-  //Moved to Profile
-  // logout() {
-  //   this.setState({
-  //     isLoading: true,
-  //   })
-  //   const obj = getFromStorage('the_main_app');
-  //   if (obj && obj.token) {
-  //     const token = obj.token;
-  //     console.log(obj.token);
-
-  //     fetch('/api/account/logout?token=' + token)
-  //       .then(res => res.json())
-  //       .then(json => {
-  //         console.log("Logging out", json.success, { token });
-  //         console.log('Message from logout request', json.message)
-  //         if (json.success) {
-  //           this.setState({
-  //             token: '',
-  //             isLoading: false,
-  //           });
-  //         } else {
-  //           this.setState({
-  //             isLoading: false,
-  //           });
-  //         }
-  //       });
-  //   }
-  //   else {
-  //     this.setState({
-  //       isLoading: false,
-  //     });
-  //   }
-  // }
 
   render() {
     const {
@@ -245,21 +200,15 @@ class Home extends Component {
       signinloading
     } = this.state;
 
-    var signupLoadingMessage,signinLoadingMessage = (
+    var signuplabel,signinlabel = (
       <div></div>
     )
 
-    if (signuploading) {
-      signupLoadingMessage = (<div>
-        <p>Loading...</p>
-      </div>);
-    }
+    if (signuploading) signuplabel = (<div>Loading...</div>);
+    else signuplabel = (<div>Sign up</div>)
 
-    if (signinloading) {
-      signinLoadingMessage = (<div>
-        <p>Loading...</p>
-      </div>);
-    }
+    if (signinloading) signinlabel = (<div>Loading...</div>);
+    else signinlabel = (<div>Sign in</div>);
 
     if (!token) {
 
@@ -301,8 +250,7 @@ class Home extends Component {
                 style={{ backgroundColor: color3, color: color2, }}
                 class="btn btn-light"
                 onClick={this.onSignIn}
-              ><b>Sign In</b></button>
-              {signinLoadingMessage}
+              ><b>{signinlabel}</b></button>
               <hr></hr>
 
               <h3>Sign Up</h3>
@@ -338,8 +286,7 @@ class Home extends Component {
                 style={{ backgroundColor: color3, color: color2, }}
                 class="btn btn-light"
                 onClick={this.onSignUp}
-              ><b>Sign Up</b></button>
-              {signupLoadingMessage}
+              ><b>{signuplabel}</b></button>
 
             </div>
           </div>
@@ -348,7 +295,6 @@ class Home extends Component {
 
       )
     }
-    console.log("hi here", token)
     // console.log(this.logout)
 
     //Go to profile page
