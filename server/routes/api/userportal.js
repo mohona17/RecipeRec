@@ -35,9 +35,9 @@ module.exports = (app) => {
         if (!firstName) error.push('First name cannot be blank. ')
         if (!lastName) error.push('Last name cannot be blank. ')
 
-        //TODO: handle valid username
         if (!username) error.push('Username cannot be blank. ')
         if (!password) error.push(' Password cannot be blank. ')
+
 
         if (error.length != 0) {
             let message = '';
@@ -56,7 +56,6 @@ module.exports = (app) => {
             if (err) return res.send({message: 'Server error.'});
             //is a previous user with same username
             else if (previousUsers.length > 0) return res.send({message: 'Account already exists with this username.'})
-            
             else {
                 //Save new user 
                 const newUser = new User();
