@@ -8,9 +8,7 @@ module.exports = (app) => {
                 res.status(400).send(err);
             } 
             else {
-                res.status(200).send({
-                   message: "success"
-                })
+                res.send('success')
             }
         });
     });
@@ -29,7 +27,6 @@ module.exports = (app) => {
             userId: userId,
         }, (err, ingredients) => {
             if (err) res.status(400) 
-            //ingredient is already added 
             else if (ingredients.length > 0) res.send('duplicate')
             else {
                 const newIngredient = new Ingredient();
