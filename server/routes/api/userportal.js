@@ -98,7 +98,7 @@ module.exports = (app) => {
             });
             return res.send(message);
         }
-        
+
         email = email.toLowerCase();
 
         //Verification
@@ -115,19 +115,13 @@ module.exports = (app) => {
 
             if (users.length != 1) {
                 console.log("No account")
-                return res.send({
-                    success: false,
-                    message: 'Error: Invalid email'
-                });
+                return res.send('Invalid email');
             }
 
             const user = users[0];
             // console.log(user.password);
             if (!user.validPassword(password)) {
-                return res.send({
-                    success: false,
-                    message: 'Error: Invalid password'
-                });
+                return res.send('Invalid password');
             }
 
             console.log("Login valid");
