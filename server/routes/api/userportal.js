@@ -96,7 +96,7 @@ module.exports = (app) => {
             error.forEach(element => {
                 message = message.concat(element)
             });
-            return res.send(message);
+            return res.send({message: message});
         }
 
         email = email.toLowerCase();
@@ -107,21 +107,19 @@ module.exports = (app) => {
         }, (err, users) => {
             if (err) {
                 return res.send({
-                    success: false,
                     message: 'Error: Server error'
                 });
             }
             // console.log(users);
 
             if (users.length != 1) {
-                console.log("No account")
-                return res.send('Invalid email');
+                return res.send({message: 'Invalid email'});
             }
 
             const user = users[0];
             // console.log(user.password);
             if (!user.validPassword(password)) {
-                return res.send('Invalid password');
+                return res.send({message: 'Invalid password'});
             }
 
             console.log("Login valid");
@@ -131,12 +129,11 @@ module.exports = (app) => {
             userSession.userId = user._id;
             userSession.save((err, doc) => {
                 if (err) return res.send(err)
-                return res.send("success")
-                // return res.send({
-                //     success: true,
-                //     message: 'Sign in is valid',
-                //     token: doc._id,
-                // });
+                return res.send({
+                    success: true,
+                    message: 'Sign in is valid',
+                    token: doc._id,
+                });
             })
         })
     });

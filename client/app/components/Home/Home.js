@@ -119,9 +119,9 @@ class Home extends Component {
         password: signInPassword,
       }),
     })
-      .then(res => res.text())
-      .then(res => {
-        if (res == "success") {
+      .then(res => res.json())
+      .then(json => {
+        if (json.success) {
           console.log("successful login", json.token);
           setInStorage('the_main_app', { token: json.token });
           this.setState({
@@ -135,7 +135,7 @@ class Home extends Component {
           this.setState({
             signinLoading: false,
           });
-          alert(res);
+          alert(json.message);
         }
       });
   }
