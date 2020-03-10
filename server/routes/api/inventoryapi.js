@@ -59,10 +59,9 @@ module.exports = (app) => {
                 newIngredient.userId = userId;
 
                 newIngredient.save((err, user) => {
-                    if (err) {
+                    if (!err) {
                         res.send({
-                            success: true,
-                            message: 'Ingredient created.'
+                            message: "success"
                         })
                     }
                 });

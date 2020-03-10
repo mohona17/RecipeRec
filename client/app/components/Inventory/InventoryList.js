@@ -51,16 +51,17 @@ class InventoryList extends React.Component {
         "Content-Type": "application/json"
       },
     })
-    .then(res => {
-      console.log(res)
-      res.json();
-      console.log(res.status)
-      if(res.status == '200') alert("Successfully deleted ingredient")
-    }
+      .then(res => {
+        console.log(res)
+        res.json();
+        console.log(res.status)
+        if (res.status == '200') alert("Successfully deleted ingredient")
+        else {
+          alert("Error")
+        }
+      }
 
-    )
-    
-    // alert("Deleted ingredient")
+      )
 
   }
 
@@ -115,12 +116,12 @@ class InventoryList extends React.Component {
           return (
             <div key={index} class="card">
               <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
-                <h3 style={{color:color3}}><b>{ingredient.name}</b></h3>
+                <h3 style={{ color: color3 }}><b>{ingredient.name}</b></h3>
               </div>
             </div>
           );
         }
-        else{
+        else {
           return (
             <div key={index} class="card">
               <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
@@ -155,7 +156,7 @@ class InventoryList extends React.Component {
     else {
 
       return (
-        <div style={{ backgroundColor: color4, padding: "1.5rem", borderRadius: "0.5rem"}}>
+        <div style={{ backgroundColor: color4, padding: "1.5rem", borderRadius: "0.5rem" }}>
           {cards}
           {/* <p>{this.state.selected}</p> */}
         </div>
@@ -186,5 +187,16 @@ export function addIngredient(name, userId) {
     //     });
     //   }
     // })
+    .then(res => {
+      console.log(res)
+      res.json();
+      console.log(res.status)
+      if (res.status == '200') alert("Successfully added ingredient")
+      else {
+        alert("Error")
+      }
+    }
+
+    )
   )
 };
