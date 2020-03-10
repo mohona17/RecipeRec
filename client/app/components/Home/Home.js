@@ -15,7 +15,8 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      isLoading: false,
+      signinloading: false,
+      signuploading: false,
       signUpError: '',
       signInError: '',
       token: '',
@@ -50,18 +51,21 @@ class Home extends Component {
           if (json.success) {
             this.setState({
               token: token,
-              isLoading: false,
+              signuploading: false,
+              signinloading: false
             });
           } else {
             this.setState({
-              isLoading: false,
+              signuploading: false,
+              signinloading: false
             });
           }
         });
     }
     else {
       this.setState({
-        isLoading: false,
+        signuploading: false,
+        signinloading: false
       });
     }
   }
@@ -104,7 +108,7 @@ class Home extends Component {
     } = this.state;
 
     this.setState({
-      isLoading: true,
+      signinLoading: true,
     })
 
     fetch('/api/account/signin', {
@@ -124,7 +128,7 @@ class Home extends Component {
           setInStorage('the_main_app', { token: json.token });
           this.setState({
             signInError: json.message,
-            isLoading: false,
+            signinLoading: false,
             signInEmail: '',
             signInPassword: '',
             token: json.token
@@ -133,7 +137,7 @@ class Home extends Component {
         else {
           this.setState({
             signInError: json.message,
-            isLoading: false,
+            signinLoading: false,
           });
         }
       });
@@ -148,7 +152,7 @@ class Home extends Component {
     } = this.state;
 
     this.setState({
-      isLoading: true,
+      signuploading: true,
     })
 
     fetch('/api/account/signup', {
@@ -163,43 +167,39 @@ class Home extends Component {
         password: signUpPassword,
       }),
     })
+      .then(res => res.text())
       .then(res => {
-        alert(res)
-        res.json();
-        console.log("res", res);
-      }
-      )
-      .then(json => {
-        console.log("json", json);
-        alert(json)
-        if (json.success) {
+        console.log(res)
+        if (res == 'success') {
           this.setState({
-            signUpError: json.message,
-            isLoading: false,
-            // signUpEmail: '',
-            // signUpPassword: '',
-            // signUpFirstName: '',
-            // signUpLastName: '',
+            signuploading: false,
+            signUpEmail: '',
+            signUpPassword: '',
+            signUpFirstName: '',
+            signUpLastName: '',
           });
+          alert("Account created successfully")
         }
         else {
           this.setState({
-            signUpError: json.message,
-            isLoading: false,
+            signUpError: res,
+            signuploading: false,
           });
+          alert(res);
+
         }
       });
 
     /*MongoDB is taking a long time to send a 
     response, so I commented out the correct 
     code for changing the loading status*/
-    this.setState({
-      // isLoading: false,
-      signUpEmail: '',
-      signUpPassword: '',
-      signUpFirstName: '',
-      signUpLastName: '',
-    })
+    // this.setState({
+    //   // isLoading: false,
+    //   signUpEmail: '',
+    //   signUpPassword: '',
+    //   signUpFirstName: '',
+    //   signUpLastName: '',
+    // })
 
   }
 
@@ -239,7 +239,6 @@ class Home extends Component {
 
   render() {
     const {
-      isLoading,
       token,
       signInEmail,
       signInPassword,
@@ -249,18 +248,26 @@ class Home extends Component {
       signUpPassword,
       signUpFirstName,
       signUpLastName,
+      signuploading,
+      signinloading
     } = this.state;
 
-    var loadingMessage = (
+    var signupLoadingMessage,signinLoadingMessage = (
       <div></div>
     )
 
-    console.log('Loading?', isLoading)
-    if (isLoading) {
-      loadingMessage = (<div>
+    if (signuploading) {
+      signupLoadingMessage = (<div>
         <p>Loading...</p>
       </div>);
     }
+
+    if (signinloading) {
+      signinLoadingMessage = (<div>
+        <p>Loading...</p>
+      </div>);
+    }
+
     if (!token) {
 
       return (
@@ -281,9 +288,9 @@ class Home extends Component {
               <img style={{ flex: 1, height: undefined, width: undefined, resizeMode: 'cover', borderRadius: "0.5rem" }} src="https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
             </div>
             <div class="col col-sm-3 text-center" style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
-              {
+              {/* {
                 (signInError) ? (<p>{signInError}</p>) : (null)
-              }
+              } */}
               <h3>Sign In</h3>
               <input
                 class="form-control"
@@ -304,11 +311,11 @@ class Home extends Component {
                 class="btn btn-light"
                 onClick={this.onSignIn}
               ><b>Sign In</b></button>
-              {loadingMessage}
+              {signinLoadingMessage}
               <hr></hr>
-              {
+              {/* {
                 (signUpError) ? (<p>{signUpError}</p>) : (null)
-              }
+              } */}
               <h3>Sign Up</h3>
               <input
                 class="form-control"
@@ -343,7 +350,7 @@ class Home extends Component {
                 class="btn btn-light"
                 onClick={this.onSignUp}
               ><b>Sign Up</b></button>
-              {loadingMessage}
+              {signupLoadingMessage}
 
             </div>
           </div>
