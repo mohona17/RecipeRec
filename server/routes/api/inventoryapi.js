@@ -15,8 +15,6 @@ module.exports = (app) => {
         });
     });
 
-    //Add ingredient
-    //NEED TO ACCESS CONTENTS OF FORM
     app.post('/api/ingredient/add', (req, res, next) => {
         //need items required in model 
         const { body } = req;

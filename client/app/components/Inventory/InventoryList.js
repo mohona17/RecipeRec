@@ -180,24 +180,14 @@ export function addIngredient(name, userId) {
         "Content-Type": "application/json"
       },
     })
-    // .then(json => {
-    //   if (json.success) {
-    //     this.setState({
-    //       indredients: this.state.ingredients.concat(ingredient),
-    //     });
-    //   }
-    // })
     .then(res => {
       console.log(res)
       res.json();
       console.log(res.status)
       if (res.status == '200') alert("Successfully added ingredient")
-      else if(res.status == '250') alert("Duplicate ingredient")
-      else {
-        alert("Error")
-      }
+      else if (res.status == '250') alert("Duplicate ingredient")
+      else alert("Error")
     }
-
     )
   )
 };
