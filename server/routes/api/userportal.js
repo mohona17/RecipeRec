@@ -31,31 +31,14 @@ module.exports = (app) => {
         } = body;
 
         //Verifying all needed fields are present
-        if (!firstName) {
-            return res.send({
-                success: false,
-                message: 'Error: First name cannot be blank.'
-            })
-        };
-        if (!lastName) {
-            return res.send({
-                success: false,
-                message: 'Error: Last name cannot be blank.'
-            })
-        };
+        if (!firstName) res.send('Error: First name cannot be blank.')
+        if (!lastName) res.send('Error: Last name cannot be blank.')
+
         //TODO: handle valid email
         if (!email) {
-            return res.send({
-                success: false,
-                message: 'Error: Email cannot be blank.'
-            })
+            res.send('Error: Email cannot be blank.')
         };
-        if (!password) {
-            return res.send({
-                success: false,
-                message: 'Error: Password cannot be blank.'
-            })
-        };
+        if (!password) res.send( 'Error: Password cannot be blank.')
 
         // console.log("saying hi from signin.js");
 
@@ -65,21 +48,11 @@ module.exports = (app) => {
         User.find({
             email: email
         }, (err, previousUsers) => {
-            if (err) {
-                return res.send({
-                    success: false,
-                    message: 'Server error.'
-                })
-            }
+            if (err) res.send('Server error.');
             //is a previous user with same email
-            else if (previousUsers.length > 0) {
-                return res.send({
-                    success: false,
-                    message: 'Account already exists with this email.'
-                })
-            }
+            else if (previousUsers.length > 0) res.send('Account already exists with this email.')
+    
             else {
-                console.log('can save');
                 //Save new user 
                 const newUser = new User();
 
@@ -89,12 +62,7 @@ module.exports = (app) => {
                 newUser.password = newUser.generateHash(password);
 
                 newUser.save((err, user) => {
-                    if (err) {
-                        return res.send({
-                            success: true,
-                            message: 'Account was successfully created.'
-                        })
-                    }
+                    if (!err) res.send('success');
                 });
             }
         });
