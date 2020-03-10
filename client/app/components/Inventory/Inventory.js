@@ -122,6 +122,8 @@ class Inventory extends React.Component {
 
   validateIngredient(name) {
     //validate ingredient: if empty, not ingredient
+    if(name == '') return;
+    
     fetch('/api/spoonacular/validateIngredient?ingredient=' + name.value)
       .then(res => res.json())
       .then(res => {

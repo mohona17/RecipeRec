@@ -28,13 +28,14 @@ module.exports = (app) => {
 
         console.log(name);
 
-        //Verifying all needed fields are present
-        if (!name) {
-            res.send({
-                success: false,
-                message: 'Error: did not add ingredient.'
-            })
-        };
+        // //Verifying all needed fields are present
+        // if (!name) {
+        //     res.send({
+        //         success: false,
+        //         message: 'Error: did not add ingredient.'
+        //     })
+        // };
+
         Ingredient.find({
             name: name,
             userId: userId,
@@ -47,8 +48,7 @@ module.exports = (app) => {
             }
             //ingredient is already added 
             else if (ingredients.length > 0) {
-                res.send({
-                    success: false,
+                res.status(250).send({
                     message: 'You already have this ingredient.'
                 })
             }
