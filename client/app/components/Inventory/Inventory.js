@@ -137,7 +137,7 @@ class Inventory extends React.Component {
           this.getIngredients();
           //Resetting form text
           this.refs.ingredientname.value = ''
-          alert("Added ingredient")
+          // alert("Added ingredient")
         }
       })
       .catch(err => { throw (err) })
