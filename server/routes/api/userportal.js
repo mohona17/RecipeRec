@@ -44,7 +44,7 @@ module.exports = (app) => {
             error.forEach(element => {
                 message = message.concat(element)
             });
-            return res.send(message);
+            return res.send({message: message});
         }
 
         email = email.toLowerCase();
@@ -53,9 +53,9 @@ module.exports = (app) => {
         User.find({
             email: email
         }, (err, previousUsers) => {
-            if (err) return res.send('Server error.');
+            if (err) return res.send({message: 'Server error.'});
             //is a previous user with same email
-            else if (previousUsers.length > 0) return res.send('Account already exists with this email.')
+            else if (previousUsers.length > 0) return res.send({message: 'Account already exists with this email.'})
 
             else {
                 //Save new user 
@@ -67,7 +67,7 @@ module.exports = (app) => {
                 newUser.password = newUser.generateHash(password);
 
                 newUser.save((err, user) => {
-                    if (!err) res.send('success');
+                    if (!err) res.send({message: 'success'});
                 });
             }
         });
@@ -130,7 +130,6 @@ module.exports = (app) => {
             userSession.save((err, doc) => {
                 if (err) return res.send(err)
                 return res.send({
-                    success: true,
                     message: 'Sign in is valid',
                     token: doc._id,
                 });
@@ -175,12 +174,9 @@ module.exports = (app) => {
     });
 
     app.get('/api/account/logout', (req, res, next) => {
-        //get token 
         const { query } = req;
         const { token } = query;
 
-        //I believe this works, but I had problems when I would delete an already deleted session
-        //delete session
         console.log('request token', token);
         UserSession.findOneAndUpdate({
             _id: token,

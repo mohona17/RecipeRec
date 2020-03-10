@@ -164,10 +164,10 @@ class Home extends Component {
         password: signUpPassword,
       }),
     })
-      .then(res => res.text())
-      .then(res => {
-        console.log(res)
-        if (res == 'success') {
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        if (json.message == 'success') {
           this.setState({
             signuploading: false,
             signUpEmail: '',
@@ -181,7 +181,7 @@ class Home extends Component {
           this.setState({
             signuploading: false,
           });
-          alert(res);
+          alert(json.message);
         }
       });
 
