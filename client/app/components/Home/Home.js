@@ -18,17 +18,17 @@ class Home extends Component {
       signinloading: false,
       signuploading: false,
       token: '',
-      signInEmail: '',
+      signInUsername: '',
       signInPassword: '',
       signUpFirstName: '',
       signUpLastName: '',
-      signUpEmail: '',
+      signUpUsername: '',
       signUpPassword: '',
     };
 
-    this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
+    this.onTextboxChangeSignInUsername = this.onTextboxChangeSignInUsername.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
-    this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
+    this.onTextboxChangeSignUpUsername = this.onTextboxChangeSignUpUsername.bind(this);
     this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
     this.onTextboxChangeSignUpFirstName = this.onTextboxChangeSignUpFirstName.bind(this);
     this.onTextboxChangeSignUpLastName = this.onTextboxChangeSignUpLastName.bind(this);
@@ -68,9 +68,9 @@ class Home extends Component {
     }
   }
 
-  onTextboxChangeSignInEmail(event) {
+  onTextboxChangeSignInUsername(event) {
     this.setState({
-      signInEmail: event.target.value,
+      signInUsername: event.target.value,
     });
   }
   onTextboxChangeSignInPassword(event) {
@@ -88,9 +88,9 @@ class Home extends Component {
       signUpLastName: event.target.value,
     });
   }
-  onTextboxChangeSignUpEmail(event) {
+  onTextboxChangeSignUpUsername(event) {
     this.setState({
-      signUpEmail: event.target.value,
+      signUpUsername: event.target.value,
     });
   }
   onTextboxChangeSignUpPassword(event) {
@@ -101,7 +101,7 @@ class Home extends Component {
 
   onSignIn() {
     const {
-      signInEmail,
+      signInUsername,
       signInPassword,
     } = this.state;
 
@@ -115,7 +115,7 @@ class Home extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: signInEmail,
+        username: signInUsername,
         password: signInPassword,
       }),
     })
@@ -126,7 +126,7 @@ class Home extends Component {
           setInStorage('the_main_app', { token: json.token });
           this.setState({
             signinLoading: false,
-            signInEmail: '',
+            signInUsername: '',
             signInPassword: '',
             token: json.token
           });
@@ -142,7 +142,7 @@ class Home extends Component {
 
   onSignUp() {
     const {
-      signUpEmail,
+      signUpUsername,
       signUpPassword,
       signUpFirstName,
       signUpLastName,
@@ -160,7 +160,7 @@ class Home extends Component {
       body: JSON.stringify({
         firstName: signUpFirstName,
         lastName: signUpLastName,
-        email: signUpEmail,
+        username: signUpUsername,
         password: signUpPassword,
       }),
     })
@@ -170,7 +170,7 @@ class Home extends Component {
         if (json.message == 'success') {
           this.setState({
             signuploading: false,
-            signUpEmail: '',
+            signUpUsername: '',
             signUpPassword: '',
             signUpFirstName: '',
             signUpLastName: '',
@@ -190,9 +190,9 @@ class Home extends Component {
   render() {
     const {
       token,
-      signInEmail,
+      signInUsername,
       signInPassword,
-      signUpEmail,
+      signUpUsername,
       signUpPassword,
       signUpFirstName,
       signUpLastName,
@@ -234,10 +234,10 @@ class Home extends Component {
               <h3>Sign In</h3>
               <input
                 class="form-control"
-                type="email"
-                placeholder="Email"
-                value={signInEmail}
-                onChange={this.onTextboxChangeSignInEmail}
+                type="username"
+                placeholder="Username"
+                value={signInUsername}
+                onChange={this.onTextboxChangeSignInUsername}
               ></input><br />
               <input
                 class="form-control"
@@ -270,10 +270,10 @@ class Home extends Component {
               ></input><br />
               <input
                 class="form-control"
-                type="email"
-                placeholder="Email"
-                value={signUpEmail}
-                onChange={this.onTextboxChangeSignUpEmail}
+                type="Username"
+                placeholder="Username"
+                value={signUpUsername}
+                onChange={this.onTextboxChangeSignUpUsername}
               ></input><br />
               <input
                 class="form-control"

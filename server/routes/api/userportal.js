@@ -27,17 +27,17 @@ module.exports = (app) => {
             password
         } = body;
         let {
-            email
+            username
         } = body;
         let error = [];
 
         //Verifying all needed fields are present
         if (!firstName) error.push('First name cannot be blank. ')
-        if (!lastName) error.push('Last name cannot be blank.')
+        if (!lastName) error.push('Last name cannot be blank. ')
 
-        //TODO: handle valid email
-        if (!email) error.push('Email cannot be blank.')
-        if (!password) error.push(' Password cannot be blank.')
+        if (!username) error.push('Username cannot be blank. ')
+        if (!password) error.push(' Password cannot be blank. ')
+
 
         if (error.length != 0) {
             let message = '';
@@ -47,23 +47,22 @@ module.exports = (app) => {
             return res.send({message: message});
         }
 
-        email = email.toLowerCase();
+        username = username.toLowerCase();
 
-        //Verify email does not already exist 
+        //Verify username does not already exist 
         User.find({
-            email: email
+            username: username
         }, (err, previousUsers) => {
             if (err) return res.send({message: 'Server error.'});
-            //is a previous user with same email
-            else if (previousUsers.length > 0) return res.send({message: 'Account already exists with this email.'})
-
+            //is a previous user with same username
+            else if (previousUsers.length > 0) return res.send({message: 'Account already exists with this username.'})
             else {
                 //Save new user 
                 const newUser = new User();
 
                 newUser.firstName = firstName;
                 newUser.lastName = lastName;
-                newUser.email = email;
+                newUser.username = username;
                 newUser.password = newUser.generateHash(password);
 
                 newUser.save((err, user) => {
@@ -83,12 +82,12 @@ module.exports = (app) => {
             password
         } = body;
         let {
-            email
+            username
         } = body;
         let error = [];
 
         //Checking if null
-        if (!email) error.push ('Email cannot be blank. ');
+        if (!username) error.push ('Username cannot be blank. ');
         if (!password) error.push('Password cannot be blank. ');
 
         if (error.length != 0) {
@@ -99,11 +98,11 @@ module.exports = (app) => {
             return res.send({message: message});
         }
 
-        email = email.toLowerCase();
+        username = username.toLowerCase();
 
         //Verification
         User.find({
-            email: email
+            username: username
         }, (err, users) => {
             if (err) {
                 return res.send({message: 'Error: Server error' });
@@ -111,7 +110,7 @@ module.exports = (app) => {
             // console.log(users);
 
             if (users.length != 1) {
-                return res.send({message: 'Invalid email'});
+                return res.send({message: 'Invalid username'});
             }
 
             const user = users[0];
