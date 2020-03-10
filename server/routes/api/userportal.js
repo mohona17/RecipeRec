@@ -7,11 +7,11 @@ module.exports = (app) => {
     app.get('/api/usersession', (req, res, next) => {
         const { query } = req;
         const { usersession } = query;
-        UserSession.findById(usersession, (err, session) =>{
+        UserSession.findById(usersession, (err, session) => {
             if (err) {
                 console.log(err);
                 res.status(400).send(err);
-            } else {               
+            } else {
                 res.send(session);
             }
         });
@@ -29,18 +29,23 @@ module.exports = (app) => {
         let {
             email
         } = body;
+        let error = [];
 
         //Verifying all needed fields are present
-        if (!firstName) res.send('Error: First name cannot be blank.')
-        if (!lastName) res.send('Error: Last name cannot be blank.')
+        if (!firstName) error.push('First name cannot be blank. ')
+        if (!lastName) error.push('Last name cannot be blank.')
 
         //TODO: handle valid email
-        if (!email) {
-            res.send('Error: Email cannot be blank.')
-        };
-        if (!password) res.send( 'Error: Password cannot be blank.')
+        if (!email) error.push('Email cannot be blank.')
+        if (!password) error.push(' Password cannot be blank.')
 
-        // console.log("saying hi from signin.js");
+        if (error.length != 0) {
+            let message = '';
+            error.forEach(element => {
+                message = message.concat(element)
+            });
+            return res.send(message);
+        }
 
         email = email.toLowerCase();
 
@@ -48,10 +53,10 @@ module.exports = (app) => {
         User.find({
             email: email
         }, (err, previousUsers) => {
-            if (err) res.send('Server error.');
+            if (err) return res.send('Server error.');
             //is a previous user with same email
-            else if (previousUsers.length > 0) res.send('Account already exists with this email.')
-    
+            else if (previousUsers.length > 0) return res.send('Account already exists with this email.')
+
             else {
                 //Save new user 
                 const newUser = new User();
@@ -160,8 +165,8 @@ module.exports = (app) => {
             isDeleted: false
         }, (err, sessions) => {
             //TODO a server error occurs when login session does not work
-           
-            if (err) { 
+
+            if (err) {
                 console.log(err);
                 return res.send({
                     success: false,
@@ -195,8 +200,8 @@ module.exports = (app) => {
         UserSession.findOneAndUpdate({
             _id: token,
             isDeleted: false
-        }, { $set:{isDeleted: true}}, null, (err, sessions) => {
-            if (err) {            
+        }, { $set: { isDeleted: true } }, null, (err, sessions) => {
+            if (err) {
                 console.log(err);
                 return res.send({
                     success: false,
