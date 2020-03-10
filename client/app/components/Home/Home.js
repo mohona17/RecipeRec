@@ -17,8 +17,6 @@ class Home extends Component {
     this.state = {
       signinloading: false,
       signuploading: false,
-      signUpError: '',
-      signInError: '',
       token: '',
       signInEmail: '',
       signInPassword: '',
@@ -127,7 +125,6 @@ class Home extends Component {
           console.log("successful login", json.token);
           setInStorage('the_main_app', { token: json.token });
           this.setState({
-            signInError: json.message,
             signinLoading: false,
             signInEmail: '',
             signInPassword: '',
@@ -136,7 +133,6 @@ class Home extends Component {
         }
         else {
           this.setState({
-            signInError: json.message,
             signinLoading: false,
           });
         }
@@ -182,7 +178,6 @@ class Home extends Component {
         }
         else {
           this.setState({
-            signUpError: res,
             signuploading: false,
           });
           alert(res);
@@ -241,8 +236,6 @@ class Home extends Component {
       token,
       signInEmail,
       signInPassword,
-      signInError,
-      signUpError,
       signUpEmail,
       signUpPassword,
       signUpFirstName,
@@ -287,9 +280,7 @@ class Home extends Component {
               <img style={{ flex: 1, height: undefined, width: undefined, resizeMode: 'cover', borderRadius: "0.5rem" }} src="https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
             </div>
             <div class="col col-sm-3 text-center" style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
-              {/* {
-                (signInError) ? (<p>{signInError}</p>) : (null)
-              } */}
+
               <h3>Sign In</h3>
               <input
                 class="form-control"
@@ -312,9 +303,7 @@ class Home extends Component {
               ><b>Sign In</b></button>
               {signinLoadingMessage}
               <hr></hr>
-              {/* {
-                (signUpError) ? (<p>{signUpError}</p>) : (null)
-              } */}
+
               <h3>Sign Up</h3>
               <input
                 class="form-control"
