@@ -192,6 +192,7 @@ export function addIngredient(name, userId) {
       res.json();
       console.log(res.status)
       if (res.status == '200') alert("Successfully added ingredient")
+      else if(res.status == '250') alert("Duplicate ingredient")
       else {
         alert("Error")
       }
