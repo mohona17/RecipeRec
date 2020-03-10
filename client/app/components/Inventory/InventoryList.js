@@ -53,7 +53,7 @@ class InventoryList extends React.Component {
     })
       .then(res => {
         console.log(res)
-        res.json();
+        res.text();
         console.log(res.status)
         if (res.status == '200') alert("Successfully deleted ingredient")
         else {
@@ -180,12 +180,11 @@ export function addIngredient(name, userId) {
         "Content-Type": "application/json"
       },
     })
+    .then(res =>res.text())
     .then(res => {
       console.log(res)
-      res.json();
-      console.log(res.status)
-      if (res.status == '200') alert("Successfully added ingredient")
-      else if (res.status == '250') alert("Duplicate ingredient")
+      if (res == 'success') alert("Successfully added ingredient")
+      else if (res == 'duplicate') alert("Duplicate ingredient")
       else alert("Error")
     }
     )

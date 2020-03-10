@@ -79,7 +79,6 @@ class Search extends React.Component {
     fetch('/api/ingredients?user=' + this.state.userId)
       .then(res => res.text())
       .then(res => {
-        // console.log(res);
         if (res == "No ingredients") {
           this.setState({
             ingredients: []
