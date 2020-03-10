@@ -186,7 +186,6 @@ class Home extends Component {
             signuploading: false,
           });
           alert(res);
-
         }
       });
 
