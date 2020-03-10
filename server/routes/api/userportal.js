@@ -88,8 +88,8 @@ module.exports = (app) => {
         let error = [];
 
         //Checking if null
-        if (!email) error.push ('Error: Email cannot be blank.');
-        if (!password) error.push('Error: Password cannot be blank.');
+        if (!email) error.push ('Email cannot be blank. ');
+        if (!password) error.push('Password cannot be blank. ');
 
         if (error.length != 0) {
             let message = '';
@@ -106,9 +106,7 @@ module.exports = (app) => {
             email: email
         }, (err, users) => {
             if (err) {
-                return res.send({
-                    message: 'Error: Server error'
-                });
+                return res.send({message: 'Error: Server error' });
             }
             // console.log(users);
 
@@ -130,7 +128,7 @@ module.exports = (app) => {
             userSession.save((err, doc) => {
                 if (err) return res.send(err)
                 return res.send({
-                    message: 'Sign in is valid',
+                    message: 'success',
                     token: doc._id,
                 });
             })
