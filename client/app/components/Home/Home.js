@@ -163,36 +163,44 @@ class Home extends Component {
         password: signUpPassword,
       }),
     })
+      .then(res => {
+        alert(res)
+        res.json();
+        console.log("res", res);
+      }
+      )
+      .then(json => {
+        console.log("json", json);
+        alert(json)
+        if (json.success) {
+          this.setState({
+            signUpError: json.message,
+            isLoading: false,
+            // signUpEmail: '',
+            // signUpPassword: '',
+            // signUpFirstName: '',
+            // signUpLastName: '',
+          });
+        }
+        else {
+          this.setState({
+            signUpError: json.message,
+            isLoading: false,
+          });
+        }
+      });
 
     /*MongoDB is taking a long time to send a 
     response, so I commented out the correct 
     code for changing the loading status*/
     this.setState({
-      isLoading: false,
+      // isLoading: false,
       signUpEmail: '',
       signUpPassword: '',
       signUpFirstName: '',
       signUpLastName: '',
     })
-    // .then(res => res.json())
-    // .then(json => {
-    // if (json.success) {
-    //   this.setState({
-    //     signUpError: json.message,
-    //     isLoading: false,
-    //     signUpEmail: '',
-    //     signUpPassword: '',
-    //     signUpFirstName: '',
-    //     signUpLastName: '',
-    //   });
-    // }
-    // else {
-    //   this.setState({
-    //     signUpError: json.message,
-    //     isLoading: false,
-    //   });
-    // }
-    // });
+
   }
 
   //Moved to Profile
@@ -243,9 +251,13 @@ class Home extends Component {
       signUpLastName,
     } = this.state;
 
+    var loadingMessage = (
+      <div></div>
+    )
+
     console.log('Loading?', isLoading)
     if (isLoading) {
-      return (<div>
+      loadingMessage = (<div>
         <p>Loading...</p>
       </div>);
     }
@@ -253,7 +265,7 @@ class Home extends Component {
 
       return (
         <div class="container">
-          <div class="jumbotron" style={{ backgroundColor: color1,color:color2,marginTop: '2rem' }}>
+          <div class="jumbotron" style={{ backgroundColor: color1, color: color2, marginTop: '2rem' }}>
             <h1>Recipe Recommender</h1>
           </div>
           <div style={{ textAlign: 'center' }}>
@@ -288,10 +300,11 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignInPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: color3,color:color2,}}
+                style={{ backgroundColor: color3, color: color2, }}
                 class="btn btn-light"
                 onClick={this.onSignIn}
               ><b>Sign In</b></button>
+              {loadingMessage}
               <hr></hr>
               {
                 (signUpError) ? (<p>{signUpError}</p>) : (null)
@@ -326,10 +339,12 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignUpPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: color3, color:color2, }}
+                style={{ backgroundColor: color3, color: color2, }}
                 class="btn btn-light"
                 onClick={this.onSignUp}
               ><b>Sign Up</b></button>
+              {loadingMessage}
+
             </div>
           </div>
 

@@ -51,7 +51,16 @@ class InventoryList extends React.Component {
         "Content-Type": "application/json"
       },
     })
-    alert("Deleted ingredient")
+    .then(res => {
+      console.log(res)
+      res.json();
+      console.log(res.status)
+      if(res.status == '200') alert("Successfully deleted ingredient")
+    }
+
+    )
+    
+    // alert("Deleted ingredient")
 
   }
 
