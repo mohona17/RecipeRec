@@ -130,17 +130,13 @@ module.exports = (app) => {
             const userSession = new UserSession();
             userSession.userId = user._id;
             userSession.save((err, doc) => {
-                if (err) {
-                    return res.send({
-                        success: false,
-                        message: 'Server error'
-                    });
-                }
-                return res.send({
-                    success: true,
-                    message: 'Sign in is valid',
-                    token: doc._id,
-                });
+                if (err) return res.send(err)
+                return res.send("success")
+                // return res.send({
+                //     success: true,
+                //     message: 'Sign in is valid',
+                //     token: doc._id,
+                // });
             })
         })
     });
