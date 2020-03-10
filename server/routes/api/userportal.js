@@ -85,22 +85,20 @@ module.exports = (app) => {
         let {
             email
         } = body;
+        let error = [];
 
-        console.log("password", password)
         //Checking if null
-        if (!email) {
-            return res.send({
-                success: false,
-                message: 'Error: Email cannot be blank.'
-            });
-        };
-        if (!password) {
-            return res.send({
-                success: false,
-                message: 'Error: Password cannot be blank.'
-            });
-        };
+        if (!email) error.push ('Error: Email cannot be blank.');
+        if (!password) error.push('Error: Password cannot be blank.');
 
+        if (error.length != 0) {
+            let message = '';
+            error.forEach(element => {
+                message = message.concat(element)
+            });
+            return res.send(message);
+        }
+        
         email = email.toLowerCase();
 
         //Verification
