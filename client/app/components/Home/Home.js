@@ -5,8 +5,10 @@ import {
   getFromStorage,
   setInStorage
 } from '../../utils/storage.js';
-import Carousel from '@brainhubeu/react-carousel';
-
+const color1 = "#E8B866" //yellow
+const color2 = "#040A0F"//black
+const color3 = "#BD632F" //brown
+const color4 = "#D5D6D4" //lightgrey
 
 class Home extends Component {
   constructor(props) {
@@ -251,7 +253,7 @@ class Home extends Component {
 
       return (
         <div class="container">
-          <div class="jumbotron" style={{ backgroundColor: '#7A6071',color:"#380024",marginTop: '2rem' }}>
+          <div class="jumbotron" style={{ backgroundColor: color1,color:color2,marginTop: '2rem' }}>
             <h1>Recipe Recommender</h1>
           </div>
           <div style={{ textAlign: 'center' }}>
@@ -266,7 +268,7 @@ class Home extends Component {
             <div class="col col-sm-7 text-center" style={{ overflow: "hidden", borderRadius: "0.5rem" }} >
               <img style={{ flex: 1, height: undefined, width: undefined, resizeMode: 'cover', borderRadius: "0.5rem" }} src="https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
             </div>
-            <div class="col col-sm-3 text-center" style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
+            <div class="col col-sm-3 text-center" style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
               {
                 (signInError) ? (<p>{signInError}</p>) : (null)
               }
@@ -286,7 +288,7 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignInPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: '#7A6071',color:"#380024",}}
+                style={{ backgroundColor: color3,color:color2,}}
                 class="btn btn-light"
                 onClick={this.onSignIn}
               ><b>Sign In</b></button>
@@ -324,7 +326,7 @@ class Home extends Component {
                 onChange={this.onTextboxChangeSignUpPassword}
               ></input><br />
               <button
-                style={{ backgroundColor: '#7A6071',color:"#380024", }}
+                style={{ backgroundColor: color3, color:color2, }}
                 class="btn btn-light"
                 onClick={this.onSignUp}
               ><b>Sign Up</b></button>

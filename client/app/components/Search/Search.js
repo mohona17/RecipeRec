@@ -5,6 +5,11 @@ import {
 import Header from '../Header/Header';
 import InventoryList from '../Inventory/InventoryList';
 import RecipeList from './RecipeList'
+const color1 = "#E8B866" //yellow
+const color2 = "#040A0F"//black
+const color3 = "#BD632F" //brown
+const color4 = "#D5D6D4" //lightgrey
+const color5 = "#B7B7B7" //darkgrey
 
 function getPrice(id) {
   console.log("Getting price")
@@ -38,20 +43,6 @@ class Search extends React.Component {
 
   componentDidMount() {
     this.verifyLogin()
-    // const obj = getFromStorage('the_main_app');
-    // if (obj && obj.token) {
-    //   const { token } = obj.token;
-
-    //   fetch('/api/account/verify?token=' + token)
-    //     .then(res => res.json())
-    //     .then(json => {
-    //       if (json.success) {
-    //         this.setState({
-    //           token: token,
-    //         });
-    //       }
-    //     });
-    // }
   }
 
   //Contains possible fixes if time (see comments)
@@ -134,7 +125,6 @@ class Search extends React.Component {
             });
             this.getUserID()
           }
-
         });
     }
   }
@@ -196,8 +186,8 @@ class Search extends React.Component {
 
   getRecipe() {
     // console.log(this.state.selected)
-    this.setState({isLoading: true});
     if (this.state.selected.length != 0) {
+      this.setState({ isLoading: true });
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
         .then(res => res.json())
         .then(res => {
@@ -207,7 +197,7 @@ class Search extends React.Component {
             console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
             this.getRecipeSummaries();
-            this.setState({isLoading: false});
+            this.setState({ isLoading: false });
           });
         })
         .catch(err => { throw (err) })
@@ -225,30 +215,30 @@ class Search extends React.Component {
       this.getIngredients();
 
       //display selected cards (ingredients)
-      const selectedDisplay = this.state.selected.map((ingredient, index) => {
-        // console.log(this.state.selected)
-        return (
-          <div class="wrapper" >
-            <h5>{ingredient}</h5>
-          </div>
-        );
-      });
+      // const selectedDisplay = this.state.selected.map((ingredient, index) => {
+      //   // console.log(this.state.selected)
+      //   return (
+      //     <div class="wrapper" >
+      //       <h5>{ingredient}</h5>
+      //     </div>
+      //   );
+      // });
 
       return (
         <div class="container">
           <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
-          <div style={{ backgroundColor: '#D5D6D4', padding: '1rem', borderRadius: '0.5rem' }}>
-          <div style={{ margin: '5rem',marginBottom:"1rem", alignContent: 'center', alignSelf: 'center' }}>
-              <div style={{ backgroundColor: "#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem' }}>
+          <div style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
+            <div style={{ margin: '5rem', marginBottom: "1rem", alignContent: 'center', alignSelf: 'center' }}>
+              <div style={{ backgroundColor: color1, padding: '1.5rem', borderRadius: '0.5rem' }}>
                 <h2 style={{ textAlign: "center" }}>Find a recipe! It only takes 3 easy steps.</h2>
               </div>
             </div>
-            <div class="row" style={{margin:"1rem"}} >
+            <div class="row" style={{ alignContent: 'center', backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem", margin:"1.2rem"}}>
               <div class="col col-sm-5">
                 <h3><b>1) My kitchen:</b></h3>
                 <hr></hr>
-                <h4>Below are ingredients in your kitchen. Click on ingredients you would like to include in your meal.</h4>
+                <h4>Click on ingredients you would like to include in your meal</h4>
                 <div className="wrapper" style={{ width: "70%", marginLeft: "4rem", marginRight: "4rem" }}>
                   <InventoryList token={this.state.token}
                     ingredients={this.state.ingredients}
@@ -260,10 +250,8 @@ class Search extends React.Component {
               <div class="col col-sm-4">
                 <h3><b>2) Specify Budget</b></h3>
                 <hr></hr>
-                <h4> If you would like to set a budget for any ingredients you would like to buy, please do so below before
-                  beginning your search. This step is optional!
-              </h4>
-                <div style={{ backgroundColor: "#E9EAE8", padding: "2rem", borderRadius: "0.5rem" }}>
+                <h4> This step is optional</h4>
+                <div style={{ backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem" }}>
                   {/* <h4>I want to make a meal with the following ingredients:</h4>
                 {selectedDisplay} */}
                   <input
@@ -279,11 +267,12 @@ class Search extends React.Component {
               <div class="col col-sm-3">
                 <h3><b>3) Search!</b></h3>
                 <hr></hr>
+                <h4>Click the button and view results below</h4>
                 <button onClick={(e) => this.getRecipe()}
-                  style={{ backgroundColor: '#7A6071', color: "#380024", width: "100%" }}
+                  style={{ backgroundColor: color5, width: "100%" }}
                   type="button"
                   class="btn btn-dark"
-                ><h4>Search for Recipe</h4>
+                ><h4><b>Search for Recipe</b></h4>
                 </button>
               </div>
             </div >

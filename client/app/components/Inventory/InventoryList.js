@@ -1,4 +1,9 @@
 import React from 'react';
+const color1 = "#E8B866" //yellow
+const color2 = "#040A0F"//black
+const color3 = "#BD632F" //brown
+const color4 = "#D5D6D4" //lightgrey
+const color5 = "#B7B7B7" //darkgrey
 
 class InventoryList extends React.Component {
   constructor(props) {
@@ -101,7 +106,7 @@ class InventoryList extends React.Component {
           return (
             <div key={index} class="card">
               <div class="wrapper" onClick={() => this.selectIngredient(ingredient)} >
-                <h3 style={{color:'#5E3750'}}><b>{ingredient.name}</b></h3>
+                <h3 style={{color:color3}}><b>{ingredient.name}</b></h3>
               </div>
             </div>
           );
@@ -123,7 +128,7 @@ class InventoryList extends React.Component {
             <h3 style={{ float: "left", flexWrap: "wrap" }}>{ingredient.name} </h3>
             <button onClick={(e) => this.deleteIngredient(ingredient.name)}
               type="button"
-              style={{ float: "right", backgroundColor: "#E9EAE8" }}
+              style={{ float: "right", backgroundColor: color4 }}
               class="btn btn-secondary">
               <img src="https://storage.needpix.com/rsynced_images/garbage-1295900_1280.png" style={{ height: "3rem", verticalAlign: "center" }}>
               </img>
@@ -141,7 +146,7 @@ class InventoryList extends React.Component {
     else {
 
       return (
-        <div style={{ backgroundColor: "#AAB5C4", padding: "1.5rem", borderRadius: "0.5rem"}}>
+        <div style={{ backgroundColor: color4, padding: "1.5rem", borderRadius: "0.5rem"}}>
           {cards}
           {/* <p>{this.state.selected}</p> */}
         </div>

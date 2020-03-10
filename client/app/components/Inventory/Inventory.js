@@ -7,6 +7,11 @@ import InventoryList from './InventoryList';
 import {
   addIngredient,
 } from './InventoryList';
+const color1 = "#E8B866" //yellow
+const color2 = "#040A0F"//black
+const color3 = "#BD632F" //brown
+const color4 = "#D5D6D4" //lightgrey
+const color5 = "#B7B7B7" //darkgrey
 
 class Inventory extends React.Component {
   constructor(props) {
@@ -117,11 +122,23 @@ class Inventory extends React.Component {
 
   validateIngredient(name) {
     //validate ingredient: if empty, not ingredient
-    fetch('/api/spoonacular/validateIngredient?ingredient=' + name)
+    fetch('/api/spoonacular/validateIngredient?ingredient=' + name.value)
       .then(res => res.json())
       .then(res => {
-        if (res.length == 0) return false;
-        else true
+        console.log(res.length)
+        // if (res.length == 0) return false;
+        // else return true;
+        if (res.length == 0) {
+          alert("Invalid ingredient name. Cannot add.")
+        }
+        else {
+          addIngredient(this.refs.ingredientname.value, this.state.userId)
+          //This updates the state of ingredients that is sent to Inventory list, causing an update :)
+          this.getIngredients();
+          //Resetting form text
+          this.refs.ingredientname.value = ''
+          alert("Added ingredient")
+        }
       })
       .catch(err => { throw (err) })
   }
@@ -130,39 +147,38 @@ class Inventory extends React.Component {
 
     const addIngredientForm =
       (<div class="form">
-        <h1><b>Just bought!</b></h1>
+        <h1><b>Just bought</b></h1>
         <hr></hr>
-        <h3>Adding an ingredient to my kitchen:</h3>
-        <div className="wrapper" style={{ backgroundColor: "#AAB5C4", padding: "1.5rem", margin: "2rem", borderRadius: "0.5rem" }}>
+        <div className="wrapper" style={{ backgroundColor: color4, padding: "1.5rem", margin: "2rem", borderRadius: "0.5rem" }}>
           <br></br>
           <form >
             <input class="form-control" type="text" placeholder="Name of ingredient" ref="ingredientname"></input>
           </form>
           <br></br>
           <button
-            style={{ backgroundColor: '#7A6071', color: "#380024", }}
+            style={{ backgroundColor: color5 }}
             type="button"
             class="btn btn-dark"
             onClick={() => {
               if (this.refs.ingredientname.value) {
-                if (this.validateIngredient(this.refs.ingredientname)) {
-
-                  addIngredient(this.refs.ingredientname.value, this.state.userId)
-                  //This updates the state of ingredients that is sent to Inventory list, causing an update :)
-                  this.getIngredients();
-                  //Resetting form text
-                  this.refs.ingredientname.value = ''
-                  alert("Added ingredient")
-                }
-                else{
-                  alert("Invalid ingredient name. Cannot add.")
-                }
+                this.validateIngredient(this.refs.ingredientname)
+                // if (this.validateIngredient(this.refs.ingredientname)) {
+                //   addIngredient(this.refs.ingredientname.value, this.state.userId)
+                //   //This updates the state of ingredients that is sent to Inventory list, causing an update :)
+                //   this.getIngredients();
+                //   //Resetting form text
+                //   this.refs.ingredientname.value = ''
+                //   alert("Added ingredient")
+                // }
+                // else {
+                //   alert("Invalid ingredient name. Cannot add.")
+                // }
               }
               else {
                 alert("Make sure all entries are completed.");
               }
             }}
-          ><b>Add</b></button>
+          ><b>Add ingredient</b></button>
         </div>
       </div>
       );
@@ -175,15 +191,14 @@ class Inventory extends React.Component {
         <div class="container">
           <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
-          <div style={{ backgroundColor: '#D5D6D4', padding: '3rem', borderRadius: '0.5rem' }}>
-            <div style={{ backgroundColor: "#B4B5B3", padding: '1.5rem', borderRadius: '0.5rem' }}>
+          <div style={{ backgroundColor: color4, padding: '3rem', borderRadius: '0.5rem' }}>
+            <div style={{ backgroundColor: color1, padding: '1.5rem', borderRadius: '0.5rem' }}>
               <h2 style={{ textAlign: "center" }}>What's in your kitchen? Add or delete ingredients here.</h2>
             </div>
-            <div class="row justify-content-md-center" style={{ alignContent: 'center', margin: "3rem", backgroundColor: "#96A2B5", padding: "2rem", borderRadius: "0.5rem" }}>
+            <div class="row justify-content-md-center" style={{ alignContent: 'center', margin: "3rem", backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem" }}>
               <div class="col col-sm-6" style={{ textAlign: "center" }}>
-                <h1><b>My kitchen</b></h1>
+                <h1><b>In my kitchen</b></h1>
                 <hr></hr>
-                <h3>The ingredients I currently have:</h3>
                 <div className="wrapper" style={{ paddingLeft: "4rem", paddingRight: "4rem" }}>
                   <InventoryList token={this.state.token} ingredients={this.state.ingredients} ></InventoryList>
                 </div>
