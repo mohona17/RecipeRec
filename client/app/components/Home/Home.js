@@ -24,7 +24,6 @@ class Home extends Component {
       signUpLastName: '',
       signUpUsername: '',
       signUpPassword: '',
-      isAuthenticating: true,
     };
 
     this.onTextboxChangeSignInUsername = this.onTextboxChangeSignInUsername.bind(this);
@@ -43,7 +42,7 @@ class Home extends Component {
     this.verifyLogin();
   }
 
-  verifyLogin(){
+  verifyLogin() {
     const obj = getFromStorage('the_main_app');
     if (obj && obj.token) {
       const { token } = obj.token;
@@ -205,7 +204,7 @@ class Home extends Component {
       signinloading
     } = this.state;
 
-    var signuplabel,signinlabel = (
+    var signuplabel, signinlabel = (
       <div></div>
     )
 
