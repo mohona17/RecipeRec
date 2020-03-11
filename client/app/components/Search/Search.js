@@ -35,13 +35,14 @@ class Search extends React.Component {
       recipes: [],
       price: '',
       isLoading: false,
+      isAuthenticating: true,
     }
     this.logout = this.logout.bind(this);
     this.getSelected = this.getSelected.bind(this);
     this.onTextboxChangeBudget = this.onTextboxChangeBudget.bind(this);
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.verifyLogin()
   }
 
@@ -91,6 +92,8 @@ class Search extends React.Component {
           })
           // console.log("ingredients " + this.state.ingredients)
         }
+        //This is where everything needed for the page is loaded, so this is the time to render something
+        this.setState({isAuthenticating: false})
       })
       .catch(err => {
         throw (err)
@@ -127,6 +130,7 @@ class Search extends React.Component {
         });
     }
   }
+
   onTextboxChangeBudget(event) {
     this.setState({
       budget: event.target.value,
@@ -209,6 +213,8 @@ class Search extends React.Component {
 
   render() {
     // console.log("from search page " + this.state.token)
+    if(this.state.isAuthenticating) return null 
+
     if (this.state.token != '') {
       //Calling this function continuously so inventory list can update if needed.
       this.getIngredients();
