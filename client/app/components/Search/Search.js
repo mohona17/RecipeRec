@@ -92,8 +92,9 @@ class Search extends React.Component {
           })
           // console.log("ingredients " + this.state.ingredients)
         }
-        //This is where everything needed for the page is loaded, so this is the time to render something
-        this.setState({isAuthenticating: false})
+        /*This is where everything needed for the page is loaded when a user 
+        session is found, so this is the time to render something*/
+        this.setState({ isAuthenticating: false })
       })
       .catch(err => {
         throw (err)
@@ -108,7 +109,6 @@ class Search extends React.Component {
         this.setState({
           userId: res.userId
         })
-        // console.log("UserID" + this.state.userId)
         this.getIngredients()
       })
       .catch(err => { throw (err) })
@@ -126,6 +126,10 @@ class Search extends React.Component {
               token: obj.token,
             });
             this.getUserID()
+          }
+          else {
+            //if the user is not logged in, this is when a page should render
+            this.setState({ isAuthenticating: false })
           }
         });
     }
@@ -213,7 +217,7 @@ class Search extends React.Component {
 
   render() {
     // console.log("from search page " + this.state.token)
-    if(this.state.isAuthenticating) return null 
+    if (this.state.isAuthenticating) return (<p>Loading...</p>)
 
     if (this.state.token != '') {
       //Calling this function continuously so inventory list can update if needed.
@@ -239,7 +243,7 @@ class Search extends React.Component {
                 <h2 style={{ textAlign: "center" }}>Find a recipe! It only takes 3 easy steps.</h2>
               </div>
             </div>
-            <div class="row" style={{ alignContent: 'center', backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem", margin:"1.2rem"}}>
+            <div class="row" style={{ alignContent: 'center', backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem", margin: "1.2rem" }}>
               <div class="col col-sm-5">
                 <h3><b>1) My kitchen:</b></h3>
                 <hr></hr>
