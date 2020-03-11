@@ -20,6 +20,7 @@ class Inventory extends React.Component {
       token: '',
       userId: '',
       ingredients: [],
+      isAuthenticating: true,
     }
     this.logout = this.logout.bind(this);
     // this.addIngredient = this.addIngredient.bind(this);
@@ -96,6 +97,9 @@ class Inventory extends React.Component {
           })
           // console.log("ingredients " + this.state.ingredients)
         }
+        /*This is where everything needed for the page is loaded when a user 
+        session is found, so this is the time to render something*/
+        this.setState({ isAuthenticating: false })
       })
       .catch(err => {
         throw (err)
@@ -116,13 +120,17 @@ class Inventory extends React.Component {
             });
             this.getUserID();
           }
+          else {
+            //if the user is not logged in, this is when a page should render
+            this.setState({ isAuthenticating: false })
+          }
         });
     }
   }
 
   validateIngredient(name) {
     //validate ingredient: if empty, not ingredient
-    if(name == '') return;
+    if (name == '') return;
 
     fetch('/api/spoonacular/validateIngredient?ingredient=' + name.value)
       .then(res => res.json())
@@ -181,6 +189,8 @@ class Inventory extends React.Component {
         </div>
       </div>
       );
+
+    if (this.state.isAuthenticating) return (<p>Loading...</p>)
 
 
     if (this.state.token != '') {

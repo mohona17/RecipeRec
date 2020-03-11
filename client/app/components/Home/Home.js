@@ -39,6 +39,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    this.verifyLogin();
+  }
+
+  verifyLogin() {
     const obj = getFromStorage('the_main_app');
     if (obj && obj.token) {
       const { token } = obj.token;
@@ -200,7 +204,7 @@ class Home extends Component {
       signinloading
     } = this.state;
 
-    var signuplabel,signinlabel = (
+    var signuplabel, signinlabel = (
       <div></div>
     )
 
