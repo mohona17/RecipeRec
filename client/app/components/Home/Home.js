@@ -24,6 +24,7 @@ class Home extends Component {
       signUpLastName: '',
       signUpUsername: '',
       signUpPassword: '',
+      isAuthenticating: true,
     };
 
     this.onTextboxChangeSignInUsername = this.onTextboxChangeSignInUsername.bind(this);
@@ -39,6 +40,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    this.verifyLogin();
+  }
+
+  verifyLogin(){
     const obj = getFromStorage('the_main_app');
     if (obj && obj.token) {
       const { token } = obj.token;
