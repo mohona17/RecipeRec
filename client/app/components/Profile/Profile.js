@@ -17,6 +17,8 @@ class Profile extends React.Component {
     this.state = {
       token: '',
       logout: Object,
+      isAuthenticating: true,
+
     }
 
     this.logout = this.logout.bind(this);
@@ -80,11 +82,17 @@ class Profile extends React.Component {
               token: obj.token,
             });
           }
+          /*This is where everything needed for the page is loaded when a user 
+        session is found or not found, so this is the time to render something*/
+          this.setState({ isAuthenticating: false })
         });
     }
   }
   render() {
     console.log(this.state.token)
+
+    if (this.state.isAuthenticating) return (<p>Loading...</p>)
+
 
     if (this.state.token != '') {
       return (
@@ -98,29 +106,29 @@ class Profile extends React.Component {
               </div>
               <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.</h3>
               <br></br>
-              <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor:color4, padding: "2rem", borderRadius: "0.5rem" }}>
+              <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem" }}>
                 <div class="col col col-sm-4 text-center">
                   <h3><b>"Home" Tab</b></h3>
                   <hr></hr>
-                  <h4><ul style={{textAlign:'left'}}>
+                  <h4><ul style={{ textAlign: 'left' }}>
                     <li>current tab</li>
                     <li>beginner's guide to site</li>
-                    </ul></h4></div>
+                  </ul></h4></div>
                 <div class="col col col-sm-4 text-center">
                   <h3><b>"My Ingredients" Tab</b></h3>
                   <hr></hr>
-                  <h4><ul style={{textAlign:'left'}}>
+                  <h4><ul style={{ textAlign: 'left' }}>
                     <li>lists ingredients you have</li>
                     <li>delete ingredients </li>
                     <li>add new ingredients you just bought</li>
-                    </ul></h4></div>                <div class="col col col-sm-4 text-center">
+                  </ul></h4></div>                <div class="col col col-sm-4 text-center">
                   <h3><b>"Search for Recipe" Tab</b></h3>
                   <hr></hr>
-                  <h4><ul style={{textAlign:'left'}}>
+                  <h4><ul style={{ textAlign: 'left' }}>
                     <li>search for recipes</li>
                     <li>set a budget</li>
-                    </ul>
-                    </h4>
+                  </ul>
+                  </h4>
                 </div>
               </div>
               {/* </div> */}
