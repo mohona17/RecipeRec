@@ -147,13 +147,15 @@ class Search extends React.Component {
     });
   }
 
-  getRecipeSummaries() {
+  getRecipeInfo() {
     let recipesWithSummaries = this.state.recipes;
     recipesWithSummaries.forEach(recipe => {
       fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
         .then(res => res.json())
         .then(res => {
-          recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig,"");
+          //the replace part removes tags. if no tags: recipe["summary"] = res[0].summary
+          recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig, "");
+          recipe["instruction"] = res[0].instruction;
           // return(res[0].summary);
         })
         .catch(err => { throw (err) })
@@ -162,6 +164,21 @@ class Search extends React.Component {
     this.setState({ recipes: recipesWithSummaries })
     this.setState({ isLoading: false });
   }
+
+  //   getRecipeInstruction() {
+  //     let recipesWithInstructions = this.state.recipes;
+  //     recipesWithInstructions.forEach(recipe => {
+  //       fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
+  //         .then(res => res.json())
+  //         .then(res => {
+  //           recipe["instruction"] = res[0].instruction;
+  //         })
+  //         .catch(err => { throw (err) })
+  //     });
+  //     this.setState({ recipes: recipesWithInstructions })
+  //     this.setState({ isLoading: false });
+  //     console.log(this.state.recipes)
+  // }
 
   sortByPrice() {
     console.log("going to sort by price")
@@ -195,14 +212,14 @@ class Search extends React.Component {
     let recipes = [];
     let titles = [];
     //array is the raw array of recipe objects 
-  array.forEach(element => {
-    if(!titles.includes(element.title)){
-      //Add to recipes
-      recipes.push(element); 
-      titles.push(element.title);
-    }
-  });
-  return recipes;
+    array.forEach(element => {
+      if (!titles.includes(element.title)) {
+        //Add to recipes
+        recipes.push(element);
+        titles.push(element.title);
+      }
+    });
+    return recipes;
   };
 
   getRecipe() {
@@ -218,7 +235,7 @@ class Search extends React.Component {
             // console.log(this.state.recipes)
             console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
-            this.getRecipeSummaries();
+            this.getRecipeInfo();
           });
         })
         .catch(err => { throw (err) })

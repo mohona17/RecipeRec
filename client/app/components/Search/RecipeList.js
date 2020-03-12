@@ -18,22 +18,15 @@ class RecipeList extends React.Component {
     componentDidMount() {
     }
 
-    getRecipeInstruction(id) {
-        fetch('/api/spoonacular/getRecipeInfo?id=' + id)
-            .then(res => res.json())
-            .then(res => {
-                return (res[0].instruction);
-            })
-            .catch(err => { throw (err) })
-    }
-    // getRecipeSummary(id) {
+    // getRecipeInstruction(id) {
     //     fetch('/api/spoonacular/getRecipeInfo?id=' + id)
     //         .then(res => res.json())
     //         .then(res => {
-    //             return(res[0].summary);
+    //             return (res[0].instruction);
     //         })
     //         .catch(err => { throw (err) })
     // }
+
     render() {
         const recipeDisplay = this.props.recipes.map((recipe, index) => {
             return (
