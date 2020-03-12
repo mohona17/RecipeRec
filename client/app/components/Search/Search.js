@@ -153,13 +153,14 @@ class Search extends React.Component {
       fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
         .then(res => res.json())
         .then(res => {
-          recipe["summary"] = res[0].summary;
+          recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig,"");
           // return(res[0].summary);
         })
         .catch(err => { throw (err) })
     });
     // console.log(recipesWithSummaries)
     this.setState({ recipes: recipesWithSummaries })
+    this.setState({ isLoading: false });
   }
 
   sortByPrice() {
@@ -204,7 +205,6 @@ class Search extends React.Component {
             console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
             this.getRecipeSummaries();
-            this.setState({ isLoading: false });
           });
         })
         .catch(err => { throw (err) })
