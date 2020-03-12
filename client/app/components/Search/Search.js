@@ -191,6 +191,19 @@ class Search extends React.Component {
     });
   }
 
+  removeDuplicates(array) {
+    let recipes = [];
+    let titles = [];
+    //array is the raw array of recipe objects 
+  array.forEach(element => {
+    if(!titles.includes(element.title)){
+      //Add to recipes
+      recipes.push(element); 
+      titles.push(element.title);
+    }
+  });
+  return recipes;
+  };
 
   getRecipe() {
     // console.log(this.state.selected)
@@ -199,6 +212,7 @@ class Search extends React.Component {
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
         .then(res => res.json())
         .then(res => {
+          res = this.removeDuplicates(res);
           this.setState({ recipes: res }, () => {
             console.log("Got recipes")
             // console.log(this.state.recipes)
