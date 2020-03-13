@@ -174,7 +174,7 @@ class Search extends React.Component {
           recipe["instructions"] = res[0].instructions;
           }
           //if recipe does not have instructions 
-          if(recipe.instructions == null) recipe["instructions"] = "Sorry, no instructions available"
+          if(recipe.instructions == null) recipe["instructions"] = ["Sorry, no instructions available"]
 
           //INGREDIENTS
           if (res[0].extendedIngredients.length != 0) {
@@ -183,6 +183,9 @@ class Search extends React.Component {
                 ingredients.push(element.original)
             });
             recipe["ingredients"] = ingredients;
+          }
+          else{
+            recipe["ingredients"] = ["Sorry, no ingredients list available"];
           }
         })
         .catch(err => { throw (err) })
