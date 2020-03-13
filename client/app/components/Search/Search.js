@@ -153,14 +153,27 @@ class Search extends React.Component {
       fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
         .then(res => res.json())
         .then(res => {
+          //Used res[0] since multiple recipes show
+
           //the replace part removes tags. if no tags: recipe["summary"] = res[0].summary
           recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig, "");
-          recipe["instructions"] = res[0].instructions;
-          // return(res[0].summary);
+
+          //Get broken down instructions
+          // recipe["instructions"] = res[0].instructions;
+          let instructions = ''
+          res[0].analyzedInstructions.forEach(element => {
+            element.steps.forEach(s => {
+              instructions = instructions.concat(s.step)
+              instructions = instructions.concat("\n")
+            });
+          });
+          console.log("instructions", instructions)
+          recipe["instructions"] = instructions;
         })
         .catch(err => { throw (err) })
     });
     this.setState({ recipes: recipesWithInfo })
+    console.log(this.state.recipes)
   }
 
   //   getRecipeInstruction() {
@@ -236,7 +249,7 @@ class Search extends React.Component {
             this.getRecipeInfo();
           });
         })
-        .then(()=>{
+        .then(() => {
           this.setState({ isLoading: false })
         }
         )
