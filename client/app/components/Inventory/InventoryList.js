@@ -92,7 +92,6 @@ class InventoryList extends React.Component {
       // this.setState({ selected: this.state.selected.splice(this.state.selected.indexOf(name), 1) }, () => {
       this.setState({ selected: this.state.selected.filter(function (item) { return item != name }) }, () => {
         this.props.getSelected(this.state.selected);
-        // console.log(this.state.selected)
       });
     }
     else {

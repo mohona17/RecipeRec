@@ -147,20 +147,64 @@ class Search extends React.Component {
     });
   }
 
-  getRecipeSummaries() {
-    let recipesWithSummaries = this.state.recipes;
-    recipesWithSummaries.forEach(recipe => {
+  getRecipeInfo() {
+    let recipesWithInfo = this.state.recipes;
+    recipesWithInfo.forEach(recipe => {
       fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
         .then(res => res.json())
         .then(res => {
-          recipe["summary"] = res[0].summary;
-          // return(res[0].summary);
+          //Used res[0] since multiple recipes show
+
+          //SUMMARY 
+          //the replace part removes tags. if no tags: recipe["summary"] = res[0].summary
+          recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig, "");
+
+          //INSTRUCTIONS
+          //Get broken down instructions
+          if (res[0].analyzedInstructions.length != 0) {
+            let instructions = []
+            res[0].analyzedInstructions.forEach(element => {
+              element.steps.forEach(s => {
+                instructions.push(s.step)
+              });
+            });
+            recipe["instructions"] = instructions;
+          }
+          else{
+          recipe["instructions"] = res[0].instructions;
+          }
+          //if recipe does not have instructions 
+          if(recipe.instructions == null) recipe["instructions"] = "Sorry, no instructions available"
+
+          //INGREDIENTS
+          if (res[0].extendedIngredients.length != 0) {
+            let ingredients = []
+            res[0].extendedIngredients.forEach(element => {
+                ingredients.push(element.original)
+            });
+            recipe["ingredients"] = ingredients;
+          }
         })
         .catch(err => { throw (err) })
     });
-    // console.log(recipesWithSummaries)
-    this.setState({ recipes: recipesWithSummaries })
+    this.setState({ recipes: recipesWithInfo })
+    console.log(this.state.recipes)
   }
+
+  //   getRecipeInstruction() {
+  //     let recipesWithInstructions = this.state.recipes;
+  //     recipesWithInstructions.forEach(recipe => {
+  //       fetch('/api/spoonacular/getRecipeInfo?id=' + recipe.id)
+  //         .then(res => res.json())
+  //         .then(res => {
+  //           recipe["instruction"] = res[0].instruction;
+  //         })
+  //         .catch(err => { throw (err) })
+  //     });
+  //     this.setState({ recipes: recipesWithInstructions })
+  //     this.setState({ isLoading: false });
+  //     console.log(this.state.recipes)
+  // }
 
   sortByPrice() {
     console.log("going to sort by price")
@@ -190,6 +234,19 @@ class Search extends React.Component {
     });
   }
 
+  removeDuplicates(array) {
+    let recipes = [];
+    let titles = [];
+    //array is the raw array of recipe objects 
+    array.forEach(element => {
+      if (!titles.includes(element.title)) {
+        //Add to recipes
+        recipes.push(element);
+        titles.push(element.title);
+      }
+    });
+    return recipes;
+  };
 
   getRecipe() {
     // console.log(this.state.selected)
@@ -198,15 +255,19 @@ class Search extends React.Component {
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
         .then(res => res.json())
         .then(res => {
+          res = this.removeDuplicates(res);
           this.setState({ recipes: res }, () => {
             console.log("Got recipes")
             // console.log(this.state.recipes)
             console.log("budget", this.state.budget)
             if (this.state.budget != '') this.sortByPrice()
-            this.getRecipeSummaries();
-            this.setState({ isLoading: false });
+            this.getRecipeInfo();
           });
         })
+        .then(() => {
+          this.setState({ isLoading: false })
+        }
+        )
         .catch(err => { throw (err) })
     }
     else {
