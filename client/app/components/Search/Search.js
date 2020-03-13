@@ -173,6 +173,9 @@ class Search extends React.Component {
           else{
           recipe["instructions"] = res[0].instructions;
           }
+
+          //if recipe does not have instructions 
+          if(recipe.instructions == null) recipe["instructions"] = "Sorry, no instructions available"
         })
         .catch(err => { throw (err) })
     });

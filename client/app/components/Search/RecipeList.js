@@ -33,6 +33,7 @@ class RecipeList extends React.Component {
                 text = (
                     <div>
                         <b>Instructions</b>
+                        <br></br>
                         {recipe.instructions}
                     </div>);
                 buttonText = "Go back";
