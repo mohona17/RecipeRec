@@ -162,14 +162,12 @@ class Search extends React.Component {
           //INSTRUCTIONS
           //Get broken down instructions
           if (res[0].analyzedInstructions.length != 0) {
-            let instructions = ''
+            let instructions = []
             res[0].analyzedInstructions.forEach(element => {
               element.steps.forEach(s => {
-                instructions = instructions.concat(s.step)
-                instructions = instructions.concat("\n")
+                instructions.push(s.step)
               });
             });
-            console.log("instructions", instructions)
             recipe["instructions"] = instructions;
           }
           else{
@@ -180,12 +178,10 @@ class Search extends React.Component {
 
           //INGREDIENTS
           if (res[0].extendedIngredients.length != 0) {
-            let ingredients = ''
+            let ingredients = []
             res[0].extendedIngredients.forEach(element => {
-                ingredients = ingredients.concat(element.original)
-                ingredients = ingredients.concat("\n")
+                ingredients.push(element.original)
             });
-            console.log(ingredients)
             recipe["ingredients"] = ingredients;
           }
         })

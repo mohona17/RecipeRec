@@ -28,13 +28,19 @@ class RecipeList extends React.Component {
 
         const recipeDisplay = this.props.recipes.map((recipe, index) => {
             let text = (<div></div>);
-            let buttonText = "View steps";
-            if (this.state.viewExtraInformation[index] == true) {
+            let buttonText = "View steps and ingredients";
+            var ingredients = recipe.ingredients;
+            var instructions = recipe.instructions;
+            if (this.state.viewExtraInformation[index] == true) {                
                 text = (
                     <div>
                         <b>Instructions</b>
                         <br></br>
-                        {recipe.instructions}
+                        {ingredients.map(ing => <li>{ing}</li>)}
+                        <hr></hr>
+                        <b>Instructions</b>
+                        <br></br>
+                        {instructions.map(instr => <li>{instr}</li>)}
                     </div>);
                 buttonText = "Go back";
             }
@@ -45,7 +51,7 @@ class RecipeList extends React.Component {
                 </div>
             )
             return (
-                <div style={{ backgroundColor: color5, borderRadius: '0.5rem', padding: '1rem', margin: '1rem' }}>
+                <div style={{ backgroundColor: color5, borderRadius: '0.5rem', padding: '2rem', margin: '2rem' }}>
                     <h2>{recipe.title}</h2>
                     <div class="row">
                         <div class="col col-sm-4"><img src={recipe.image} width="300px"></img></div>
