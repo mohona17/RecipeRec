@@ -159,16 +159,20 @@ class Search extends React.Component {
           recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig, "");
 
           //Get broken down instructions
-          // recipe["instructions"] = res[0].instructions;
-          let instructions = ''
-          res[0].analyzedInstructions.forEach(element => {
-            element.steps.forEach(s => {
-              instructions = instructions.concat(s.step)
-              instructions = instructions.concat("\n")
+          if (res[0].analyzedInstructions.length != 0) {
+            let instructions = ''
+            res[0].analyzedInstructions.forEach(element => {
+              element.steps.forEach(s => {
+                instructions = instructions.concat(s.step)
+                instructions = instructions.concat("\n")
+              });
             });
-          });
-          console.log("instructions", instructions)
-          recipe["instructions"] = instructions;
+            console.log("instructions", instructions)
+            recipe["instructions"] = instructions;
+          }
+          else{
+          recipe["instructions"] = res[0].instructions;
+          }
         })
         .catch(err => { throw (err) })
     });
