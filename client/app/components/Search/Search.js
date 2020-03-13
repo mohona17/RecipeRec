@@ -155,9 +155,11 @@ class Search extends React.Component {
         .then(res => {
           //Used res[0] since multiple recipes show
 
+          //SUMMARY 
           //the replace part removes tags. if no tags: recipe["summary"] = res[0].summary
           recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig, "");
 
+          //INSTRUCTIONS
           //Get broken down instructions
           if (res[0].analyzedInstructions.length != 0) {
             let instructions = ''
@@ -173,9 +175,19 @@ class Search extends React.Component {
           else{
           recipe["instructions"] = res[0].instructions;
           }
-
           //if recipe does not have instructions 
           if(recipe.instructions == null) recipe["instructions"] = "Sorry, no instructions available"
+
+          //INGREDIENTS
+          if (res[0].extendedIngredients.length != 0) {
+            let ingredients = ''
+            res[0].extendedIngredients.forEach(element => {
+                ingredients = ingredients.concat(element.original)
+                ingredients = ingredients.concat("\n")
+            });
+            console.log(ingredients)
+            recipe["ingredients"] = ingredients;
+          }
         })
         .catch(err => { throw (err) })
     });
