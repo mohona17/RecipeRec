@@ -30,7 +30,7 @@ class Header extends React.Component {
 
     return (<div>
       <header>
-        <div class="jumbotron" style={{ backgroundColor: color1, marginTop: '2rem' }}>
+        <div class="jumbotron" style={{ backgroundColor: color1, marginTop: '2rem', paddingBottom:"0.5rem"}}>
           <h1>Recipe Recommender</h1>
         </div>
         {nav}
