@@ -157,7 +157,7 @@ class InventoryList extends React.Component {
     else {
 
       return (
-        <div style={{ backgroundColor: color4, padding: "1.5rem", borderRadius: "0.5rem" }}>
+        <div style={{ backgroundColor: color4, padding: "1rem", borderRadius: "0.5rem" }}>
           {cards}
           {/* <p>{this.state.selected}</p> */}
         </div>

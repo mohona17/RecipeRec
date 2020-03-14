@@ -301,13 +301,12 @@ class Search extends React.Component {
         <div class="container">
           <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
           <Header />
-          <div style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
-            <div style={{ margin: '5rem', marginBottom: "1rem", alignContent: 'center', alignSelf: 'center' }}>
-              <div style={{ backgroundColor: color1, padding: '1.5rem', borderRadius: '0.5rem' }}>
-                <h2 style={{ textAlign: "center" }}>Find a recipe! It only takes 3 easy steps.</h2>
+          <div style={{ backgroundColor: color4, padding: '3rem', borderRadius: '0.5rem' }}>
+            <div style={{ backgroundColor: color1, padding: '1rem', borderRadius: '0.5rem' }}>
+                <h2 style={{ textAlign: "center" }}>Find a recipe!</h2>
+                <h4 style={{ textAlign: "center" }}> It only takes 3 easy steps.</h4>
               </div>
-            </div>
-            <div class="row" style={{ alignContent: 'center', backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem", margin: "1.2rem" }}>
+              <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: color4, padding: "1rem", borderRadius: "0.5rem" }}>
               <div class="col col-sm-5">
                 <h3><b>1) My kitchen:</b></h3>
                 <hr></hr>
@@ -342,10 +341,10 @@ class Search extends React.Component {
                 <hr></hr>
                 <h4>Click the button and view results below</h4>
                 <button onClick={(e) => this.getRecipe()}
-                  style={{ backgroundColor: color5, width: "100%" }}
+                  style={{ backgroundColor: color5, width: "100%"}}
                   type="button"
                   class="btn btn-dark"
-                ><h4><b>Search for Recipe</b></h4>
+                ><h4><b style={{textOverflow:"break-word"}}>Search for Recipe</b></h4>
                 </button>
               </div>
             </div >

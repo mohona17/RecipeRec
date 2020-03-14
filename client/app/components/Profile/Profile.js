@@ -100,33 +100,33 @@ class Profile extends React.Component {
           <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout}>Logout</button>
           <Header />
           <div style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
-            <div style={{ margin: '5rem', alignContent: 'center', alignSelf: 'center' }}>
-              <div style={{ backgroundColor: color1, padding: '1.5rem', borderRadius: '0.5rem' }}>
+            <div style={{ margin: '2rem', alignContent: 'center', alignSelf: 'center' }}>
+              <div style={{ backgroundColor: color1, padding: '1rem', borderRadius: '0.5rem' }}>
                 <h2 style={{ textAlign: "center" }}>Congratulations, you have successfully logged in!</h2>
               </div>
-              <h3>This is the home page for Recipe Recommender. To navigate through this application, use the navigation bar above.</h3>
+              <h3 style={{textAlign:"center"}}> To navigate through this application, use the navigation bar above.</h3>
               <br></br>
               <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem" }}>
                 <div class="col col col-sm-4 text-center">
                   <h3><b>"Home" Tab</b></h3>
                   <hr></hr>
-                  <h4><ul style={{ textAlign: 'left' }}>
-                    <li>current tab</li>
-                    <li>beginner's guide to site</li>
+                  <h4><ul style={{ textAlign: 'left', listStyleType: "circle"}}>
+                    <li style={{margin: "10px 0"}}>current tab</li>
+                    <li style={{margin: "10px 0"}}>beginner's guide to site</li>
                   </ul></h4></div>
                 <div class="col col col-sm-4 text-center">
                   <h3><b>"My Ingredients" Tab</b></h3>
                   <hr></hr>
-                  <h4><ul style={{ textAlign: 'left' }}>
-                    <li>lists ingredients you have</li>
-                    <li>delete ingredients </li>
-                    <li>add new ingredients you just bought</li>
+                  <h4><ul style={{ textAlign: 'left', listStyleType: "circle"}}>
+                    <li style={{margin: "10px 0"}}>lists ingredients you have</li>
+                    <li style={{margin: "10px 0"}}>delete ingredients </li>
+                    <li style={{margin: "10px 0"}}>add new ingredients you just bought</li>
                   </ul></h4></div>                <div class="col col col-sm-4 text-center">
                   <h3><b>"Search for Recipe" Tab</b></h3>
                   <hr></hr>
-                  <h4><ul style={{ textAlign: 'left' }}>
-                    <li>search for recipes</li>
-                    <li>set a budget</li>
+                  <h4><ul style={{ textAlign: 'left',listStyleType: "circle" }}>
+                    <li style={{margin: "10px 0"}}>search for recipes</li>
+                    <li style={{margin: "10px 0"}}>set a budget</li>
                   </ul>
                   </h4>
                 </div>
