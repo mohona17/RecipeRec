@@ -198,7 +198,7 @@ class Inventory extends React.Component {
       this.getIngredients();
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ marginTop: '3rem', marginRight:"1.5rem"}} onClick={this.logout} >Logout</button>
           <Header />
           <div style={{ backgroundColor: color4, padding: '3rem', borderRadius: '0.5rem' }}>
             <div style={{ backgroundColor: color1, padding: '1rem', borderRadius: '0.5rem' }}>
