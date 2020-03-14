@@ -344,7 +344,7 @@ class Search extends React.Component {
                   style={{ backgroundColor: color5, width: "100%"}}
                   type="button"
                   class="btn btn-dark"
-                ><h4><b style={{textOverflow:"break-word"}}>Search for Recipe</b></h4>
+                ><h4><b style={{whiteSpace: "normal"}}>Search for Recipe</b></h4>
                 </button>
               </div>
             </div >
