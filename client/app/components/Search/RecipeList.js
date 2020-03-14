@@ -51,14 +51,21 @@ class RecipeList extends React.Component {
                 </div>
             )
             return (
-                <div style={{ backgroundColor: color5, borderRadius: '0.5rem', padding: '2rem', margin: '2rem' }}>
-                    <h2>{recipe.title}</h2>
-                    <div class="row">
-                        <div class="col col-sm-4"><img src={recipe.image} width="300px"></img></div>
-                        <div class="col col-sm-8"><p>{text}</p>
+                <div style={{ backgroundColor: color5, borderRadius: '0.5rem', paddingBottom: '1.5rem'}}>
+                    <div class="row" style={{padding: '1rem', margin: '1rem'}}>
+                    <h2 style={{textAlign:"center"}}>{recipe.title}</h2>
+                        <div class="col col-sm-4 text-center"><img src={recipe.image} width="300px" style={{maxWidth:"100%"}}></img></div>
+                        <div class="col col-sm-8">
+                            <p>{text}</p>
                             <button
-                                style={{ backgroundColor: color3, color: color2, }}
-                                class="btn btn-light"
+                                style={{ 
+                                    backgroundColor: color3, 
+                                    color: color2, 
+                                    whiteSpace: "normal",
+                                    textAlign:"center",
+                                    width:"100%"
+                                }}
+                                class="btn btn-dark ml-auto pull-right"
                                 onClick={(e) => this.showInfo(index)}
                             ><b>{buttonText}</b></button>
                         </div>

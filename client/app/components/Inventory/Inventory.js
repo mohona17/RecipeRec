@@ -198,13 +198,14 @@ class Inventory extends React.Component {
       this.getIngredients();
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ margin: '3rem' }} onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ marginTop: '3rem', marginRight:"1.5rem"}} onClick={this.logout} >Logout</button>
           <Header />
           <div style={{ backgroundColor: color4, padding: '3rem', borderRadius: '0.5rem' }}>
-            <div style={{ backgroundColor: color1, padding: '1.5rem', borderRadius: '0.5rem' }}>
-              <h2 style={{ textAlign: "center" }}>What's in your kitchen? Add or delete ingredients here.</h2>
+            <div style={{ backgroundColor: color1, padding: '1rem', borderRadius: '0.5rem' }}>
+              <h2 style={{ textAlign: "center" }}>What's in your kitchen?</h2>
+              <h4 style={{ textAlign: "center" }}>Add or delete ingredients here.</h4>
             </div>
-            <div class="row justify-content-md-center" style={{ alignContent: 'center', margin: "3rem", backgroundColor: color4, padding: "2rem", borderRadius: "0.5rem" }}>
+            <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: color4, padding: "1rem", borderRadius: "0.5rem" }}>
               <div class="col col-sm-6" style={{ textAlign: "center" }}>
                 <h1><b>In my kitchen</b></h1>
                 <hr></hr>
@@ -225,7 +226,7 @@ class Inventory extends React.Component {
 
     return (
       <div class="container">
-        <h2>Error you are not logged in to Inventory page!</h2>
+        <h2 style = {{textAlign:"center"}}>Error you are not logged in to Inventory page!</h2>
       </div>
     );
 

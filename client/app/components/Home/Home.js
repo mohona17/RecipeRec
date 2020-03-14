@@ -231,7 +231,7 @@ class Home extends Component {
           <div class="row justify-content-md-center" style={{ alignContent: 'center' }}>
             <div class="col col-sm-1 text-center"></div>
             <div class="col col-sm-7 text-center" style={{ overflow: "hidden", borderRadius: "0.5rem" }} >
-              <img style={{ flex: 1, height: undefined, width: undefined, resizeMode: 'cover', borderRadius: "0.5rem" }} src="https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
+              <img style={{ flex: 1, minWidth: "90%", resizeMode: 'cover', borderRadius: "0.5rem" }} src="https://www.elizabethrider.com/wp-content/uploads/2014/12/homemade-chicken-stock-recipe-bone-broth-elizabeth-rider.jpeg"></img>
             </div>
             <div class="col col-sm-3 text-center" style={{ backgroundColor: color4, padding: '1rem', borderRadius: '0.5rem' }}>
 
