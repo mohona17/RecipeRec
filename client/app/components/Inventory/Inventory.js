@@ -226,7 +226,7 @@ class Inventory extends React.Component {
 
     return (
       <div class="container">
-        <h2>Error you are not logged in to Inventory page!</h2>
+        <h2 style = {{textAlign:"center"}}>Error you are not logged in to Inventory page!</h2>
       </div>
     );
 

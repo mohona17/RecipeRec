@@ -358,7 +358,7 @@ class Search extends React.Component {
 
     return (
       <div>
-        <h2>Error you are not logged into search page</h2>
+        <h2 style = {{textAlign:"center"}}>Error you are not logged into search page</h2>
       </div>
 
     );
