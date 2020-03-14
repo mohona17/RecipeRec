@@ -53,7 +53,7 @@ class RecipeList extends React.Component {
             return (
                 <div style={{ backgroundColor: color5, borderRadius: '0.5rem', padding: '2rem', margin: '2rem' }}>
                     <h2>{recipe.title}</h2>
-                    <div class="row">
+                    <div class="row" style={{padding: '1rem', margin: '1rem'}}>
                         <div class="col col-sm-4"><img src={recipe.image} width="300px"></img></div>
                         <div class="col col-sm-8"><p>{text}</p>
                             <button
