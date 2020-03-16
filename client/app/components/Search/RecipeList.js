@@ -26,69 +26,73 @@ class RecipeList extends React.Component {
 
     render() {
 
-        const recipeDisplay = this.props.recipes.map((recipe, index) => {
-            let text = (<div></div>);
-            let buttonText = "View steps and ingredients";
-            var ingredients = recipe.ingredients;
-            var instructions = recipe.instructions;
-            if (this.state.viewExtraInformation[index] == true) {                
-                text = (
+        var recipeDisplay = (<div></div>);
+
+        if (this.props.recipes.length != 0) {
+            recipeDisplay = this.props.recipes.map((recipe, index) => {
+                let text = (<div></div>);
+                let buttonText = "View steps and ingredients";
+                var ingredients = recipe.ingredients;
+                var instructions = recipe.instructions;
+                if (this.state.viewExtraInformation[index] == true) {
+                    text = (
+                        <div>
+                            <b>Instructions</b>
+                            <br></br>
+                            {ingredients.map(ing => <li>{ing}</li>)}
+                            <hr></hr>
+                            <b>Instructions</b>
+                            <br></br>
+                            {instructions.map(instr => <li>{instr}</li>)}
+                        </div>);
+                    buttonText = "Go back";
+                }
+                else text = (
                     <div>
-                        <b>Instructions</b>
-                        <br></br>
-                        {ingredients.map(ing => <li>{ing}</li>)}
-                        <hr></hr>
-                        <b>Instructions</b>
-                        <br></br>
-                        {instructions.map(instr => <li>{instr}</li>)}
-                    </div>);
-                buttonText = "Go back";
-            }
-            else text = (
-                <div>
-                    <p>{recipe.summary}</p>
-                    {/* //add ingredients */}
-                </div>
-            )
-            return (
-                <div style={{ backgroundColor: color5, borderRadius: '0.5rem', paddingBottom: '1.5rem'}}>
-                    <div class="row" style={{padding: '1rem', margin: '1rem'}}>
-                    <h2 style={{textAlign:"center"}}>{recipe.title}</h2>
-                        <div class="col col-sm-4 text-center"><img src={recipe.image} width="300px" style={{maxWidth:"100%"}}></img></div>
-                        <div class="col col-sm-8">
-                            <p>{text}</p>
-                            <button
-                                style={{ 
-                                    backgroundColor: color3, 
-                                    color: color2, 
-                                    whiteSpace: "normal",
-                                    textAlign:"center",
-                                    width:"100%"
-                                }}
-                                class="btn btn-dark ml-auto pull-right"
-                                onClick={(e) => this.showInfo(index)}
-                            ><b>{buttonText}</b></button>
-                        </div>
+                        <p>{recipe.summary}</p>
+                        {/* //add ingredients */}
                     </div>
+                )
+                return (
+                    <div style={{ backgroundColor: color5, borderRadius: '0.5rem', paddingBottom: '1.5rem' }}>
+                        <div class="row" style={{ padding: '1rem', margin: '1rem' }}>
+                            <h2 style={{ textAlign: "center" }}>{recipe.title}</h2>
+                            <div class="col col-sm-4 text-center"><img src={recipe.image} width="300px" style={{ maxWidth: "100%" }}></img></div>
+                            <div class="col col-sm-8">
+                                <p>{text}</p>
+                                <button
+                                    style={{
+                                        backgroundColor: color3,
+                                        color: color2,
+                                        whiteSpace: "normal",
+                                        textAlign: "center",
+                                        width: "100%"
+                                    }}
+                                    class="btn btn-dark ml-auto pull-right"
+                                    onClick={(e) => this.showInfo(index)}
+                                ><b>{buttonText}</b></button>
+                            </div>
+                        </div>
 
-                </div>
-            )
-        });
-
-        if (this.props.isLoading) {
-            return (
-                <h3 style={{ textAlign: "center" }}>Generating your recipes...</h3>
-            )
+                    </div>
+                )
+            });
         }
 
-        else {
-            return (
-                <div>
-                    {recipeDisplay}
-                </div>
-            )
-        }
-    }
+            if (this.props.isLoading) {
+                return (
+                    <h3 style={{ textAlign: "center" }}>Generating your recipes...</h3>
+                )
+            }
 
-};
-export default RecipeList;
+            else {
+                return (
+                    <div>
+                        {recipeDisplay}
+                    </div>
+                )
+            }
+        }
+
+    };
+    export default RecipeList;
