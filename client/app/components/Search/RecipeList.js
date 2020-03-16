@@ -40,6 +40,10 @@ class RecipeList extends React.Component {
                 };
                 var ingredients = recipe.ingredients;
                 var instructions = recipe.instructions;
+                console.log("ingredients", ingredients);
+                console.log("instructions", instructions)
+                if(ingredients == null) return; 
+                if(instructions == null) return;
                 if (this.state.viewExtraInformation[index] == true) {
                     text = (
                         <div>
