@@ -154,7 +154,7 @@ class Search extends React.Component {
         .then(res => res.json())
         .then(res => {
           //Used res[0] since multiple recipes show
-
+          if(res == null) return;
           //SUMMARY 
           //the replace part removes tags. if no tags: recipe["summary"] = res[0].summary
           recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig, "");
