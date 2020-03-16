@@ -11,13 +11,12 @@ class RecipeList extends React.Component {
 
         this.state = {
             cards: [],
-            viewExtraInformation: [],
+            // viewExtraInformation: [],
         }
     };
-
-
+    
     showInfo(index) {
-        let temp = this.state.viewExtraInformation;
+        let temp = this.props.viewExtraInformation;
         if (temp[index] == false || temp[index] == undefined) temp[index] = true;
         else if (temp[index] == true) temp[index] = false;
         console.log(temp[index]);
@@ -33,7 +32,7 @@ class RecipeList extends React.Component {
                 let text = (<div></div>);
                 let buttonText = "View steps and ingredients";
                 //Handles edge case when retrieving data is taking a longer time
-                if(this.props.isLoading == false && (recipe == null || recipe.ingredients == null || recipe.instructions == null || recipe.summary == null)){
+                if (this.props.isLoading == false && (recipe == null || recipe.ingredients == null || recipe.instructions == null || recipe.summary == null)) {
                     return (
                         <h3 style={{ textAlign: "center" }}>Formatting...</h3>
                     )
@@ -42,9 +41,9 @@ class RecipeList extends React.Component {
                 var instructions = recipe.instructions;
                 console.log("ingredients", ingredients);
                 console.log("instructions", instructions)
-                if(ingredients == null) return; 
-                if(instructions == null) return;
-                if (this.state.viewExtraInformation[index] == true) {
+                if (ingredients == null) return;
+                if (instructions == null) return;
+                if (this.props.viewExtraInformation[index] == true) {
                     text = (
                         <div>
                             <b>Instructions</b>
@@ -57,7 +56,7 @@ class RecipeList extends React.Component {
                         </div>);
                     buttonText = "Go back";
                 }
-                else if(recipe) text = (
+                else if (recipe) text = (
                     <div>
                         <p>{recipe.summary}</p>
                         {/* //add ingredients */}
@@ -89,20 +88,20 @@ class RecipeList extends React.Component {
             });
         }
 
-            if (this.props.isLoading) {
-                return (
-                    <h3 style={{ textAlign: "center" }}>Generating your recipes...</h3>
-                )
-            }
-
-            else {
-                return (
-                    <div>
-                        {recipeDisplay}
-                    </div>
-                )
-            }
+        if (this.props.isLoading) {
+            return (
+                <h3 style={{ textAlign: "center" }}>Generating your recipes...</h3>
+            )
         }
 
-    };
-    export default RecipeList;
+        else {
+            return (
+                <div>
+                    {recipeDisplay}
+                </div>
+            )
+        }
+    }
+
+};
+export default RecipeList;
