@@ -92,7 +92,6 @@ class RecipeList extends React.Component {
             }
 
             else {
-                if(recipeDisplay=(<div></div>)) return (<h3 style={{ textAlign: "center" }}>No recipes match your search.</h3>)
                 return (
                     <div>
                         {recipeDisplay}

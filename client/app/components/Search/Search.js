@@ -253,6 +253,10 @@ class Search extends React.Component {
 
   getRecipe() {
     // console.log(this.state.selected)
+    if(this.state.budget == 0){
+      alert("Cannot have budget equal to 0."); 
+      return;
+    }
     if (this.state.selected.length != 0) {
       this.setState({ isLoading: true });
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
@@ -263,7 +267,9 @@ class Search extends React.Component {
             console.log("Got recipes")
             // console.log(this.state.recipes)
             console.log("budget", this.state.budget)
-            if (this.state.budget != '') this.sortByPrice()
+            if (this.state.budget != '') {
+              this.sortByPrice()
+            }
             this.getRecipeInfo();
           });
         })
