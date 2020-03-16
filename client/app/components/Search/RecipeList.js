@@ -32,6 +32,12 @@ class RecipeList extends React.Component {
             recipeDisplay = this.props.recipes.map((recipe, index) => {
                 let text = (<div></div>);
                 let buttonText = "View steps and ingredients";
+                //Handles edge case when retrieving data is taking a longer time
+                if(this.props.isLoading == false && (recipe == null || recipe.ingredients == null || recipe.instructions == null || recipe.summary == null)){
+                    return (
+                        <h3 style={{ textAlign: "center" }}>Formatting...</h3>
+                    )
+                };
                 var ingredients = recipe.ingredients;
                 var instructions = recipe.instructions;
                 if (this.state.viewExtraInformation[index] == true) {
@@ -47,7 +53,7 @@ class RecipeList extends React.Component {
                         </div>);
                     buttonText = "Go back";
                 }
-                else text = (
+                else if(recipe) text = (
                     <div>
                         <p>{recipe.summary}</p>
                         {/* //add ingredients */}
