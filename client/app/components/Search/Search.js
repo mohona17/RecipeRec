@@ -252,8 +252,8 @@ class Search extends React.Component {
   };
 
   getRecipe() {
-    // console.log(this.state.selected)
-    if(this.state.budget == 0){
+    console.log(this.state.budget)
+    if(this.state.budget == 0 && this.state.budget != ''){
       alert("Cannot have budget equal to 0."); 
       return;
     }
