@@ -23,7 +23,7 @@ module.exports = (app) => {
         } = body;
 
         Ingredient.find({
-            name: name,
+            name: name.toLowerCase(),
             userId: userId,
         }, (err, ingredients) => {
             if (err) res.status(400) 
@@ -31,7 +31,7 @@ module.exports = (app) => {
             else {
                 const newIngredient = new Ingredient();
 
-                newIngredient.name = name;
+                newIngredient.name = name.toLowerCase();
                 newIngredient.userId = userId;
 
                 newIngredient.save((err, user) => {
