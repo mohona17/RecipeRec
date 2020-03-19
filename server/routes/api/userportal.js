@@ -44,7 +44,7 @@ module.exports = (app) => {
             error.forEach(element => {
                 message = message.concat(element)
             });
-            return res.send({message: message});
+            return res.send({ message: message });
         }
 
         username = username.toLowerCase();
@@ -53,9 +53,9 @@ module.exports = (app) => {
         User.find({
             username: username
         }, (err, previousUsers) => {
-            if (err) return res.send({message: 'Server error.'});
+            if (err) return res.send({ message: 'Server error.' });
             //is a previous user with same username
-            else if (previousUsers.length > 0) return res.send({message: 'Account already exists with this username.'})
+            else if (previousUsers.length > 0) return res.send({ message: 'Account already exists with this username.' })
             else {
                 //Save new user 
                 const newUser = new User();
@@ -66,7 +66,7 @@ module.exports = (app) => {
                 newUser.password = newUser.generateHash(password);
 
                 newUser.save((err, user) => {
-                    if (!err) res.send({message: 'success'});
+                    if (!err) res.send({ message: 'success' });
                 });
             }
         });
@@ -87,7 +87,7 @@ module.exports = (app) => {
         let error = [];
 
         //Checking if null
-        if (!username) error.push ('Username cannot be blank. ');
+        if (!username) error.push('Username cannot be blank. ');
         if (!password) error.push('Password cannot be blank. ');
 
         if (error.length != 0) {
@@ -95,7 +95,7 @@ module.exports = (app) => {
             error.forEach(element => {
                 message = message.concat(element)
             });
-            return res.send({message: message});
+            return res.send({ message: message });
         }
 
         username = username.toLowerCase();
@@ -105,18 +105,18 @@ module.exports = (app) => {
             username: username
         }, (err, users) => {
             if (err) {
-                return res.send({message: 'Error: Server error' });
+                return res.send({ message: 'Error: Server error' });
             }
             // console.log(users);
 
             if (users.length != 1) {
-                return res.send({message: 'Invalid username'});
+                return res.send({ message: 'Invalid username' });
             }
 
             const user = users[0];
             // console.log(user.password);
             if (!user.validPassword(password)) {
-                return res.send({message: 'Invalid password'});
+                return res.send({ message: 'Invalid password' });
             }
 
             console.log("Login valid");
@@ -186,7 +186,9 @@ module.exports = (app) => {
                     message: 'Error: Server error'
                 });
             }
-            if (sessions._id == null) {
+            // if (sessions._id == null) {
+            if (sessions == null) {
+
                 return res.send({
                     success: false,
                     message: 'Error: No session found'

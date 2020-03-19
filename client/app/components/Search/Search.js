@@ -36,6 +36,7 @@ class Search extends React.Component {
       price: '',
       isLoading: false,
       isAuthenticating: true,
+      viewExtraInformation: [],
     }
     this.logout = this.logout.bind(this);
     this.getSelected = this.getSelected.bind(this);
@@ -154,7 +155,7 @@ class Search extends React.Component {
         .then(res => res.json())
         .then(res => {
           //Used res[0] since multiple recipes show
-
+          if (res == null) return;
           //SUMMARY 
           //the replace part removes tags. if no tags: recipe["summary"] = res[0].summary
           recipe["summary"] = res[0].summary.replace(/(<([^>]+)>)/ig, "");
@@ -170,21 +171,21 @@ class Search extends React.Component {
             });
             recipe["instructions"] = instructions;
           }
-          else{
-          recipe["instructions"] = res[0].instructions;
+          else {
+            recipe["instructions"] = res[0].instructions;
           }
           //if recipe does not have instructions 
-          if(recipe.instructions == null) recipe["instructions"] = ["Sorry, no instructions available"]
+          if (recipe.instructions == null) recipe["instructions"] = ["Sorry, no instructions available"]
 
           //INGREDIENTS
           if (res[0].extendedIngredients.length != 0) {
             let ingredients = []
             res[0].extendedIngredients.forEach(element => {
-                ingredients.push(element.original)
+              ingredients.push(element.original)
             });
             recipe["ingredients"] = ingredients;
           }
-          else{
+          else {
             recipe["ingredients"] = ["Sorry, no ingredients list available"];
           }
         })
@@ -252,7 +253,11 @@ class Search extends React.Component {
   };
 
   getRecipe() {
-    // console.log(this.state.selected)
+    console.log(this.state.budget)
+    if (this.state.budget == 0 && this.state.budget != '') {
+      alert("Cannot have budget equal to 0.");
+      return;
+    }
     if (this.state.selected.length != 0) {
       this.setState({ isLoading: true });
       fetch('/api/spoonacular/getRecipe?ingredients=' + this.state.selected)
@@ -263,11 +268,15 @@ class Search extends React.Component {
             console.log("Got recipes")
             // console.log(this.state.recipes)
             console.log("budget", this.state.budget)
-            if (this.state.budget != '') this.sortByPrice()
+            if (this.state.budget != '') {
+              this.sortByPrice()
+            }
             this.getRecipeInfo();
           });
         })
         .then(() => {
+          //reset which cards show extra info
+          this.setState({ viewExtraInformation: [] })
           this.setState({ isLoading: false })
         }
         )
@@ -299,14 +308,14 @@ class Search extends React.Component {
 
       return (
         <div class="container">
-          <button class="btn btn-secondary ml-auto pull-right" style={{ marginTop: '3rem', marginRight:"1.5rem"}}onClick={this.logout} >Logout</button>
+          <button class="btn btn-secondary ml-auto pull-right" style={{ marginTop: '3rem', marginRight: "1.5rem" }} onClick={this.logout} >Logout</button>
           <Header />
           <div style={{ backgroundColor: color4, padding: '3rem', borderRadius: '0.5rem' }}>
             <div style={{ backgroundColor: color1, padding: '1rem', borderRadius: '0.5rem' }}>
-                <h2 style={{ textAlign: "center" }}>Find a recipe!</h2>
-                <h4 style={{ textAlign: "center" }}> It only takes 3 easy steps.</h4>
-              </div>
-              <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: color4, padding: "1rem", borderRadius: "0.5rem" }}>
+              <h2 style={{ textAlign: "center" }}>Find a recipe!</h2>
+              <h4 style={{ textAlign: "center" }}> It only takes 3 easy steps.</h4>
+            </div>
+            <div class="row justify-content-md-center" style={{ alignContent: 'center', backgroundColor: color4, padding: "1rem", borderRadius: "0.5rem" }}>
               <div class="col col-sm-5">
                 <h3><b>1) My kitchen:</b></h3>
                 <hr></hr>
@@ -341,16 +350,18 @@ class Search extends React.Component {
                 <hr></hr>
                 <h4>Click the button and view results below</h4>
                 <button onClick={(e) => this.getRecipe()}
-                  style={{ backgroundColor: color5, width: "100%"}}
+                  style={{ backgroundColor: color5, width: "100%" }}
                   type="button"
                   class="btn btn-dark"
-                ><h4><b style={{whiteSpace: "normal"}}>Search for Recipe</b></h4>
+                ><h4><b style={{ whiteSpace: "normal" }}>Search for Recipe</b></h4>
                 </button>
               </div>
             </div >
             {/* Response from API */}
             <hr></hr>
-            <RecipeList recipes={this.state.recipes} isLoading={this.state.isLoading} ></RecipeList >
+            <RecipeList recipes={this.state.recipes}
+              isLoading={this.state.isLoading}
+              viewExtraInformation={this.state.viewExtraInformation} ></RecipeList >
           </div >
         </div>
       );
@@ -358,7 +369,7 @@ class Search extends React.Component {
 
     return (
       <div>
-        <h2 style = {{textAlign:"center"}}>Error you are not logged into search page</h2>
+        <h2 style={{ textAlign: "center" }}>Error you are not logged into search page</h2>
       </div>
 
     );
