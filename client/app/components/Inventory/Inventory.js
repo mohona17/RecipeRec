@@ -182,7 +182,7 @@ class Inventory extends React.Component {
                 // }
               }
               else {
-                alert("Make sure all entries are completed.");
+                alert("Ingredient name cannot be blank.");
               }
             }}
           ><b>Add ingredient</b></button>
