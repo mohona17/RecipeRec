@@ -15,15 +15,20 @@ module.exports = (app) => {
 
     app.post('/api/ingredient/add', (req, res, next) => {
         //need items required in model 
-        const { body } = req;
-        const {
+        var { body } = req;
+        var {
             name,
             userId,
             //quantity
         } = body;
 
+        name = name.toLowerCase(); 
+
+        // //if plural, make singular 
+        if(name.charAt(name.length-1) == 's') name = name.substring(0, name.length-1);
+
         Ingredient.find({
-            name: name.toLowerCase(),
+            name: name,
             userId: userId,
         }, (err, ingredients) => {
             if (err) res.status(400) 
@@ -31,7 +36,7 @@ module.exports = (app) => {
             else {
                 const newIngredient = new Ingredient();
 
-                newIngredient.name = name.toLowerCase();
+                newIngredient.name = name;
                 newIngredient.userId = userId;
 
                 newIngredient.save((err, user) => {

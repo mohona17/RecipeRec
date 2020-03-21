@@ -35,6 +35,10 @@ module.exports = (app) => {
         if (!firstName) error.push('First name cannot be blank. ')
         if (!lastName) error.push('Last name cannot be blank. ')
 
+        if(/\d/.test(firstName)) error.push('First name cannot contain number. ')
+        if(/\d/.test(lastName)) error.push('Last name cannot contain number. ')
+
+
         if (!username) error.push('Username cannot be blank. ')
         if (!password) error.push(' Password cannot be blank. ')
 
