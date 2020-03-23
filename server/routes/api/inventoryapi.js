@@ -25,7 +25,7 @@ module.exports = (app) => {
         name = name.toLowerCase(); 
 
         // //if plural, make singular 
-        if(name.charAt(name.length-1) == 's') name = name.substring(0, name.length-1);
+        // if(name.charAt(name.length-1) == 's') name = name.substring(0, name.length-1);
 
         Ingredient.find({
             name: name,
