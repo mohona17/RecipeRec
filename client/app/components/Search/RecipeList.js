@@ -46,7 +46,7 @@ class RecipeList extends React.Component {
                 if (this.props.viewExtraInformation[index] == true) {
                     text = (
                         <div>
-                            <b>Instructions</b>
+                            <b>Ingredients</b>
                             <br></br>
                             {ingredients.map(ing => <li>{ing}</li>)}
                             <hr></hr>
