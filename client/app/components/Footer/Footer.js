@@ -4,7 +4,7 @@ const Footer = () => (
   <footer>
     <div class="container" style={{textAlign:'center'}}>
       <hr />
-      <p>Developed by Mohona Ahmed for CIS4914 - CISE Design 2 (Senior Project)</p>
+      <p>Developed by Mohona Ahmed</p>
     </div>
   </footer>
 );
