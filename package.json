@@ -24,7 +24,7 @@
     "@types/react": "^15.6.28",
     "autoprefixer": "^8.2.0",
     "babel-loader": "^8.0.0-beta.2",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^3.4.1",
     "connect-history-api-fallback": "^1.5.0",
     "copy-webpack-plugin": "^4.5.1",
